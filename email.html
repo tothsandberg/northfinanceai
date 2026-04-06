@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Management - NorthFinance AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F8F9FA;
+            color: #0A1929;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #E8ECEF;
+            padding: 1rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #6B7C8E;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #dc2626;
+        }
+
+        .status-dot.ready {
+            background: #16a34a;
+        }
+
+        .settings-btn {
+            background: white;
+            border: 1px solid #E8ECEF;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6B7C8E;
+            margin-left: 1rem;
+        }
+
+        .settings-btn:hover {
+            border-color: #1E90FF;
+            color: #1E90FF;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .setup-banner {
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+            border: 2px solid #1E90FF;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .setup-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0A1929;
+        }
+
+        .api-input-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .form-section {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 8px;
+            border: 1px solid #E8ECEF;
+            margin-bottom: 1rem;
+        }
+
+        .form-section.large {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #E8ECEF;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #E8ECEF;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #1E90FF;
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #6B7C8E;
+            margin-top: 0.25rem;
+        }
+
+        .email-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding: 0.4rem;
+            border: 1px solid #E8ECEF;
+            border-radius: 6px;
+            min-height: 44px;
+        }
+
+        .chip {
+            background: #0A1929;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .chip-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .chip-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.95rem;
+            padding: 0.2rem;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: #F8F9FA;
+            border: 1px solid #E8ECEF;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            flex-wrap: wrap;
+        }
+
+        .editor-btn {
+            padding: 0.4rem 0.75rem;
+            background: white;
+            border: 1px solid #E8ECEF;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .editor-btn:hover {
+            border-color: #1E90FF;
+            background: #E0F2FE;
+        }
+
+        .editor-content {
+            min-height: 350px;
+            padding: 1rem;
+            border: 1px solid #E8ECEF;
+            border-radius: 0 0 6px 6px;
+            background: white;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+
+        .editor-content:focus {
+            outline: none;
+            border-color: #1E90FF;
+            box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+        }
+
+        .editor-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .variables-panel {
+            background: #F8F9FA;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #E8ECEF;
+        }
+
+        .variables-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .variable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.4rem;
+        }
+
+        .variable-tag {
+            background: white;
+            border: 1px solid #E8ECEF;
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .variable-tag:hover {
+            border-color: #1E90FF;
+            background: #E0F2FE;
+        }
+
+        .btn {
+            padding: 0.6rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: #1E90FF;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1873CC;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0A1929;
+            border: 1px solid #E8ECEF;
+        }
+
+        .btn-secondary:hover {
+            border-color: #1E90FF;
+            background: #E0F2FE;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding-top: 1.25rem;
+            margin-top: 1.25rem;
+            border-top: 2px solid #E8ECEF;
+        }
+
+        .sending-status {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #E8ECEF;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .sending-status.active {
+            display: block;
+        }
+
+        .status-message {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #E8ECEF;
+            border-top-color: #1E90FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .paste-hint {
+            background: #E0F2FE;
+            border: 1px solid #BAE6FD;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #0369A1;
+            margin-bottom: 0.75rem;
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle input {
+            padding-right: 5rem;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6B7C8E;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .attached-file {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #F8F9FA;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #E8ECEF;
+            font-size: 0.9rem;
+        }
+
+        .file-icon {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .remove-file {
+            cursor: pointer;
+            color: #dc2626;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .remove-file:hover {
+            color: #991b1b;
+        }
+
+        .pdf-dropdown {
+            position: relative;
+        }
+
+        .pdf-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #E8ECEF;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-results.active {
+            display: block;
+        }
+
+        .pdf-result-item {
+            padding: 0.75rem;
+            cursor: pointer;
+            border-bottom: 1px solid #F8F9FA;
+            transition: background 0.2s;
+        }
+
+        .pdf-result-item:hover {
+            background: #F8F9FA;
+        }
+
+        .pdf-result-item.selected {
+            background: #E0F2FE;
+            border-left: 3px solid #1E90FF;
+        }
+
+        .pdf-name {
+            font-weight: 600;
+            color: #0A1929;
+            margin-bottom: 0.25rem;
+        }
+
+        .pdf-details {
+            font-size: 0.85rem;
+            color: #6B7C8E;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">NorthFinance AI - Email Platform</div>
+            <div class="api-status">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Ready</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Send Emails from krisztina@northfinanceai.com</h1>
+
+        <!-- Email Form -->
+        <div id="emailForm">
+            <!-- Recipients -->
+            <div class="form-section">
+                <div class="form-group">
+                    <label class="form-label">Recipients</label>
+                    <div class="email-chips" id="toChips" onclick="document.getElementById('toInput').focus()">
+                        <input type="email" id="toInput" class="chip-input" placeholder="Enter email and press Enter" onkeydown="addEmail(event)">
+                    </div>
+                    <div class="help-text">Press Enter after each email address</div>
+                </div>
+            </div>
+
+            <!-- Email Content -->
+            <div class="form-section large">
+                <h3 class="section-title">Email Content</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Subject</label>
+                    <input type="text" id="subject" class="form-input" placeholder="Payment Reminder - Invoice RE-2026-001">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <span>Message</span>
+                        <button class="btn btn-secondary btn-small" type="button" onclick="toggleVariables()">Insert Variable</button>
+                    </label>
+                    
+                    <div class="paste-hint">
+                        Paste formatted text and images directly. Your signature with logo will be preserved.
+                    </div>
+
+                    <div class="variables-panel" id="variablesPanel" style="display: none;">
+                        <div class="variables-title">Click to Insert Variable</div>
+                        <div class="variable-grid">
+                            <div class="variable-tag" onclick="insertVariable('{INVOICE_NUMBER}')">{INVOICE_NUMBER}</div>
+                            <div class="variable-tag" onclick="insertVariable('{CUSTOMER_NAME}')">{CUSTOMER_NAME}</div>
+                            <div class="variable-tag" onclick="insertVariable('{AMOUNT}')">{AMOUNT}</div>
+                            <div class="variable-tag" onclick="insertVariable('{DUE_DATE}')">{DUE_DATE}</div>
+                            <div class="variable-tag" onclick="insertVariable('{DAYS_OVERDUE}')">{DAYS_OVERDUE}</div>
+                        </div>
+                    </div>
+
+                    <div class="editor-toolbar">
+                        <button class="editor-btn" type="button" onclick="formatText('bold')">B</button>
+                        <button class="editor-btn" type="button" onclick="formatText('italic')">I</button>
+                        <button class="editor-btn" type="button" onclick="formatText('underline')">U</button>
+                        <button class="editor-btn" type="button" onclick="formatText('insertOrderedList')">1. List</button>
+                        <button class="editor-btn" type="button" onclick="formatText('insertUnorderedList')">• List</button>
+                        <button class="editor-btn" type="button" onclick="insertLink()">Link</button>
+                        <button class="editor-btn" type="button" onclick="formatText('removeFormat')">Clear</button>
+                    </div>
+                    <div id="messageEditor" class="editor-content" contenteditable="true"></div>
+                </div>
+            </div>
+
+            <!-- PDF Attachments -->
+            <div class="form-section">
+                <div class="form-group">
+                    <label class="form-label">Attach Invoice PDFs</label>
+                    <div class="pdf-dropdown">
+                        <input type="text" id="pdfSearch" class="form-input" placeholder="Search invoices by number or customer..." oninput="searchPDFs()" onfocus="showPDFResults()" onblur="hidePDFResults()">
+                        <div class="pdf-results" id="pdfResults"></div>
+                    </div>
+                    <div class="help-text">Search and select invoices to attach</div>
+                    <div id="attachedFilesList" style="margin-top: 0.75rem;"></div>
+                </div>
+            </div>
+
+            <!-- Send Status -->
+            <div class="sending-status" id="sendingStatus"></div>
+
+            <!-- Actions -->
+            <div class="form-section">
+                <div class="action-bar">
+                    <button class="btn btn-secondary" type="button" onclick="clearSendForm()">Clear Form</button>
+                    <button class="btn btn-primary" type="button" onclick="sendEmailDemo()">Send Email (Demo)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let emails = [];
+        let attachedFiles = [];
+
+        // PDF Database
+        const pdfDatabase = [
+            { id: 1, name: 'RE-2026-001', customer: 'Müller GmbH', amount: '1,190.00', date: '01.03.2026' },
+            { id: 2, name: 'RE-2026-002', customer: 'Schmidt AG', amount: '2,380.00', date: '05.03.2026' },
+            { id: 3, name: 'RE-2026-003', customer: 'Weber & Co', amount: '595.00', date: '15.02.2026' },
+            { id: 4, name: 'RE-2026-004', customer: 'Fischer KG', amount: '1,428.00', date: '20.02.2026' },
+            { id: 5, name: 'RE-2026-005', customer: 'Becker GmbH', amount: '714.00', date: '10.03.2026' },
+            { id: 6, name: 'RE-2026-006', customer: 'Hoffmann Ltd', amount: '3,200.00', date: '12.03.2026' },
+            { id: 7, name: 'RE-2026-007', customer: 'Schulz Industries', amount: '1,850.00', date: '18.03.2026' },
+            { id: 8, name: 'RE-2026-008', customer: 'Meyer Solutions', amount: '920.00', date: '22.03.2026' },
+        ];
+
+        document.getElementById('statusDot').classList.add('ready');
+
+        function addEmail(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const email = e.target.value.trim();
+                if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    emails.push(email);
+                    updateEmailChips();
+                    e.target.value = '';
+                }
+            }
+        }
+
+        function updateEmailChips() {
+            const container = document.getElementById('toChips');
+            const input = document.getElementById('toInput');
+            container.innerHTML = emails.map(email => `
+                <div class="chip">${email}<span class="chip-remove" onclick="removeEmail('${email}')">×</span></div>
+            `).join('') + input.outerHTML;
+        }
+
+        function removeEmail(email) {
+            emails = emails.filter(e => e !== email);
+            updateEmailChips();
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+            document.getElementById('messageEditor').focus();
+        }
+
+        function insertLink() {
+            const url = prompt('Enter URL:');
+            if (url) document.execCommand('createLink', false, url);
+        }
+
+        function toggleVariables() {
+            const panel = document.getElementById('variablesPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function insertVariable(variable) {
+            const editor = document.getElementById('messageEditor');
+            editor.focus();
+            document.execCommand('insertText', false, variable);
+        }
+
+        // PDF Search and Selection
+        function searchPDFs() {
+            const query = document.getElementById('pdfSearch').value.toLowerCase();
+            const results = pdfDatabase.filter(pdf => 
+                pdf.name.toLowerCase().includes(query) ||
+                pdf.customer.toLowerCase().includes(query)
+            );
+            displayPDFResults(results);
+        }
+
+        function displayPDFResults(results) {
+            const container = document.getElementById('pdfResults');
+            
+            if (results.length === 0) {
+                container.classList.remove('active');
+                return;
+            }
+
+            container.innerHTML = results.map(pdf => `
+                <div class="pdf-result-item ${attachedFiles.some(p => p.id === pdf.id) ? 'selected' : ''}" 
+                     onmousedown="togglePDF(${pdf.id})">
+                    <div class="pdf-name">${pdf.name}</div>
+                    <div class="pdf-details">${pdf.customer} • €${pdf.amount} • ${pdf.date}</div>
+                </div>
+            `).join('');
+            
+            container.classList.add('active');
+        }
+
+        function showPDFResults() {
+            searchPDFs();
+        }
+
+        function hidePDFResults() {
+            setTimeout(() => {
+                document.getElementById('pdfResults').classList.remove('active');
+            }, 200);
+        }
+
+        function togglePDF(id) {
+            const pdf = pdfDatabase.find(p => p.id === id);
+            const index = attachedFiles.findIndex(p => p.id === pdf.id);
+            
+            if (index > -1) {
+                attachedFiles.splice(index, 1);
+            } else {
+                attachedFiles.push(pdf);
+            }
+            
+            updateAttachedFilesList();
+            searchPDFs(); // Refresh to show selected state
+        }
+
+        function updateAttachedFilesList() {
+            const container = document.getElementById('attachedFilesList');
+            
+            if (attachedFiles.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = attachedFiles.map(pdf => `
+                <div class="attached-file">
+                    <span class="file-icon">📄</span>
+                    <span>${pdf.name} - ${pdf.customer}</span>
+                    <span class="remove-file" onclick="togglePDF(${pdf.id})">×</span>
+                </div>
+            `).join('');
+        }
+
+        function sendEmailDemo() {
+            if (emails.length === 0) {
+                alert('Please add at least one recipient');
+                return;
+            }
+            
+            const subject = document.getElementById('subject').value;
+            const htmlBody = document.getElementById('messageEditor').innerHTML;
+            
+            if (!subject || !htmlBody.trim()) {
+                alert('Please fill in subject and message');
+                return;
+            }
+
+            const status = document.getElementById('sendingStatus');
+            status.innerHTML = '<div class="status-message"><span class="spinner"></span>Preparing to send email...</div>';
+            status.classList.add('active');
+
+            setTimeout(() => {
+                const attachmentText = attachedFiles.length > 0 
+                    ? `<br>Attachments: ${attachedFiles.map(f => `${f.name}.pdf`).join(', ')}` 
+                    : '';
+                
+                status.innerHTML = `
+                    <div class="status-message success">✓ Email ready to send!</div>
+                    <div style="font-size: 0.9rem; color: #6B7C8E; margin-top: 0.5rem;">
+                        To: ${emails.join(', ')}<br>
+                        From: krisztina@northfinanceai.com${attachmentText}<br>
+                        Subject: ${subject}<br>
+                        <br>
+                        <strong>Demo Mode:</strong> To actually send emails, you need to connect to a backend.<br>
+                        I recommend using the Python backend solution - it's simple and works reliably!
+                    </div>
+                `;
+            }, 1500);
+        }
+
+        function clearSendForm() {
+            emails = [];
+            attachedFiles = [];
+            document.getElementById('subject').value = '';
+            document.getElementById('messageEditor').innerHTML = '';
+            document.getElementById('pdfSearch').value = '';
+            updateEmailChips();
+            updateAttachedFilesList();
+            document.getElementById('sendingStatus').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
