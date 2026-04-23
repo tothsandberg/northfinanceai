@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leistungen — North Finance AI</title>
+<title>Services — North Finance AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -33,21 +33,22 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
 
   /* =================== HEADER =================== */
   .site-header {
     background: var(--navy);
-    padding: 24px 0;
+    padding: 20px 0;
     position: sticky;
     top: 0;
     z-index: 100;
     border-bottom: 1px solid rgba(184,147,90,0.15);
   }
   .site-header .container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
+    gap: 40px;
   }
   .logo {
     font-family: 'Playfair Display', serif;
@@ -56,28 +57,148 @@
     color: white;
     letter-spacing: 0.02em;
     text-decoration: none;
+    white-space: nowrap;
   }
   .logo span { color: var(--gold); }
-  .header-nav { display: flex; gap: 32px; align-items: center; }
+  .header-nav {
+    display: flex;
+    gap: 36px;
+    align-items: center;
+    justify-content: center;
+  }
   .header-nav a {
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.75);
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 500;
     transition: color 0.2s;
+    position: relative;
+  }
+  .header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
   }
   .header-nav a:hover { color: var(--gold-light); }
+  .header-nav a:hover::after { width: 100%; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* Language switcher */
+  .lang-switcher {
+    position: relative;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.85);
+    padding: 8px 12px 8px 14px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    transition: border-color 0.2s, color 0.2s;
+    line-height: 1;
+  }
+  .lang-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  .lang-btn .chevron {
+    font-size: 9px;
+    transition: transform 0.2s;
+    margin-top: 1px;
+  }
+  .lang-switcher.is-open .chevron {
+    transform: rotate(180deg);
+  }
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: var(--navy-mid);
+    border: 1px solid rgba(184,147,90,0.25);
+    min-width: 140px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .lang-switcher.is-open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    padding: 11px 16px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .lang-option:hover {
+    background: rgba(184,147,90,0.1);
+    color: var(--gold-light);
+  }
+  .lang-option.is-active {
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .lang-option .check {
+    font-size: 11px;
+    opacity: 0;
+  }
+  .lang-option.is-active .check { opacity: 1; }
+
   .header-cta {
     background: var(--gold) !important;
     color: var(--navy) !important;
-    padding: 10px 24px;
+    padding: 11px 22px;
     font-weight: 600 !important;
     letter-spacing: 0.08em !important;
     transition: background 0.2s;
+    white-space: nowrap;
   }
   .header-cta:hover { background: var(--gold-light) !important; }
+  .header-cta::after { display: none !important; }
+
+  /* Mobile menu toggle (hidden on desktop) */
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    font-family: inherit;
+  }
+  .menu-toggle svg { display: block; }
 
   /* =================== HERO =================== */
   .hero {
@@ -189,13 +310,190 @@
 
   /* =================== SERVICES =================== */
   .services-section { padding: 100px 0 0; }
-  .section-eyebrow {
+
+  /* =================== CLUSTER TILES (3 side-by-side cards) =================== */
+  .cluster-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 56px;
+    margin-bottom: 0;
+  }
+  .cluster-tile {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 40px 36px 36px;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(10, 31, 61, 0.04);
+  }
+  .cluster-tile:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(10, 31, 61, 0.10);
+  }
+  .cluster-tile:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+  .cluster-tile.is-active {
+    border-top: 3px solid var(--gold);
+    border-color: var(--gold);
+    background: var(--cream);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(10, 31, 61, 0.14);
+  }
+  .cluster-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .cluster-tile:hover::before {
+    transform: scaleX(1);
+  }
+  .cluster-tile.is-active::before {
+    transform: scaleX(1);
+  }
+
+  .cluster-tile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 22px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+  .cluster-tile-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--navy);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.25s ease;
+  }
+  .cluster-tile:hover .cluster-tile-icon {
+    background: rgba(184, 147, 90, 0.10);
+    border-color: var(--gold);
+  }
+  .cluster-tile:hover .cluster-tile-icon svg {
+    stroke: var(--gold);
+  }
+  .cluster-tile.is-active .cluster-tile-icon {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .cluster-tile.is-active .cluster-tile-icon svg {
+    stroke: white;
+  }
+  .cluster-tile-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .cluster-tile-tease {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+  .cluster-tile-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-size: 11px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .cluster-tile-count-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0;
+  }
+  .cluster-tile-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    margin-left: 4px;
+    font-size: 14px;
+  }
+  .cluster-tile.is-active .cluster-tile-arrow {
+    transform: rotate(90deg);
+  }
+
+  /* Expansion panel (opens below all three tiles) */
+  .cluster-panels-wrap {
+    margin-top: 0;
+    margin-bottom: 100px;
+    overflow: hidden;
+  }
+  .cluster-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.4s ease;
+    margin-top: 0;
+  }
+  .cluster-panel.is-active {
+    max-height: 8000px;
+    opacity: 1;
+    margin-top: 48px;
+  }
+  .cluster-panel-inner {
+    background: var(--cream);
+    border-top: 3px solid var(--gold);
+    padding: 56px 48px 48px;
+    position: relative;
+  }
+  .cluster-panel-inner::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--gold);
+  }
+  .cluster-panel-inner .service-card:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+  .cluster-panel-inner .service-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .section-eyebrow {
+    font-size: 18px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 800;
+    margin-bottom: 28px;
   }
   .section-title {
     font-family: 'Playfair Display', serif;
@@ -216,40 +514,56 @@
 
   /* Service card */
   .service-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: block;
     border-top: 1px solid var(--line);
-    padding: 56px 0;
-    gap: 56px;
-    align-items: start;
+    padding: 64px 0;
   }
   .service-card:last-child { border-bottom: 1px solid var(--line); }
 
-  .service-left {}
   .service-question {
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 400;
     font-style: italic;
     color: var(--navy);
     line-height: 1.35;
-    margin-bottom: 24px;
-    max-width: 460px;
+    margin: 0 auto 40px;
+    max-width: 720px;
+    text-align: center;
     position: relative;
-    padding-left: 28px;
+    padding: 0 40px;
   }
   .service-question::before {
     content: '»';
     position: absolute;
     left: 0;
-    top: -2px;
-    font-size: 30px;
+    top: -4px;
+    font-size: 34px;
     color: var(--gold);
     font-style: normal;
   }
+  .service-question::after {
+    content: '«';
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    font-size: 34px;
+    color: var(--gold);
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .service-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .service-left {}
   .service-name {
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 500;
     color: var(--navy);
     margin-bottom: 8px;
@@ -260,22 +574,35 @@
     text-transform: uppercase;
     color: var(--gold);
     font-weight: 600;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .service-desc {
     font-size: 15px;
     line-height: 1.7;
     color: var(--ink-soft);
   }
+  .service-desc .example {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink);
+    padding-left: 14px;
+    border-left: 2px solid var(--gold);
+  }
+  .service-desc .example strong {
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
 
   .service-right {}
   .service-impact-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
+    font-size: 12px;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
   }
   .service-impact {
     font-size: 15px;
@@ -305,6 +632,1002 @@
     font-size: 13px;
     color: var(--ink-soft);
     font-weight: 400;
+  }
+
+  /* =================== COMPARISON SECTION (Steuerberater vs. NFAI) =================== */
+  .comparison-section {
+    padding: 40px 0 100px;
+    background: var(--cream);
+  }
+
+  /* Collapsible comparison table */
+  .comparison-toggle-wrap {
+    text-align: center;
+    margin-top: 16px;
+  }
+  .comparison-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 32px;
+    background: white;
+    border: 1px solid var(--gold);
+    color: var(--navy);
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .comparison-toggle:hover {
+    background: var(--gold);
+    color: white;
+  }
+  .comparison-toggle:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .comparison-toggle-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    transition: transform 0.3s ease, color 0.2s;
+    line-height: 1;
+    font-weight: 400;
+  }
+  .comparison-toggle:hover .comparison-toggle-arrow { color: white; }
+  .comparison-toggle.is-open .comparison-toggle-arrow { transform: rotate(90deg); }
+  .comparison-toggle-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .comparison-toggle:hover .comparison-toggle-count { color: white; }
+
+  .comparison-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height 0.6s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .comparison-collapsible.is-open {
+    max-height: 10000px;
+    opacity: 1;
+    margin-top: 48px;
+  }
+
+  .comparison-section .container {
+    max-width: 1260px;
+  }
+  .comparison-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .comparison-intro .section-eyebrow {
+    margin-bottom: 24px;
+  }
+  .comparison-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+    margin: 0 auto 20px;
+  }
+  .comparison-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .comparison-intro p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .comparison-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.35;
+    margin: 0 auto 36px;
+    max-width: 760px;
+    text-align: center;
+    position: relative;
+    padding: 0 44px;
+  }
+  .comparison-question::before {
+    content: '»';
+    position: absolute;
+    left: 0;
+    top: -4px;
+    font-size: 34px;
+    color: var(--gold);
+    font-style: normal;
+  }
+  .comparison-question::after {
+    content: '«';
+    position: absolute;
+    right: 0;
+    bottom: -4px;
+    font-size: 34px;
+    color: var(--gold);
+    font-style: normal;
+    line-height: 1;
+  }
+
+  /* Summary comparison table */
+  .summary-table {
+    border: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+  }
+  .summary-table-header {
+    display: contents;
+  }
+  .summary-table-header > div {
+    padding: 18px 28px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-bottom: 1px solid var(--line);
+  }
+  .summary-table-header .stb-head {
+    background: rgba(10, 31, 61, 0.035);
+    color: var(--ink-soft);
+    border-right: 1px solid var(--line);
+  }
+  .summary-table-header .nfai-head {
+    background: var(--gold-faint);
+    color: var(--gold);
+    border-left: 3px solid var(--gold);
+    margin-left: -1px;
+  }
+  .summary-table-row {
+    display: contents;
+  }
+  .summary-table-row > div {
+    padding: 20px 28px;
+    font-size: 14px;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--line);
+  }
+  .summary-table-row:last-child > div {
+    border-bottom: none;
+  }
+  .summary-table-row .stb-cell {
+    background: rgba(10, 31, 61, 0.02);
+    color: var(--ink-soft);
+    border-right: 1px solid var(--line);
+  }
+  .summary-table-row .nfai-cell {
+    background: var(--gold-faint);
+    color: var(--ink);
+    border-left: 3px solid var(--gold);
+    margin-left: -1px;
+  }
+  .summary-table-row .nfai-cell strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* Finanzieller-Effekt row (highlighted creme) */
+  .summary-table-row.effect-row > div {
+    background: var(--cream-dark);
+    padding: 28px 28px;
+    font-size: 15px;
+    border-top: 2px solid var(--gold);
+  }
+  .summary-table-row.effect-row .stb-cell {
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--line);
+    background: var(--cream-dark);
+  }
+  .summary-table-row.effect-row .nfai-cell {
+    color: var(--ink);
+    line-height: 1.75;
+    border-left: 3px solid var(--gold);
+    background: var(--cream-dark);
+  }
+  .summary-table-row.effect-row .nfai-cell strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* Closing impact callout */
+  .comparison-outro {
+    margin-top: 48px;
+    padding: 40px 48px;
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.9);
+    border-left: 4px solid var(--gold);
+  }
+  .comparison-outro .outro-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .comparison-outro p {
+    font-size: 16px;
+    line-height: 1.75;
+    margin: 0;
+  }
+  .comparison-outro strong {
+    color: white;
+    font-weight: 500;
+  }
+
+  /* =================== QUICK-START PACKAGE =================== */
+  .quick-start {
+    background: var(--cream-dark);
+    padding: 100px 0 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .quick-start::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  }
+  .quick-start .container {
+    max-width: 1400px;
+  }
+  .quick-start-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .quick-start-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 8px 20px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .quick-start-badge::before,
+  .quick-start-badge::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+  .quick-start-badge::before { left: -60px; }
+  .quick-start-badge::after { right: -60px; }
+  .quick-start-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0 auto 16px;
+    max-width: 720px;
+  }
+  .quick-start-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .quick-start-intro p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  /* Premium card */
+  .quick-start-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--gold);
+    padding: 64px 80px 56px;
+    box-shadow: 0 20px 48px rgba(10, 31, 61, 0.08);
+    position: relative;
+  }
+  .quick-start-card::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -1px;
+    right: -1px;
+    height: 4px;
+    background: var(--gold);
+  }
+
+  .quick-start-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+  .quick-start-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .quick-start-meta {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .quick-start-price {
+    text-align: right;
+    white-space: nowrap;
+  }
+  .quick-start-price-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .quick-start-price-label {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .quick-start-price-breakeven {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(184, 147, 90, 0.3);
+    max-width: 260px;
+  }
+  .quick-start-price-breakeven strong {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* Section-Label für Accordion & Deliverables */
+  .quick-start-section-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  /* Accordion */
+  .quick-start-accordion {
+    margin-bottom: 44px;
+  }
+  .qs-acc-item {
+    border: 1px solid var(--line);
+    margin-bottom: 10px;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .qs-acc-item:last-child { margin-bottom: 0; }
+  .qs-acc-item:hover { border-color: var(--gold); }
+  .qs-acc-item.is-open {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(10, 31, 61, 0.06);
+  }
+
+  .qs-acc-trigger {
+    display: grid;
+    grid-template-columns: 40px 1fr auto 40px;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 22px 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    color: var(--navy);
+    transition: background 0.15s;
+  }
+  .qs-acc-trigger:hover { background: rgba(184, 147, 90, 0.04); }
+  .qs-acc-trigger:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+
+  .qs-acc-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    font-weight: 500;
+  }
+  .qs-acc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .qs-acc-tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    padding: 6px 12px;
+    background: var(--cream-dark);
+    border-left: 2px solid var(--gold);
+    white-space: nowrap;
+  }
+  .qs-acc-chevron {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--cream-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background 0.2s;
+    color: var(--gold);
+    font-size: 13px;
+    justify-self: end;
+  }
+  .qs-acc-item:hover .qs-acc-chevron { background: rgba(184, 147, 90, 0.15); }
+  .qs-acc-item.is-open .qs-acc-chevron {
+    background: var(--gold);
+    color: white;
+    transform: rotate(180deg);
+  }
+
+  .qs-acc-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .qs-acc-item.is-open .qs-acc-panel { max-height: 600px; }
+
+  .qs-acc-content {
+    padding: 0 28px 26px 88px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    border-top: 1px solid rgba(184, 147, 90, 0.2);
+    padding-top: 20px;
+    margin-top: -1px;
+  }
+  .qs-acc-content strong { color: var(--navy); font-weight: 600; }
+  .qs-acc-content .qs-acc-detail-label {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  .qs-acc-content .qs-acc-detail-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+  .qs-acc-content p { margin: 0 0 4px; }
+
+  /* Deliverables strip (below accordion, same row logic as before) */
+  .quick-start-deliverables-block {
+    background: var(--cream);
+    padding: 32px 36px;
+    margin-bottom: 40px;
+    border-left: 3px solid var(--gold);
+  }
+  .quick-start-deliverables {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 32px;
+  }
+  .quick-start-deliverables li {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    padding: 4px 0 4px 26px;
+    position: relative;
+  }
+  .quick-start-deliverables li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+
+  .quick-start-cta {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 20px;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .quick-start-cta-note {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .quick-start-cta-note strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .quick-start-button {
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 16px 32px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .quick-start-button:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .quick-start-button-secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    padding: 15px 28px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .quick-start-button-secondary:hover {
+    background: var(--navy);
+    color: white;
+  }
+
+  /* =================== FIT CHECK (Für wen das passt) =================== */
+  .fit-check {
+    background: var(--cream);
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .fit-check .container {
+    max-width: 1260px;
+  }
+  .fit-check-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .fit-check-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.25;
+    margin: 16px auto 12px;
+    max-width: 720px;
+  }
+  .fit-check-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .fit-check-intro p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .fit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .fit-col {
+    padding: 36px 40px;
+    background: white;
+    border-top: 3px solid var(--gold);
+  }
+  .fit-col.no-fit {
+    border-top-color: var(--line);
+    background: rgba(10, 31, 61, 0.02);
+  }
+  .fit-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  .fit-col.no-fit h3 {
+    color: var(--ink-soft);
+  }
+  .fit-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .fit-col li {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    padding: 10px 0 10px 24px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .fit-col li:last-child { border-bottom: none; }
+  .fit-col.do-fit li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+  .fit-col.no-fit li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  /* Single-column fit layout (no-fit column removed) */
+  .fit-single-col {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 48px 36px;
+    background: white;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 16px 40px rgba(10, 31, 61, 0.08);
+  }
+  .fit-single-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  .fit-single-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .fit-single-col li {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    padding: 12px 0 12px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .fit-single-col li:last-child { border-bottom: none; }
+  .fit-single-col li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 12px;
+    height: 6px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+  .fit-single-col li strong { color: var(--ink); font-weight: 600; }
+
+  /* Fit-Check Toggle Button (matches comparison-toggle style) */
+  .fit-toggle-wrap {
+    text-align: center;
+    margin-top: 16px;
+  }
+  .fit-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 32px;
+    background: white;
+    border: 1px solid var(--gold);
+    color: var(--navy);
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .fit-toggle:hover {
+    background: var(--gold);
+    color: white;
+  }
+  .fit-toggle:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .fit-toggle-arrow {
+    font-size: 18px;
+    color: var(--gold);
+    transition: transform 0.3s ease, color 0.2s;
+    line-height: 1;
+    font-weight: 400;
+  }
+  .fit-toggle:hover .fit-toggle-arrow { color: white; }
+  .fit-toggle.is-open .fit-toggle-arrow { transform: rotate(90deg); }
+
+  .fit-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height 0.6s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .fit-collapsible.is-open {
+    max-height: 2000px;
+    opacity: 1;
+    margin-top: 48px;
+  }
+
+  /* Info-icon tooltip inside fit-check */
+  .info-tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: baseline;
+  }
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    cursor: help;
+    user-select: none;
+    transition: background 0.2s, transform 0.15s;
+    border: none;
+    padding: 0;
+    line-height: 1;
+  }
+  .info-icon:hover,
+  .info-icon:focus {
+    background: var(--gold-light);
+    transform: scale(1.1);
+    outline: none;
+  }
+  .info-bubble {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    width: 320px;
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.92);
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.55;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    box-shadow: 0 8px 24px rgba(10, 31, 61, 0.25);
+    border-left: 3px solid var(--gold);
+    z-index: 50;
+    pointer-events: none;
+  }
+  .info-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: var(--navy) transparent transparent transparent;
+  }
+  .info-tooltip:hover .info-bubble,
+  .info-tooltip:focus-within .info-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .info-bubble {
+      width: 260px;
+      left: 0;
+      transform: translateX(0) translateY(4px);
+    }
+    .info-bubble::after {
+      left: 12px;
+      margin-left: 0;
+    }
+    .info-tooltip:hover .info-bubble,
+    .info-tooltip:focus-within .info-bubble {
+      transform: translateX(0) translateY(0);
+    }
+  }
+
+  /* =================== TECH STACK SECTION =================== */
+  .tech-stack {
+    background: var(--navy);
+    padding: 80px 0;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .tech-stack .container {
+    max-width: 1260px;
+  }
+  .tech-stack-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .tech-stack-intro .section-eyebrow {
+    color: var(--gold);
+  }
+  .tech-stack-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: white;
+    line-height: 1.25;
+    margin: 16px auto 12px;
+    max-width: 720px;
+  }
+  .tech-stack-intro h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+  .tech-stack-intro p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .tech-item {
+    padding: 28px 28px 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 3px solid var(--gold);
+  }
+  .tech-item-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .tech-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .tech-item p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+  .tech-item-closer {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(184, 147, 90, 0.25);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--gold-light);
+    font-style: italic;
+  }
+  .tech-item-closer strong {
+    font-style: normal;
+    font-weight: 700;
+    color: white;
+  }
+
+  /* =================== GUARANTEE BOX =================== */
+  .guarantee-box {
+    margin-top: 28px;
+    padding: 24px 28px;
+    background: rgba(184, 147, 90, 0.12);
+    border-left: 3px solid var(--gold);
+  }
+  .guarantee-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .guarantee-box p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 !important;
   }
 
   /* =================== PRICING CTA =================== */
@@ -366,6 +1689,23 @@
     font-weight: 500;
     margin-bottom: 24px;
   }
+  .pricing-detail-breakeven {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--gold-light);
+    font-style: italic;
+    font-weight: 500;
+    margin-top: -12px;
+    padding-top: 14px;
+    padding-bottom: 2px;
+    border-top: 1px solid rgba(184, 147, 90, 0.3);
+    margin-bottom: 24px;
+  }
+  .pricing-detail-breakeven strong {
+    font-style: normal;
+    font-weight: 700;
+    color: white;
+  }
   .pricing-includes {
     list-style: none;
     padding: 0;
@@ -399,6 +1739,32 @@
     margin-top: 8px;
   }
   .cta-button:hover { background: var(--gold-light); }
+
+  /* Pricing CTA: two-button wrapper (primary gold + secondary outline) */
+  .pricing-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .cta-button-outline {
+    display: inline-block;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 17px 28px;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .cta-button-outline:hover {
+    color: white;
+    border-color: var(--gold);
+  }
 
   /* =================== HONESTY SECTION =================== */
   .honesty {
@@ -451,6 +1817,21 @@
 
   /* =================== MOBILE =================== */
   @media (max-width: 900px) {
+    /* Cluster tiles mobile */
+    .cluster-tiles {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .cluster-tile { padding: 32px 24px 28px; }
+    .cluster-tile:hover { transform: none; }
+    .cluster-tile-icon { width: 52px; height: 52px; margin-bottom: 16px; }
+    .cluster-tile-icon svg { width: 26px; height: 26px; }
+    .cluster-tile-title { font-size: 20px; }
+    .cluster-tile-tease { font-size: 14px; margin-bottom: 18px; }
+    .cluster-panel-inner { padding: 36px 22px 32px; }
+    .cluster-panels-wrap { margin-bottom: 64px; }
+    .cluster-panel.is-active { margin-top: 24px; }
     .container { padding: 0 24px; }
     .hero { padding: 64px 0 72px; }
     .hero h1 { font-size: 34px; }
@@ -458,66 +1839,399 @@
     .hero-proof { flex-direction: column; gap: 20px; }
     .philosophy-grid, .honesty-grid { grid-template-columns: 1fr; gap: 32px; }
     .philosophy-label { position: static; }
-    .service-card { grid-template-columns: 1fr; gap: 32px; padding: 40px 0; }
+    .service-card { padding: 48px 0; }
+    .service-body { grid-template-columns: 1fr; gap: 32px; }
+    .service-question { font-size: 22px; padding: 0 28px; margin-bottom: 32px; }
+    .service-question::before, .service-question::after { font-size: 28px; }
     .section-title { font-size: 30px; }
     .pricing-cta { padding: 64px 0; }
     .pricing-cta-content { grid-template-columns: 1fr; gap: 40px; }
     .pricing-cta h2 { font-size: 28px; }
-    .site-header .container { flex-direction: column; gap: 16px; }
-    .header-nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .pricing-cta-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+    .cta-button-outline { text-align: center; padding: 16px 24px; }
     footer .container { flex-direction: column; gap: 20px; text-align: center; }
+
+    /* Mobile: comparison section */
+    .comparison-section { padding: 32px 0 64px; }
+    .comparison-intro { margin-bottom: 40px; }
+    .comparison-intro h2 { font-size: 26px; }
+    .comparison-question { font-size: 22px; padding: 0 32px; margin-bottom: 28px; }
+    .comparison-question::before, .comparison-question::after { font-size: 28px; }
+    .summary-table { grid-template-columns: 1fr; }
+    .summary-table-header .stb-head,
+    .summary-table-row .stb-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .summary-table-header .nfai-head,
+    .summary-table-row .nfai-cell {
+      margin-left: 0;
+    }
+    .summary-table-row > div { padding: 16px 22px; }
+    .summary-table-header > div { padding: 14px 22px; }
+    .summary-table-row.effect-row > div { padding: 22px 22px; }
+    .summary-table-row.effect-row .stb-cell {
+      font-size: 16px;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .comparison-outro { margin-top: 32px; padding: 32px 28px; }
+    .comparison-outro p { font-size: 15px; }
+
+    /* Mobile: fit-check */
+    .fit-check { padding: 56px 0; }
+    .fit-check-intro { margin-bottom: 36px; }
+    .fit-check-intro h2 { font-size: 26px; }
+    .fit-grid { grid-template-columns: 1fr; gap: 20px; }
+    .fit-col { padding: 28px 24px; }
+    .fit-single-col { padding: 28px 22px 24px; }
+    .fit-single-col h3 { font-size: 20px; }
+    .fit-collapsible.is-open { margin-top: 28px; }
+
+    /* Mobile: tech-stack */
+    .tech-stack { padding: 56px 0; }
+    .tech-stack-intro { margin-bottom: 32px; }
+    .tech-stack-intro h2 { font-size: 26px; }
+    .tech-grid { grid-template-columns: 1fr; gap: 20px; }
+    .tech-item { padding: 24px; }
+
+    /* Mobile: guarantee */
+    .guarantee-box { padding: 20px 22px; margin-top: 20px; }
+
+    /* Mobile: quick-start */
+    .quick-start { padding: 56px 0; }
+    .quick-start-intro { margin-bottom: 32px; }
+    .quick-start-intro h2 { font-size: 28px; }
+    .quick-start-badge { font-size: 10px; padding: 7px 16px; }
+    .quick-start-badge::before,
+    .quick-start-badge::after { display: none; }
+    .quick-start-card { padding: 32px 22px; }
+    .quick-start-header {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+    }
+    .quick-start-name { font-size: 26px; }
+    .quick-start-price { text-align: left; }
+    .quick-start-price-value { font-size: 42px; }
+    .quick-start-price-breakeven { max-width: 100%; }
+
+    /* Accordion mobile */
+    .qs-acc-trigger {
+      grid-template-columns: 28px 1fr 28px;
+      padding: 18px 18px;
+      gap: 14px;
+    }
+    .qs-acc-tag { display: none; }
+    .qs-acc-title { font-size: 17px; }
+    .qs-acc-content { padding: 16px 18px 22px 60px; font-size: 14px; }
+
+    /* Deliverables mobile */
+    .quick-start-deliverables-block { padding: 24px 22px; }
+    .quick-start-deliverables { grid-template-columns: 1fr; gap: 10px; }
+
+    .quick-start-cta {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      text-align: center;
+    }
+    .quick-start-cta-note { text-align: left; }
+    .quick-start-button,
+    .quick-start-button-secondary { width: 100%; text-align: center; }
+
+    /* Mobile header */
+    .site-header .container {
+      grid-template-columns: auto auto;
+      justify-content: space-between;
+    }
+    .menu-toggle { display: block; }
+    .header-nav,
+    .header-actions {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--navy);
+      border-top: 1px solid rgba(184,147,90,0.15);
+      padding: 20px 24px;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .site-header.is-menu-open .header-nav,
+    .site-header.is-menu-open .header-actions {
+      display: flex;
+    }
+    .site-header.is-menu-open .header-actions {
+      top: calc(100% + 140px);
+      padding-top: 0;
+      border-top: none;
+    }
+    .header-nav a {
+      padding: 8px 0;
+      text-align: center;
+    }
+    .header-cta {
+      text-align: center;
+      padding: 14px 22px !important;
+    }
+    .lang-dropdown {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      display: none;
+      margin-top: 8px;
+    }
+    .lang-switcher.is-open .lang-dropdown { display: block; }
+  }
+
+  /* =================== SCROLL OFFSET (sticky header) =================== */
+  #leistungen, #kontakt, #ansatz {
+    scroll-margin-top: 90px;
+  }
+
+  /* =================== CONTACT MODAL =================== */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 31, 61, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .modal-backdrop.is-open {
+    display: flex;
+    opacity: 1;
+  }
+  .modal {
+    background: var(--cream);
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 56px 56px 48px;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 40px 80px rgba(10, 31, 61, 0.4);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+  .modal-backdrop.is-open .modal {
+    transform: translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    font-family: inherit;
+  }
+  .modal-close:hover { color: var(--navy); }
+  .modal-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .modal h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .modal h3 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .modal-lead {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+  .form-field {
+    margin-bottom: 20px;
+  }
+  .form-field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 400;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 147, 90, 0.15);
+  }
+  .form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.5;
+  }
+  .form-submit {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover:not(:disabled) { background: var(--navy-light); }
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .form-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .form-message {
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .form-message.is-visible { display: block; }
+  .form-message.is-error {
+    background: #fdf2f2;
+    border-left: 3px solid #c53030;
+    color: #742a2a;
+  }
+  .form-success {
+    display: none;
+    text-align: left;
+  }
+  .form-success.is-visible { display: block; }
+  .form-success h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .form-success p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 560px) {
+    .modal { padding: 40px 28px 32px; }
+    .modal h3 { font-size: 22px; }
   }
 </style>
 </head>
 <body>
 
 <!-- =================== HEADER =================== -->
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="container">
     <a href="#" class="logo">North Finance <span>AI</span></a>
+
     <nav class="header-nav">
-      <a href="#leistungen">Leistungen</a>
-      <a href="#ansatz">Ansatz</a>
-      <a href="#kontakt" class="header-cta">Gespräch anfragen</a>
+      <a href="#leistungen">Services</a>
+      <a href="#kontakt">Contact</a>
     </nav>
+
+    <div class="header-actions">
+      <div class="lang-switcher" id="lang-switcher">
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Select language" aria-expanded="false" aria-haspopup="true">
+          <span id="lang-current">EN</span>
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="lang-dropdown" role="menu">
+          <button type="button" class="lang-option" role="menuitem" data-lang="de">
+            Deutsch <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button type="button" class="lang-option is-active" role="menuitem" data-lang="en">
+            English <span class="check" aria-hidden="true">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <a href="#" class="header-cta" data-open-contact>Request a conversation</a>
+    </div>
+
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+      <svg width="26" height="18" viewBox="0 0 26 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
+        <line x1="0" y1="2" x2="26" y2="2"/>
+        <line x1="0" y1="9" x2="26" y2="9"/>
+        <line x1="0" y1="16" x2="26" y2="16"/>
+      </svg>
+    </button>
   </div>
 </header>
 
 <!-- =================== HERO =================== -->
 <section class="hero">
   <div class="container">
-    <div class="hero-eyebrow">Finance Automation · Mittelstand · DATEV-integriert</div>
-    <h1>Wissen Sie, wie viel Geld gerade in Ihrem Unternehmen <em>still&shy;steht?</em></h1>
-    <p class="hero-sub">Die meisten Geschäftsführer im deutschen Mittelstand kennen ihren Umsatz auf den Euro. Aber nicht, wie viel Liquidität in überfälligen Forderungen, fehlenden Skonti und manuellen Prozessen steckt. Ich mache diese Zahl sichtbar — und hole sie zurück.</p>
+    <h1>Do you know how much of your capital is currently <em>sitting idle?</em></h1>
+    <p class="hero-sub">Most German mid-market CEOs know their revenue to the euro. Few know how much liquidity is locked in overdue receivables, missed early-payment discounts, and manual processes. We make that number visible — and recover it. With AI-supported analysis, Python-based automation, and native DATEV integration.</p>
     <div class="hero-proof">
       <div class="hero-proof-item">
-        <div class="hero-proof-num">Festpreise</div>
-        <div class="hero-proof-label">Kein Stunden- oder Tagessatz</div>
+        <div class="hero-proof-num">Fixed fees</div>
+        <div class="hero-proof-label">No hourly or day rates</div>
       </div>
       <div class="hero-proof-item">
         <div class="hero-proof-num">DATEV</div>
-        <div class="hero-proof-label">SKR03 / SKR04 · GoBD-konform</div>
+        <div class="hero-proof-label">SKR03 / SKR04 · GoBD-compliant (Germany's digital bookkeeping standard)</div>
       </div>
       <div class="hero-proof-item">
-        <div class="hero-proof-num">2–6 Wochen</div>
-        <div class="hero-proof-label">Bis zum messbaren Ergebnis</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =================== PHILOSOPHY =================== -->
-<section class="philosophy">
-  <div class="container">
-    <div class="philosophy-grid">
-      <div class="philosophy-label">
-        Was Sie hier nicht finden.
-        <em>Und warum das wichtig ist.</em>
-      </div>
-      <div class="philosophy-text">
-        <p><strong>Keine aufgeblasenen Zahlen.</strong> Sie werden auf dieser Seite keine Versprechen lesen, die beim zweiten Nachdenken nicht halten. Jede Wirkung, die ich nenne, ist der konservative Boden — nicht die Obergrenze. Wenn das Ergebnis besser ausfällt, freuen wir uns beide. Wenn ich den Boden nenne und den Boden liefere, haben Sie genau das bekommen, was vereinbart war.</p>
-        <p><strong>Keine Systemwechsel.</strong> Alles, was ich baue, arbeitet in Ihrer bestehenden DATEV-Umgebung. Kein neues ERP, keine Cloud-Migration, keine sechs Monate Implementierung. Was funktioniert, bleibt. Was fehlt, kommt dazu.</p>
-        <p><strong>Keine Abhängigkeiten.</strong> Jedes Projekt ist so gebaut, dass es nach meiner Arbeit ohne mich weiterläuft. Wenn Sie mich danach für das nächste Projekt buchen, ist das Ihre Entscheidung — nicht meine Absicherung.</p>
+        <div class="hero-proof-num">2–6 weeks</div>
+        <div class="hero-proof-label">To measurable results</div>
       </div>
     </div>
   </div>
@@ -526,213 +2240,538 @@
 <!-- =================== SERVICES =================== -->
 <section class="services-section" id="leistungen">
   <div class="container">
-    <div class="section-eyebrow">Leistungen</div>
-    <h2 class="section-title">Zehn Hebel für Ihre Finance-Operationen.</h2>
-    <p class="section-subtitle">Jeder beginnt mit einer Frage, die Sie sich wahrscheinlich noch nicht gestellt haben. Die Antwort zeigt, ob der Hebel bei Ihnen relevant ist.</p>
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">Ten levers for your finance operations.</h2>
+    <p class="section-subtitle">Grouped into three areas. Click the area that matches your biggest pain point — below you'll find the specific services with questions, descriptions, and typical outcomes.</p>
 
-    <!-- 1 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wie viel Geld steht bei Ihnen gerade auf offenen Posten über 60 Tage — auf den Euro genau?</p>
-        <h3 class="service-name">Forderungsmanagement-Sprint</h3>
-        <div class="service-meta">DATEV · GoBD-konform · 4–6 Wochen</div>
-        <p class="service-desc">Automatisierter Mahn-Workflow mit eskalierenden Stufen, mehrsprachigen Vorlagen und lückenloser Dokumentation. Vollständig in Ihre bestehende DATEV-Umgebung integriert.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Holt <strong>15–30 % der überfälligen Posten</strong> in den ersten 4–6 Wochen zurück. Manche Forderungen sind überfällig, weil der Kunde in Schwierigkeiten ist, die Rechnung strittig oder die Beziehung zu wichtig — die bleiben außen vor. Der größere Wert ist strukturell: ein laufender Prozess, der verhindert, dass sich der Berg wieder aufbaut.</p>
-        <div class="service-number">
-          <span class="service-number-value">€30–80K</span>
-          <span class="service-number-context">typischer Rückfluss bei einem €10M-Unternehmen</span>
+    <div class="cluster-tiles" role="tablist">
+      <button type="button" class="cluster-tile" data-cluster-tile="1" aria-expanded="false" aria-controls="cluster-panel-1">
+        <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="7" ry="2.5"/><path d="M5 5v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"/><path d="M5 9v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V9"/><path d="M5 13v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-4"/></svg></span>
+        <div class="cluster-tile-title">Unlock liquidity</div>
+        <div class="cluster-tile-tease">Wake the cash that's sleeping. Release capital that's tied up.</div>
+        <div class="cluster-tile-count">
+          <span class="cluster-tile-count-num">4</span>
+          Services
+          <span class="cluster-tile-arrow" aria-hidden="true">›</span>
         </div>
-      </div>
+      </button>
+      <button type="button" class="cluster-tile" data-cluster-tile="2" aria-expanded="false" aria-controls="cluster-panel-2">
+        <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 21V3"/><path d="M3 21h18"/><path d="M6 17l4-5 3.5 3 5-7"/><path d="M15 8h3.5V11.5"/></svg></span>
+        <div class="cluster-tile-title">Steering & Decisions</div>
+        <div class="cluster-tile-tease">Make better decisions with clearer numbers — respond faster to margin erosion and unprofitable customers.</div>
+        <div class="cluster-tile-count">
+          <span class="cluster-tile-count-num">2</span>
+          Services
+          <span class="cluster-tile-arrow" aria-hidden="true">›</span>
+        </div>
+      </button>
+      <button type="button" class="cluster-tile" data-cluster-tile="3" aria-expanded="false" aria-controls="cluster-panel-3">
+        <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="6" height="5" rx="0.5"/><rect x="15" y="4" width="6" height="5" rx="0.5"/><rect x="3" y="15" width="6" height="5" rx="0.5"/><rect x="15" y="15" width="6" height="5" rx="0.5"/><path d="M9 6.5h6"/><path d="M9 17.5h6"/><path d="M6 9v6"/><path d="M18 9v6"/></svg></span>
+        <div class="cluster-tile-title">Efficiency & Automation</div>
+        <div class="cluster-tile-tease">Reduce manual work, avoid errors, stay audit-ready.</div>
+        <div class="cluster-tile-count">
+          <span class="cluster-tile-count-num">4</span>
+          Services
+          <span class="cluster-tile-arrow" aria-hidden="true">›</span>
+        </div>
+      </button>
     </div>
 
-    <!-- 2 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wissen Sie, an welchem Tag in den nächsten 90 Tagen Ihr Kontostand am niedrigsten sein wird?</p>
-        <h3 class="service-name">13-Wochen Liquiditätsplanung</h3>
-        <div class="service-meta">DATEV-Ist · Szenarien · wöchentliches Update</div>
-        <p class="service-desc">Automatisierte rollierende Liquiditätsvorschau aus DATEV-Ist, offenen Posten und wiederkehrenden Verpflichtungen. Drei Szenarien: best, base, worst.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact"><strong>3–6 Wochen Vorwarnung</strong> bei Liquiditätsengpässen, statt es erst am Kontostand zu merken. Ersetzt Bauchgefühl durch echte Zahlen für Gehalts- und Lieferantenzahlungen. Der eigentliche Wert: eine schlechte Entscheidung pro Jahr vermeiden — eine unnötige Kreditlinie, ein verpasstes Skonto, ein verspäteter Lieferant.</p>
-        <div class="service-number">
-          <span class="service-number-value">€10–30K</span>
-          <span class="service-number-context">in vermiedenen Kosten pro Jahr, konsistent</span>
+    <div class="cluster-panels-wrap">
+    <div class="cluster-panel" id="cluster-panel-1" role="region" aria-labelledby="cluster-tile-1">
+      <div class="cluster-panel-inner">
+        <div class="service-card">
+        <p class="service-question">How much capital is currently tied up in receivables over 60 days past due — to the euro?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Receivables Optimization Sprint</h3>
+        <div class="service-meta">DATEV · GoBD-compliant · 4–6 weeks</div>
+        <p class="service-desc">Automated dunning workflow in your DATEV environment with escalation stages and multilingual templates. Every day of DSO (Days Sales Outstanding) ties up capital that should be flowing into new orders — this is how you bring it back.<span class="example"><strong>Typical example:</strong> €450K in open items &gt;60 days, €120K recovered after six weeks.</span></p>
         </div>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wie viele Tage nach Monatsende haben Sie belastbare Zahlen — und wann haben Sie zuletzt eine Doppelzahlung entdeckt?</p>
-        <h3 class="service-name">Bank Reconciliation Automation</h3>
-        <div class="service-meta">DATEV-Integration · Exception-Handling</div>
-        <p class="service-desc">Automatisches Matching von Bankbewegungen zu Buchungen, Exception-Handling-Framework und automatische Beleg-Logik.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Verkürzt den Bankabgleich um <strong>1–2 Tage pro Monat</strong> — wohlgemerkt den Abgleich, nicht den gesamten Abschluss. Setzt 8–15 Stunden Buchhaltungsarbeit pro Monat frei. Bei der Erstbereinigung tauchen typischerweise €2–10K an historischen Fehlern auf. Danach ist der Wert Fehlervermeidung und Prüfungssicherheit, nicht dramatische Kostensenkung.</p>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Recovers <strong>15–30 % of overdue items</strong> in the first 4–6 weeks. Some receivables are overdue because the customer is in distress, the invoice is disputed, or the relationship is too valuable to pressure — those stay untouched. The greater value is structural: an ongoing process that prevents the backlog from building up again.</p>
         <div class="service-number">
-          <span class="service-number-value">8–15 Std.</span>
-          <span class="service-number-context">freigesetzt pro Monat in der Buchhaltung</span>
+        <span class="service-number-value">€60K–€120K</span>
+        <span class="service-number-context">one-time cash recovery in 4–6 weeks at a €10M company with an elevated overdue balance (€300K–€500K at 60+ days)</span>
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
+        </div>
 
-    <!-- 4 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Können Sie mir in 10 Sekunden sagen, welcher Kunde oder welches Produkt Ihren Gewinn diesen Monat am meisten bewegt hat?</p>
-        <h3 class="service-name">Monatliches Management-Reporting</h3>
-        <div class="service-meta">P&L vs. Plan · Varianzanalyse · ab Werktag 5</div>
-        <p class="service-desc">Automatisiertes P&L gegen Plan, Marge nach Produkt, Kunde und Kanal, Top-10-Abweichungen mit Erklärung. Am fünften Werktag, nicht am fünfzehnten.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Belastbare P&L am <strong>Werktag 5–7 statt 10–15</strong>. Erklärt, warum Zahlen sich bewegt haben, nicht nur dass. Schnellere Reaktion auf Margenerosion und fundiertere Preisentscheidungen. Manche Unternehmen bekommen die Reports und handeln trotzdem nicht — dann ist die Wirkung null, und das ist nicht mein Problem.</p>
+        <div class="service-card">
+        <p class="service-question">Do you know on which day in the next 90 days your cash balance will hit its lowest point?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">13-Week Rolling Cash Forecast</h3>
+        <div class="service-meta">DATEV actuals · scenarios · weekly refresh</div>
+        <p class="service-desc">Rolling forecast built from DATEV actuals, open items, and recurring commitments — three scenarios, refreshed weekly. You see the squeezes weeks before the bank account reveals them.<span class="example"><strong>Typical example:</strong> December cash gap identified four weeks ahead, unplanned credit line avoided.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact"><strong>3–6 weeks of advance warning</strong> on liquidity squeezes, instead of discovering them through the bank balance. Replaces gut feel with real numbers for payroll and supplier payments. The actual value: one bad decision avoided per year — an unnecessary credit line, a missed discount, a late supplier payment.</p>
         <div class="service-number">
-          <span class="service-number-value">€15–50K</span>
-          <span class="service-number-context">pro Jahr, wenn Sie auf die Zahlen auch handeln</span>
+        <span class="service-number-value">€10K–€30K</span>
+        <span class="service-number-context">in avoided costs per year, consistent</span>
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
+        </div>
 
-    <!-- 5 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wenn Ihr DSO um 10 Tage sinkt — wissen Sie, was das für Sie in Euro bedeutet?</p>
+        <div class="service-card">
+        <p class="service-question">Can you say to the euro how much liquidity is currently locked in your working capital — across receivables, inventory, and supplier terms?</p>
+        <div class="service-body">
+        <div class="service-left">
         <h3 class="service-name">Working Capital Dashboard</h3>
-        <div class="service-meta">DSO · DPO · Cash Conversion Cycle · Alerts</div>
-        <p class="service-desc">Live-Dashboard für DSO, DPO, Lagerumschlag und Cash Conversion Cycle. Schwellwert-Alerts, wenn Kennzahlen abdriften.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Gibt Ihnen <strong>eine Ansicht statt fünf Reports</strong>. Schafft Sichtbarkeit, die Working-Capital-Verbesserung ermöglicht — aber die Verbesserung selbst braucht operative Veränderungen: neu verhandelte Zahlungsziele, strafferes Lager, schnellere Fakturierung. Ein Dashboard allein verändert gar nichts.</p>
+        <div class="service-meta">DSO · DPO · Cash Conversion Cycle · threshold alerts</div>
+        <p class="service-desc">Real-time view of DSO, DPO, inventory turnover, and Cash Conversion Cycle with threshold-based alerts. One view instead of five reports — so you can pull levers instead of searching for them.<span class="example"><strong>Typical example:</strong> DSO reduced from 52 to 41 days, €180K additional liquidity in the first year at €10M revenue.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Gives you <strong>one view instead of five reports</strong>. Creates the visibility that enables working capital improvement — but the improvement itself requires operational change: renegotiated payment terms, tighter inventory, faster invoicing. Typical impact: <strong>0.5–1.5% of revenue</strong> as structurally released liquidity in the first year. A dashboard alone changes nothing.</p>
         <div class="service-number">
-          <span class="service-number-value">€100–300K</span>
-          <span class="service-number-context">im ersten Jahr, wenn Sie die Daten in Handlung umsetzen</span>
+        <span class="service-number-value">€15K–€225K</span>
+        <span class="service-number-context">structurally released liquidity in year one — 0.5–1.5% of revenue (scales with revenue: €3M–€15M)</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <p class="service-question">How much early-payment discount did you leave on the table last year because payments went out too late?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Early-Payment Discount &amp; Payment Run Optimization</h3>
+        <div class="service-meta">Supplier analysis · payment schedule · discount capture</div>
+        <p class="service-desc">Automated payment planning: capture discounts where they pay off, preserve liquidity where they don't. Every missed 2% discount is pure margin left behind.<span class="example"><strong>Typical example:</strong> On €4M procurement volume, €11K in additional discount captured per year.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Not all suppliers offer early-payment discounts (40–60%), and the easy ones you already capture. The real gap: the <strong>15–30% of available discounts</strong> left behind due to slow approvals or poor payment timing. Pure margin effect, but not a six-figure one. Most effective when paired with invoice automation.</p>
+        <div class="service-number">
+        <span class="service-number-value">€6K–€12K</span>
+        <span class="service-number-context">per year, pure margin — at €4M procurement volume</span>
+        </div>
+        </div>
+        </div>
         </div>
       </div>
     </div>
 
-    <!-- 6 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Was kostet Sie die Bearbeitung einer einzelnen Eingangsrechnung — inklusive Prüfung, Freigabe, Buchung?</p>
-        <h3 class="service-name">Eingangsrechnungs-Automatisierung</h3>
-        <div class="service-meta">OCR · 3-Way-Match · DATEV-Übergabe</div>
-        <p class="service-desc">OCR-basierte Rechnungserfassung, automatischer Abgleich gegen Bestellung und Wareneingang, regelbasiertes Exception-Routing.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Senkt die Bearbeitungskosten um <strong>40–60 % nach einer 3-monatigen Einlaufphase</strong>. Im ersten Monat liegt die Exception-Rate noch bei 20–30 %, bis das System lernt. Bei 300 Rechnungen pro Monat: rund €15–25K Ersparnis pro Jahr. Der wichtigere Effekt ist oft nicht messbar — die Buchhaltung ist kein Flaschenhals mehr.</p>
+    <div class="cluster-panel" id="cluster-panel-2" role="region" aria-labelledby="cluster-tile-2">
+      <div class="cluster-panel-inner">
+        <div class="service-card">
+        <p class="service-question">Can you tell me in 10 seconds which customer or product moved your profit most this month?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Monthly Management Reports</h3>
+        <div class="service-meta">P&amp;L vs. plan · variance analysis · by business day 5</div>
+        <p class="service-desc">Automated P&amp;L against plan, margin by product, customer, and channel — on business day five, not fifteen. Lets you respond to margin erosion while it's still correctable.<span class="example"><strong>Typical example:</strong> Price erosion on top-3 product identified ten days earlier, €35K margin saved in the quarter.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Reliable P&amp;L by <strong>business day 5–7 instead of 10–15</strong>. Explains why numbers moved, not just that they did. Faster response to margin erosion and more informed pricing decisions. Some companies receive the reports and still don't act — in those cases the impact is zero, and that's not our problem.</p>
         <div class="service-number">
-          <span class="service-number-value">€15–25K</span>
-          <span class="service-number-context">Ersparnis pro Jahr bei 300 Rechnungen/Monat</span>
+        <span class="service-number-value">€15K–€50K</span>
+        <span class="service-number-context">per year — if you actually act on the numbers</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <p class="service-question">Do you know which of your top 20 customers are actually costing you money?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Customer Profitability Analysis</h3>
+        <div class="service-meta">One-time analysis · prioritized ranking · action recommendations</div>
+        <p class="service-desc">True margin per customer after discounts, payment terms, returns, and service costs — delivered as a prioritized list with concrete pricing adjustment proposals. You find out which of your top 20 make you money and which ones you're subsidizing.<span class="example"><strong>Typical example:</strong> Three customers repriced, €45K EBITDA impact in year one.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">That 10–20% of your customers are unprofitable is almost always true. That you act on all of them is almost never. <strong>Most CEOs implement 30–50% of recommendations in the first year</strong> — some customers are repriced, terms renegotiated with others, the rest remains as is. The second-order effect is often the more important one: your sales team thinks differently about new deals.</p>
+        <div class="service-number">
+        <span class="service-number-value">€30K–€80K</span>
+        <span class="service-number-context">EBITDA improvement in year one at €10M revenue — scales up and down with company size</span>
+        </div>
+        </div>
+        </div>
         </div>
       </div>
     </div>
 
-    <!-- 7 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wie viel Skonto haben Sie im letzten Jahr liegen lassen, weil Zahlungen zu spät rausgingen?</p>
-        <h3 class="service-name">Skonto- &amp; Zahlungslauf-Optimierung</h3>
-        <div class="service-meta">AP-Analyse · Zahlungsplan · Skonto-Capture</div>
-        <p class="service-desc">Automatisierte Zahlungsplanung: Skonti mitnehmen wo es sich lohnt, Liquidität schonen wo nicht.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Nicht alle Lieferanten bieten Skonto (40–60 %), und die leichten nehmen Sie schon mit. Die echte Lücke sind die <strong>15–30 % der verfügbaren Skonti</strong>, die wegen langsamer Freigaben oder schlechtem Zahlungs-Timing liegenbleiben. Reiner Margeneffekt, aber kein sechsstelliger. Am wirkungsvollsten im Paket mit der Rechnungs-Automatisierung.</p>
+    <div class="cluster-panel" id="cluster-panel-3" role="region" aria-labelledby="cluster-tile-3">
+      <div class="cluster-panel-inner">
+        <div class="service-card">
+        <p class="service-question">How many days after month-end do you have reliable numbers — and when did you last catch a duplicate payment?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Automated Bank Reconciliation</h3>
+        <div class="service-meta">DATEV integration · exception handling</div>
+        <p class="service-desc">Automatic matching of bank movements to ledger entries with an exception-handling rule set. Your accounting team stops spending half a day per week on reconciliation — and duplicate payments surface immediately.<span class="example"><strong>Typical example:</strong> 12 hours per month freed up, €6K in historical duplicate payments uncovered during the initial cleanup.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Shortens the bank reconciliation by <strong>1–2 days per month</strong> — note: the reconciliation, not the entire close. Frees up 8–15 hours of accounting work per month. During the initial cleanup, €2K–€10K in historical errors typically surface. After that, the value is error prevention and audit-readiness, not dramatic cost reduction.</p>
         <div class="service-number">
-          <span class="service-number-value">€8–20K</span>
-          <span class="service-number-context">pro Jahr, reine Marge</span>
+        <span class="service-number-value">8–15 hrs</span>
+        <span class="service-number-context">freed up per month in accounting</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <p class="service-question">What does it cost you to process a single incoming invoice — including verification, approval, and posting?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Accounts Payable Automation</h3>
+        <div class="service-meta">OCR capture · three-way matching · DATEV handoff</div>
+        <p class="service-desc">OCR-based invoice capture with automatic three-way matching against purchase order and goods receipt. Your accounting team stops pushing paper and starts reviewing exceptions.<span class="example"><strong>Typical example:</strong> 300 invoices/month, processing cost reduced from €18 to €8 per invoice.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Reduces processing cost by <strong>40–60% after a 3-month ramp-up period</strong>. In month one, the exception rate is still 20–30% while the system learns. At 300 invoices per month: roughly <strong>€20K–€35K</strong> in annual savings — slightly less in year one due to the ramp-up, reaching the upper end of the range from year two. The more important effect is often unmeasured — accounting stops being a bottleneck.</p>
+        <div class="service-number">
+        <span class="service-number-value">€20K–€35K</span>
+        <span class="service-number-context">savings per year at 300 invoices/month, after ramp-up</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <p class="service-question">When was your procedural documentation last updated — and who can produce it tomorrow for a tax audit?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Bookkeeping Compliance Review</h3>
+        <div class="service-meta">Procedural documentation · digital archiving · audit-readiness</div>
+        <p class="service-desc">Analysis of digital document archiving, procedural documentation, and process compliance against current GoBD standards (Germany's digital bookkeeping regulation) — delivered as a prioritized action list. At your next tax audit, you'll have clean records instead of excuses.<span class="example"><strong>Typical example:</strong> Procedural documentation updated, three process gaps closed, €30K in assessment risk neutralized.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">In an audit, this protects against <strong>€20K–€80K in assessments</strong>. Factoring in the 5–10% audit probability per year at your company size, the expected value is <strong>€2K–€8K per year</strong>. This is insurance, not immediate profit — worth it when an audit has been announced or the last one was a while ago.</p>
+        <div class="service-number">
+        <span class="service-number-value">€2K–€8K / year</span>
+        <span class="service-number-context">expected value: audit probability × assessment risk</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <p class="service-question">How much do you pay your Steuerberater (German tax advisor) per year — and how much of that is cleanup work that should happen in-house?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Tax Advisor Integration</h3>
+        <div class="service-meta">DATEV export · pre-validation · monthly package</div>
+        <p class="service-desc">Standardized DATEV handoff with pre-validated transactions and an automated monthly package. Your Steuerberater processes instead of asking questions — and the cleanup work moves back in-house, where it belongs.<span class="example"><strong>Typical example:</strong> Month-end close three days earlier, query loops reduced by 80%.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Outcome</div>
+        <p class="service-impact">Eliminates the constant query loops with your Steuerberater and accelerates month-end close by <strong>2–4 days</strong>. The main gain is operational: less month-end stress, fewer errors, cleaner handoffs. A fee reduction is possible, but only if your Steuerberater bills on time and materials — many use a statutory fee schedule (Gebührenordnung), in which case the time savings is the real value.</p>
+        <div class="service-number">
+        <span class="service-number-value">2–4 days</span>
+        <span class="service-number-context">faster month-end close, roughly 80% fewer query loops</span>
+        </div>
+        </div>
+        </div>
         </div>
       </div>
     </div>
+    </div>
+  </div>
+</section>
 
-    <!-- 8 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wissen Sie, welche Ihrer Top-20-Kunden Ihnen tatsächlich Geld kosten?</p>
-        <h3 class="service-name">Kundenprofitabilitäts-Audit</h3>
-        <div class="service-meta">One-shot-Analyse · Ranked List · Handlungsempfehlungen</div>
-        <p class="service-desc">Echte Marge pro Kunde nach Rabatten, Zahlungszielen, Retouren und Cost-to-Serve. Als priorisierte Liste mit konkreten Repricing-Vorschlägen.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Dass 10–20 % Ihrer Kunden unprofitabel sind, stimmt fast immer. Dass Sie bei allen handeln, stimmt fast nie. <strong>Die meisten GFs setzen 30–50 % der Empfehlungen im ersten Jahr um</strong> — einige Kunden werden neu bepreist, bei anderen werden Konditionen nachverhandelt, der Rest bleibt wie er ist. Der Zweiteffekt ist oft wichtiger: Ihr Vertrieb denkt bei neuen Deals anders.</p>
-        <div class="service-number">
-          <span class="service-number-value">€30–80K</span>
-          <span class="service-number-context">EBITDA-Verbesserung im ersten Jahr, realistisch</span>
-        </div>
+<!-- =================== COMPARISON SECTION (Steuerberater vs. NFAI) =================== -->
+<section class="comparison-section">
+  <div class="container">
+    <div class="comparison-intro">
+      <div class="section-eyebrow">The Comparison</div>
+      <h2>What your Steuerberater does — <em>and what's possible beyond that.</em></h2>
+      <p>Fifteen areas where your existing structure continues to work — and where more impact can be drawn from the same data.</p>
+      <div class="comparison-toggle-wrap">
+        <button type="button" class="comparison-toggle" aria-expanded="false" aria-controls="comparison-collapsible">
+          <span class="comparison-toggle-count">15</span>
+          <span>Show areas</span>
+          <span class="comparison-toggle-arrow" aria-hidden="true">›</span>
+        </button>
       </div>
     </div>
 
-    <!-- 9 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wann wurde Ihre Verfahrens&shy;dokumentation zuletzt aktualisiert — und wer kann sie morgen bei einer Betriebs&shy;prüfung vorlegen?</p>
-        <h3 class="service-name">GoBD-Readiness-Check</h3>
-        <div class="service-meta">Verfahrensdokumentation · Belegablage · Prüfungssicherheit</div>
-        <p class="service-desc">Audit der digitalen Belegablage, Verfahrensdokumentation und Prozesskonformität nach aktueller GoBD. Priorisierte Fix-Liste.</p>
+    <div class="comparison-collapsible" id="comparison-collapsible" role="region">
+    <p class="comparison-question">How many of your important decisions in the last twelve months were based on numbers that were already too old — or on gut feel that later turned out to be wrong?</p>
+
+    <div class="summary-table">
+      <div class="summary-table-header">
+        <div class="stb-head">Steuerberater (Tax Advisor)</div>
+        <div class="nfai-head">North Finance AI Solutions</div>
       </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Wenn Sie geprüft werden, schützt das vor <strong>€20–80K an Zuschätzungen</strong> — diese Spanne ist in der Fachliteratur dokumentiert und vertretbar. Der Haken: Sie werden vielleicht jahrelang nicht geprüft. Die Prüfwahrscheinlichkeit bei Ihrer Unternehmensgröße liegt bei 5–10 % pro Jahr. Das ist Versicherung, kein Sofortgewinn. Am besten verkaufbar an GFs, die schon einmal geprüft wurden oder wissen, dass eine Prüfung kommt.</p>
-        <div class="service-number">
-          <span class="service-number-value">€20–80K</span>
-          <span class="service-number-context">vermiedene Findings bei Betriebsprüfung</span>
-        </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Keeps your company formally clean, prepares statutory accounts, processes financial data, generates the open items list, and handles queries.</div>
+        <div class="nfai-cell">Makes the collaboration faster, standardizes the data handoff, pre-validates transactions, and significantly reduces queries. This cuts internal coordination effort and accelerates the <strong>month-end close</strong>.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Sees open items, generates the open items list, and monitors receivables in the books.</div>
+        <div class="nfai-cell">Turns that data into an <strong>automated dunning and escalation process</strong>, so cash comes in faster, less liquidity stays tied up, and the receivables backlog is reduced more consistently.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Delivers historical numbers and standard accounting data.</div>
+        <div class="nfai-cell">Builds that into a <strong>rolling cash forecast</strong>, so squeezes become visible weeks earlier. This improves payment steering, reduces surprises, and strengthens liquidity certainty.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Posts bank movements and reconciles accounts.</div>
+        <div class="nfai-cell">Automates the reconciliation, detects <strong>duplicate payments, duplicate postings, and overpayments</strong>, and increases both quality and speed of the month-end close. This reduces error costs and avoids unnecessary cash outflows.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Produces standard reports and classical accounting deliverables.</div>
+        <div class="nfai-cell">Makes numbers <strong>management-relevant</strong>, with clear visibility into margins, variances, products, customers, and specific action points. Decisions get made faster and on sounder economic footing.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Knows the bookkeeping and its structure.</div>
+        <div class="nfai-cell">Makes <strong>tied-up capital visible</strong> and shows where liquidity can be operationally released. This creates transparency over financial levers that often stay hidden in day-to-day operations.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Processes incoming invoices within the existing workflow.</div>
+        <div class="nfai-cell">Reduces <strong>manual effort before posting</strong> through automated capture, verification, and structured handoff. This lowers process cost, saves time, and increases the scalability of the finance function.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Posts supplier invoices and supports payment runs.</div>
+        <div class="nfai-cell">Optimizes payment timing so that <strong>early-payment discounts</strong> are better captured, overpayments avoided, and liquidity protected at the same time. This improves margin and strengthens the cash position.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Shows revenue and cost at total or account level.</div>
+        <div class="nfai-cell">Shows which customers are <strong>actually profitable after all effects</strong> and where pricing adjustments or new terms are needed. This creates a direct foundation for profit improvement.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Supports order, documentation, and formal compliance.</div>
+        <div class="nfai-cell">Also supports order, accuracy, and compliance — and strengthens the finance function <strong>operationally</strong>, making processes more robust and audit-ready. This reduces risk, rework, and workflow disruption.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Supports standard tax processes and filings.</div>
+        <div class="nfai-cell">Additionally supports <strong>preparation and structuring for the VAT return</strong>, so filings are clean, complete, and on time. This reduces error and deadline risk and lightens internal workload.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Ensures accuracy and compliance.</div>
+        <div class="nfai-cell">Translates the same data into <strong>liquidity, speed, transparency, accuracy, and better decisions</strong>. This makes finance not just correct, but economically effective.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Charges fees for a necessary service.</div>
+        <div class="nfai-cell">Raises the <strong>value of that collaboration</strong>, because the same finance structure now delivers more impact, more control, and more entrepreneurial value.</div>
+      </div>
+
+      <div class="summary-table-row">
+        <div class="stb-cell">Prepares the VAT return based on posted data and submits it to the tax authority on time.</div>
+        <div class="nfai-cell">Prepares the data for the <strong>VAT return</strong> in a structured, pre-validated form, so your Steuerberater processes cleanly instead of correcting. Filings are more complete, queries are rarer, and deadline risk shrinks significantly.</div>
+      </div>
+
+      <div class="summary-table-row effect-row">
+        <div class="stb-cell">Financial effect</div>
+        <div class="nfai-cell">Potential annual savings on Steuerberater fees of <strong>four to six thousand euros</strong> on a forty-thousand-euro annual fee — plus internal time savings, avoided error costs, and earlier-available numbers for better decisions.</div>
       </div>
     </div>
+    </div>
+  </div>
+</section>
 
-    <!-- 10 -->
-    <div class="service-card">
-      <div class="service-left">
-        <p class="service-question">Wie viel zahlen Sie Ihrem Steuerberater pro Jahr — und wie viel davon ist reine Aufräumarbeit, die in Ihrem Haus passieren sollte?</p>
-        <h3 class="service-name">Steuerberater-Schnittstelle Neu</h3>
-        <div class="service-meta">DATEV-Export · Vorvalidierung · Monatspaket</div>
-        <p class="service-desc">Standardisierte Datenübergabe, vorvalidierte Transaktionen, automatisiertes Monatspaket. Ihre Buchhaltung liefert, der StB verarbeitet — ohne Rückfragen-Schleifen.</p>
-      </div>
-      <div class="service-right">
-        <div class="service-impact-label">Ehrliche Wirkung</div>
-        <p class="service-impact">Beseitigt den Rückfragen-Ping-Pong mit dem StB. Beschleunigt den Monatsabschluss um <strong>2–4 Tage</strong>. Eine Honorarreduzierung von 10–15 % ist möglich, wenn Sie explizit nachverhandeln — aber viele StBs rechnen nach Gebührenordnung, nicht nach Aufwand. Sauberere Daten bedeuten dann höhere Marge für den StB, nicht weniger Kosten für Sie. Der weiche Wert — weniger Stress, weniger Fehler, kürzere Schleifen — wird von Mandanten oft am meisten geschätzt, lässt sich aber schlecht beziffern.</p>
-        <div class="service-number">
-          <span class="service-number-value">€4–6K</span>
-          <span class="service-number-context">mögliche StB-Ersparnis bei €40K Jahreshonorar</span>
-        </div>
-      </div>
+<!-- =================== QUICK-START PACKAGE =================== -->
+<section class="quick-start" id="quick-start">
+  <div class="container">
+    <div class="quick-start-intro">
+      <div class="quick-start-badge">Recommended Starting Point</div>
+      <h2>The fastest result for <em>your working capital.</em></h2>
+      <p>Three of our highest-impact services — bundled as a fixed-fee package. Ideal for companies that want visible results quickly, without booking the full finance toolkit up front.</p>
     </div>
 
+    <div class="quick-start-card">
+      <div class="quick-start-header">
+        <div>
+          <div class="quick-start-meta">Quick-Start · 6–8 weeks · fixed fee</div>
+          <h3 class="quick-start-name">Cash-Flow Quick-Start</h3>
+        </div>
+        <div class="quick-start-price">
+          <div class="quick-start-price-value">€12,400</div>
+          <div class="quick-start-price-label">Net · fixed fee</div>
+          <div class="quick-start-price-breakeven">Typically pays back in <strong>6–10 weeks</strong></div>
+        </div>
+      </div>
+
+      <div class="quick-start-section-label">What's included · click to expand</div>
+      <div class="quick-start-accordion">
+        <div class="qs-acc-item">
+          <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-1">
+            <span class="qs-acc-number">01</span>
+            <span class="qs-acc-title">Receivables Optimization Sprint</span>
+            <span class="qs-acc-tag">4–6 weeks</span>
+            <span class="qs-acc-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="qs-acc-panel" id="qs-panel-1" role="region">
+            <div class="qs-acc-content">
+              <p>Automated dunning workflow in your existing environment — <strong>DATEV, Excel, or another ERP system</strong>. Escalation stages, multilingual templates, full documentation. Every day of DSO ties up capital that should be flowing into new orders.</p>
+              <div class="qs-acc-detail-label">Typical impact</div>
+              <div class="qs-acc-detail-value">Recovers 15–30% of overdue items in the first 4–6 weeks. At a €10M company, typically €60K–€120K in one-time cash recovery.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qs-acc-item">
+          <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-2">
+            <span class="qs-acc-number">02</span>
+            <span class="qs-acc-title">13-Week Rolling Cash Forecast</span>
+            <span class="qs-acc-tag">Rolling</span>
+            <span class="qs-acc-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="qs-acc-panel" id="qs-panel-2" role="region">
+            <div class="qs-acc-content">
+              <p>Rolling forecast built from your financial data, open items, and recurring commitments. <strong>Three scenarios</strong> (conservative, realistic, optimistic), refreshed weekly. You see the squeezes weeks before the bank account reveals them.</p>
+              <div class="qs-acc-detail-label">Typical impact</div>
+              <div class="qs-acc-detail-value">Squeezes visible 4–8 weeks earlier. Decisions based on numbers instead of gut feel. Immediately presentable in bank meetings and financing discussions.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="qs-acc-item">
+          <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-3">
+            <span class="qs-acc-number">03</span>
+            <span class="qs-acc-title">Automated Bank Reconciliation</span>
+            <span class="qs-acc-tag">Ongoing</span>
+            <span class="qs-acc-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="qs-acc-panel" id="qs-panel-3" role="region">
+            <div class="qs-acc-content">
+              <p>Automatic matching of bank movements to ledger entries with exception handling. Your accounting team stops spending half a day per week on reconciliation — and <strong>duplicate payments surface immediately</strong>.</p>
+              <div class="qs-acc-detail-label">Typical impact</div>
+              <div class="qs-acc-detail-value">8–15 hours of accounting time freed up per month. During the initial cleanup, €2K–€10K in historical duplicate payments typically surface.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-start-deliverables-block">
+        <div class="quick-start-section-label">What you receive concretely</div>
+        <ul class="quick-start-deliverables">
+          <li>Automated dunning workflow, live in your existing finance environment</li>
+          <li>Rolling 13-week cash forecast with weekly refresh</li>
+          <li>Three scenarios (conservative, realistic, optimistic)</li>
+          <li>Automated bank reconciliation with exception handling</li>
+          <li>Written results documentation after 6 weeks</li>
+          <li>Handover meeting including training for your team</li>
+        </ul>
+      </div>
+
+      <div class="quick-start-cta">
+        <div class="quick-start-cta-note">
+          <strong>Impact guarantee included:</strong> If the first two weeks show the approach doesn't fit your situation, we wind down at cost.
+        </div>
+        <a href="#" class="quick-start-button-secondary" data-open-contact>Talk first</a>
+        <a href="#" class="quick-start-button" data-open-contact data-quick-start>Book Quick-Start</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FIT CHECK =================== -->
+<section class="fit-check">
+  <div class="container">
+    <div class="fit-check-intro">
+      <div class="section-eyebrow">Who This Is For</div>
+      <h2>We don't work with everyone — <em>and that's the point.</em></h2>
+      <p>The better the fit, the clearer the outcome. Here's an honest assessment of whether this work is the right lever for you.</p>
+      <div class="fit-toggle-wrap">
+        <button type="button" class="fit-toggle" aria-expanded="false" aria-controls="fit-collapsible">
+          <span>Show criteria</span>
+          <span class="fit-toggle-arrow" aria-hidden="true">›</span>
+        </button>
+      </div>
+    </div>
+    <div class="fit-collapsible" id="fit-collapsible" role="region">
+      <div class="fit-single-col">
+        <h3>This fits if you…</h3>
+        <ul>
+          <li>run an <strong>established company</strong> — with a settled business model and an existing finance structure</li>
+          <li>want to <strong>structurally put cash flow and finances in order</strong> — not just short-term, but as an ongoing process</li>
+          <li>have an existing <strong>DATEV structure with a Steuerberater</strong> (SKR03 or SKR04)<span class="info-tooltip"><button type="button" class="info-icon" aria-label="Note on other systems" tabindex="0">i</button><span class="info-bubble" role="tooltip">Do you work with another system — for example SAP, Lexware, sevDesk, Excel, or another solution? Get in touch — we'll honestly clarify whether the work still fits, or whether we'd be better off referring you to a colleague.</span></span></li>
+          <li>want to scale your finance function <strong>without launching an ERP project</strong></li>
+          <li>are ready not only to look at the numbers, but to <strong>act</strong> on them</li>
+          <li>recognize the typical triggers: cash surprises, month-end numbers arriving too late, unclear customer margins, too many Steuerberater query loops</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TECH STACK =================== -->
+<section class="tech-stack">
+  <div class="container">
+    <div class="tech-stack-intro">
+      <div class="section-eyebrow">How We Work</div>
+      <h2>Finance expertise <em>plus</em> modern technology.</h2>
+      <p>We're neither a pure consultancy nor a pure software house. We combine operational finance expertise with proprietary automation, native DATEV integration, and AI-supported analysis — so results become visible in weeks, not quarters.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-item-label">Operational Finance Expertise</div>
+        <h4>CFO quality without a CFO salary</h4>
+        <p>Years of hands-on finance practice in the German Mittelstand: liquidity steering, working capital, controlling, Steuerberater collaboration, German GAAP (HGB) closings, GoBD-compliant digital bookkeeping.</p>
+        <div class="tech-item-closer"><strong>Without</strong> a full-time CFO at <strong>€120–180K</strong> annual salary and a months-long search.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">Automation</div>
+        <h4>Automation without an ERP project</h4>
+        <p>Proprietary tools in Python and JavaScript: automated dunning workflows, bank reconciliations, dashboards, and handoff packages. Tailored to your existing structure — not standard software that you first have to adapt to.</p>
+        <div class="tech-item-closer"><strong>Without</strong> a 6-month ERP project at <strong>€50K+ effort</strong> and a system switch.</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-item-label">AI-Supported</div>
+        <h4>AI speed with human accountability</h4>
+        <p>Claude-based analysis for pattern recognition in receivables, customer profitability, exception handling, and report generation. The AI does the preparatory work; we review and take responsibility for the output. Your data never leaves your environment.</p>
+        <div class="tech-item-closer"><strong>Without</strong> black-box risk, <strong>without</strong> data flowing out to third parties.</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- =================== PRICING CTA =================== -->
 <section class="pricing-cta" id="kontakt">
   <div class="container">
-    <div class="section-eyebrow">Der Einstieg</div>
+    <div class="section-eyebrow">The Entry Point</div>
     <div class="pricing-cta-content">
       <div>
-        <h2>Welcher Hebel ist bei Ihnen <em>der größte?</em></h2>
-        <p>90 Minuten. Ein konkretes Ergebnis. Keine Verkaufsshow. Ich schaue mir Ihre Situation an und sage Ihnen, welcher der zehn Hebel bei Ihnen am meisten bewegt — und ob er sich zum aktuellen Zeitpunkt überhaupt lohnt. Wenn nicht, sage ich Ihnen das. Schriftliche Empfehlung im Anschluss.</p>
-        <p>Wird bei Auftragserteilung vollständig angerechnet.</p>
-        <a href="mailto:krisztina@northfinanceai.com?subject=Strategiegespräch%20anfragen" class="cta-button">Gespräch anfragen</a>
+        <h2>A 90-minute conversation. <em>Three concrete next steps.</em></h2>
+        <p>We look at your situation and tell you where the biggest lever sits — and whether it justifies the effort. If it doesn't, we tell you that too.</p>
+
+        <div class="guarantee-box">
+          <div class="guarantee-label">Our Impact Guarantee</div>
+          <p>If the lever identified during the conversation doesn't hold up in your situation, you pay only the cost of delivery on the project. You keep the analysis — no discussion.</p>
+        </div>
+
+        <div class="pricing-cta-buttons">
+          <a href="#" class="cta-button" data-open-contact>Request a conversation</a>
+          <a href="#quick-start" class="cta-button-outline">See Quick-Start</a>
+        </div>
       </div>
       <div class="pricing-detail">
         <div class="pricing-detail-price">€450</div>
-        <div class="pricing-detail-label">Strategiegespräch · Festpreis</div>
+        <div class="pricing-detail-label">Strategy conversation · fixed fee</div>
+        <div class="pricing-detail-breakeven">On subsequent project: <strong>€450 fully credited</strong></div>
         <ul class="pricing-includes">
-          <li>90 Minuten, remote oder vor Ort in München</li>
-          <li>Eine Stunde Vorbereitung auf Ihre Zahlen inklusive</li>
-          <li>Schriftliche Empfehlung im Anschluss</li>
-          <li>Keine Folgeverpflichtung</li>
-          <li>Wird bei Auftrag vollständig angerechnet</li>
+          <li>You leave the conversation with a <strong>prioritized lever</strong> and concrete next steps</li>
+          <li>We come prepared — your numbers are <strong>analyzed in advance</strong></li>
+          <li>You decide <strong>freely and without pressure</strong> after the conversation</li>
+          <li>90 minutes · <strong>online or in Munich</strong>, you choose</li>
         </ul>
       </div>
     </div>
@@ -744,25 +2783,13 @@
   <div class="container">
     <div class="honesty-grid">
       <div class="philosophy-label">
-        Warum ich Ihnen sage, was nicht funktioniert.
-        <em>Und warum das bessere Ergebnisse bringt.</em>
+        Why we tell you what doesn't work.
+        <em>And why that produces better outcomes.</em>
       </div>
       <div class="honesty-items">
         <div class="honesty-item">
-          <h4>Jede Zahl auf dieser Seite ist der Boden, nicht die Decke.</h4>
-          <p>Wenn ich €30K sage und €60K liefere, erzählen Sie es drei Leuten. Wenn ich €80K sage und €60K liefere, erzählen Sie es niemandem. Die konservative Zahl ist die bessere Verkaufsstrategie — für uns beide.</p>
-        </div>
-        <div class="honesty-item">
-          <h4>Ein Dashboard ohne Verhaltensänderung produziert schöne Bildschirme.</h4>
-          <p>Ich sage Ihnen vorher, welche meiner Leistungen nur wirken, wenn Sie intern auch etwas verändern — und welche auch ohne Ihr Zutun Geld bringen. Damit Sie wissen, worauf Sie sich einlassen.</p>
-        </div>
-        <div class="honesty-item">
-          <h4>Nicht jeder Hebel lohnt sich bei jedem Unternehmen.</h4>
-          <p>Manche der zehn Leistungen sind für Ihre Situation irrelevant. Ich verkaufe Ihnen nichts, was nicht mindestens das Dreifache meines Honorars zurückbringt. Wenn keiner der zehn Hebel bei Ihnen zieht, sage ich Ihnen das im Erstgespräch und wir sparen uns beide die Zeit.</p>
-        </div>
-        <div class="honesty-item">
-          <h4>Keine Stundensätze, keine Tagessätze, keine Überraschungen.</h4>
-          <p>Jedes Projekt hat einen Festpreis. Was es mich an Aufwand kostet, ist mein Problem. Was es Ihnen an Ergebnis bringt, ist unsere gemeinsame Messlatte.</p>
+          <h4>No hourly rates, no day rates, no surprises.</h4>
+          <p>Every project has a fixed fee. What it costs us in effort is our problem. What it delivers to you in results is our shared measuring stick.</p>
         </div>
       </div>
     </div>
@@ -774,14 +2801,415 @@
   <div class="container">
     <div>
       <a href="#" class="logo">North Finance <span>AI</span></a>
-      <div class="footer-fine">Krisztina Toth · München · krisztina@northfinanceai.com</div>
+      <div class="footer-fine">Krisztina Toth · Munich · krisztina@northfinanceai.com</div>
     </div>
     <div style="text-align: right;">
-      <div>Alle Preise netto, zzgl. gesetzlicher USt.</div>
-      <div class="footer-fine">English version available on request.</div>
+      <div>All prices net, plus statutory VAT.</div>
+      <div class="footer-fine">German version available at <a href="/" style="color: inherit;">northfinanceai.com</a>.</div>
     </div>
   </div>
 </footer>
+
+<!-- =================== CONTACT MODAL =================== -->
+<div class="modal-backdrop" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+  <div class="modal">
+    <button type="button" class="modal-close" aria-label="Close" data-close-contact>×</button>
+
+    <!-- Form state -->
+    <div class="form-view">
+      <div class="modal-eyebrow">Strategy conversation</div>
+      <h3 id="contact-modal-title">Let's have a <em>brief conversation.</em></h3>
+
+      <div class="form-message is-error" id="form-error" role="alert"></div>
+
+      <form id="contact-form" novalidate>
+        <div class="form-field">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="cf-email">Email</label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="cf-company">Company</label>
+          <input type="text" id="cf-company" name="company" autocomplete="organization">
+        </div>
+        <div class="form-field">
+          <label for="cf-message">Your situation (briefly)</label>
+          <textarea id="cf-message" name="message" placeholder="E.g. revenue, industry, where you suspect the biggest lever currently sits."></textarea>
+        </div>
+
+        <!-- Formsubmit honeypot (anti-spam) -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <!-- Formsubmit config -->
+        <input type="hidden" name="_subject" value="[EN] New inquiry via northfinanceai.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+
+        <button type="submit" class="form-submit" id="form-submit-btn">Send inquiry</button>
+        <p class="form-note">Your data is used exclusively to get in touch. No sharing with third parties, no newsletter.</p>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="form-success" id="form-success">
+      <div class="modal-eyebrow">Thank you</div>
+      <h4>Your inquiry has been received.</h4>
+      <p>We'll get back to you within 24 hours — usually much sooner. If it's urgent, you can reach us directly at <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>.</p>
+      <button type="button" class="form-submit" data-close-contact style="background: var(--gold); color: var(--navy);">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== CONTACT MODAL =====
+  var modal = document.getElementById('contact-modal');
+  var form = document.getElementById('contact-form');
+  var formView = modal.querySelector('.form-view');
+  var successView = document.getElementById('form-success');
+  var errorBox = document.getElementById('form-error');
+  var submitBtn = document.getElementById('form-submit-btn');
+  var openTriggers = document.querySelectorAll('[data-open-contact]');
+  var closeTriggers = modal.querySelectorAll('[data-close-contact]');
+
+  // IMPORTANT: Replace this with your actual email address.
+  // Formsubmit will send all form submissions to this address.
+  // On the very first submission, you will receive a one-time activation
+  // email from Formsubmit — click the link to activate the endpoint.
+  var FORMSUBMIT_EMAIL = 'krisztina@northfinanceai.com';
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    resetForm();
+
+    // Detect if the trigger was the Quick-Start button
+    var trigger = e && e.currentTarget;
+    var isQuickStart = trigger && trigger.hasAttribute('data-quick-start');
+
+    if (isQuickStart) {
+      // Pre-fill the message field with Quick-Start context
+      var messageField = document.getElementById('cf-message');
+      if (messageField) {
+        messageField.value = 'I am interested in the Cash-Flow Quick-Start package (€12,400, 6–8 weeks: Receivables Optimization, 13-Week Rolling Cash Forecast, and Automated Bank Reconciliation). Please get back to me.';
+      }
+      // Swap the form subject line via hidden Formsubmit input
+      var subjectInput = form.querySelector('input[name="_subject"]');
+      if (subjectInput) {
+        subjectInput.value = '[EN] QUICK-START inquiry via northfinanceai.com';
+      }
+      // Update modal headline for visual confirmation
+      var modalTitle = document.getElementById('contact-modal-title');
+      if (modalTitle) {
+        modalTitle.innerHTML = 'Request <em>Quick-Start.</em>';
+      }
+    } else {
+      // Reset to default subject and headline
+      var subjectInput2 = form.querySelector('input[name="_subject"]');
+      if (subjectInput2) {
+        subjectInput2.value = '[EN] New inquiry via northfinanceai.com';
+      }
+      var modalTitle2 = document.getElementById('contact-modal-title');
+      if (modalTitle2) {
+        modalTitle2.innerHTML = 'Let\'s have a <em>brief conversation.</em>';
+      }
+    }
+
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var firstInput = modal.querySelector('input[name="name"]');
+      if (firstInput) firstInput.focus();
+    }, 100);
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function resetForm() {
+    form.reset();
+    form.style.display = '';
+    formView.style.display = '';
+    successView.classList.remove('is-visible');
+    errorBox.classList.remove('is-visible');
+    errorBox.textContent = '';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send inquiry';
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add('is-visible');
+  }
+
+  function showSuccess() {
+    formView.style.display = 'none';
+    successView.classList.add('is-visible');
+  }
+
+  // Attach open listeners
+  for (var i = 0; i < openTriggers.length; i++) {
+    openTriggers[i].addEventListener('click', openModal);
+  }
+
+  // Attach close listeners
+  for (var j = 0; j < closeTriggers.length; j++) {
+    closeTriggers[j].addEventListener('click', closeModal);
+  }
+
+  // Close on backdrop click
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+
+  // Form submission via Formsubmit.co AJAX endpoint
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    errorBox.classList.remove('is-visible');
+
+    // Basic validation
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+    if (!name || !email) {
+      showError('Please fill in name and email.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showError('Please enter a valid email address.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    var formData = new FormData(form);
+    var data = {};
+    formData.forEach(function(value, key) { data[key] = value; });
+
+    fetch('https://formsubmit.co/ajax/' + FORMSUBMIT_EMAIL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(function(response) {
+      if (!response.ok) throw new Error('Network error (' + response.status + ')');
+      return response.json();
+    })
+    .then(function(result) {
+      if (result && (result.success === 'true' || result.success === true)) {
+        showSuccess();
+      } else {
+        throw new Error(result.message || 'Unknown error');
+      }
+    })
+    .catch(function(err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send inquiry';
+      showError('Your inquiry could not be sent. Please write to us directly at krisztina@northfinanceai.com.');
+      console.error('Form submission error:', err);
+    });
+  });
+
+  // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+  // Handles sticky header offset cleanly across browsers
+  var anchorLinks = document.querySelectorAll('a[href^="#"]:not([data-open-contact])');
+  for (var k = 0; k < anchorLinks.length; k++) {
+    anchorLinks[k].addEventListener('click', function(e) {
+      var href = this.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // If scrolling to services, open the first cluster so content is visible
+      if (href === '#leistungen') {
+        var activeTile = document.querySelector('.cluster-tile.is-active');
+        if (!activeTile) {
+          // No cluster open yet — open cluster 1
+          if (typeof openCluster === 'function') openCluster(1);
+        }
+      }
+      // Close mobile menu after clicking a link
+      var hdr = document.getElementById('site-header');
+      if (hdr) hdr.classList.remove('is-menu-open');
+    });
+  }
+
+  // ===== LANGUAGE SWITCHER =====
+  var langSwitcher = document.getElementById('lang-switcher');
+  var langBtn = document.getElementById('lang-btn');
+  var langOptions = document.querySelectorAll('.lang-option');
+  var langCurrent = document.getElementById('lang-current');
+
+  if (langSwitcher && langBtn) {
+    langBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = langSwitcher.classList.toggle('is-open');
+      langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+      if (!langSwitcher.contains(e.target)) {
+        langSwitcher.classList.remove('is-open');
+        langBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && langSwitcher.classList.contains('is-open')) {
+        langSwitcher.classList.remove('is-open');
+        langBtn.setAttribute('aria-expanded', 'false');
+        langBtn.focus();
+      }
+    });
+
+    // Handle language selection
+    for (var l = 0; l < langOptions.length; l++) {
+      langOptions[l].addEventListener('click', function(e) {
+        e.stopPropagation();
+        var lang = this.getAttribute('data-lang');
+
+        if (lang === 'en') {
+          // Already in English — just close
+          langSwitcher.classList.remove('is-open');
+          langBtn.setAttribute('aria-expanded', 'false');
+          return;
+        }
+
+        if (lang === 'de') {
+          // Navigate to German version
+          langSwitcher.classList.remove('is-open');
+          langBtn.setAttribute('aria-expanded', 'false');
+          window.location.href = '/';
+        }
+      });
+    }
+  }
+
+  // ===== QUICK-START ACCORDION =====
+  var accTriggers = document.querySelectorAll('.qs-acc-trigger');
+  for (var a = 0; a < accTriggers.length; a++) {
+    accTriggers[a].addEventListener('click', function() {
+      var item = this.parentElement;
+      var isOpen = item.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  // ===== CLUSTER TILES (exclusive accordion — only one open at a time) =====
+  var clusterTiles = document.querySelectorAll('.cluster-tile');
+  var clusterPanels = document.querySelectorAll('.cluster-panel');
+  function closeAllClusters() {
+    for (var i = 0; i < clusterTiles.length; i++) {
+      clusterTiles[i].classList.remove('is-active');
+      clusterTiles[i].setAttribute('aria-expanded', 'false');
+    }
+    for (var j = 0; j < clusterPanels.length; j++) {
+      clusterPanels[j].classList.remove('is-active');
+    }
+  }
+  function openCluster(idx) {
+    // idx is 1-based matching data-cluster-tile
+    for (var i = 0; i < clusterTiles.length; i++) {
+      var tile = clusterTiles[i];
+      var tileIdx = tile.getAttribute('data-cluster-tile');
+      if (tileIdx === String(idx)) {
+        tile.classList.add('is-active');
+        tile.setAttribute('aria-expanded', 'true');
+      } else {
+        tile.classList.remove('is-active');
+        tile.setAttribute('aria-expanded', 'false');
+      }
+    }
+    for (var j = 0; j < clusterPanels.length; j++) {
+      var panel = clusterPanels[j];
+      if (panel.id === 'cluster-panel-' + idx) {
+        panel.classList.add('is-active');
+      } else {
+        panel.classList.remove('is-active');
+      }
+    }
+  }
+  for (var t = 0; t < clusterTiles.length; t++) {
+    clusterTiles[t].addEventListener('click', function() {
+      var idx = this.getAttribute('data-cluster-tile');
+      var wasActive = this.classList.contains('is-active');
+      if (wasActive) {
+        // Clicking an active tile closes it
+        closeAllClusters();
+      } else {
+        openCluster(idx);
+        // Smoothly scroll the opened panel into view on mobile/smaller screens
+        var panel = document.getElementById('cluster-panel-' + idx);
+        if (panel && window.innerWidth < 900) {
+          setTimeout(function() {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 250);
+        }
+      }
+    });
+  }
+
+  // ===== COMPARISON TABLE TOGGLE =====
+  var cmpToggle = document.querySelector('.comparison-toggle');
+  var cmpCollapsible = document.getElementById('comparison-collapsible');
+  if (cmpToggle && cmpCollapsible) {
+    cmpToggle.addEventListener('click', function() {
+      var isOpen = cmpCollapsible.classList.toggle('is-open');
+      this.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      // Update label text based on state
+      var labelSpan = this.querySelector('span:nth-child(2)');
+      if (labelSpan) {
+        labelSpan.textContent = isOpen ? 'Hide areas' : 'Show areas';
+      }
+    });
+  }
+
+  // ===== FIT CHECK TOGGLE =====
+  var fitToggle = document.querySelector('.fit-toggle');
+  var fitCollapsible = document.getElementById('fit-collapsible');
+  if (fitToggle && fitCollapsible) {
+    fitToggle.addEventListener('click', function() {
+      var isOpen = fitCollapsible.classList.toggle('is-open');
+      this.classList.toggle('is-open');
+      this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      var labelSpan = this.querySelector('span:nth-child(1)');
+      if (labelSpan) {
+        labelSpan.textContent = isOpen ? 'Hide criteria' : 'Show criteria';
+      }
+    });
+  }
+
+  // ===== MOBILE MENU TOGGLE =====
+  var menuToggle = document.getElementById('menu-toggle');
+  var siteHeader = document.getElementById('site-header');
+  if (menuToggle && siteHeader) {
+    menuToggle.addEventListener('click', function() {
+      var isOpen = siteHeader.classList.toggle('is-menu-open');
+      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
