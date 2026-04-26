@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services — North Finance AI</title>
+<title>Leistungen — North Finance AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -520,6 +520,36 @@
   }
   .service-card:last-child { border-bottom: 1px solid var(--line); }
 
+  .service-lead {
+    text-align: center;
+    margin: 0 auto 18px;
+    max-width: 720px;
+    padding: 0 40px;
+  }
+  .service-lead-label {
+    display: inline-block;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .service-lead-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.3;
+    margin: 0;
+  }
+  .service-lead-question em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
   .service-question {
     font-family: 'Playfair Display', serif;
     font-size: 26px;
@@ -1024,6 +1054,8 @@
     padding-top: 10px;
     border-top: 1px solid rgba(184, 147, 90, 0.3);
     max-width: 260px;
+    white-space: normal;
+    margin-left: auto;
   }
   .quick-start-price-breakeven strong {
     font-style: normal;
@@ -1158,6 +1190,112 @@
     line-height: 1.65;
   }
   .qs-acc-content p { margin: 0 0 4px; }
+
+  /* 6-week cadence strip */
+  .quick-start-cadence {
+    margin-bottom: 40px;
+  }
+  .quick-start-cadence-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .cadence-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: white;
+  }
+  .cadence-step {
+    padding: 22px 16px;
+    border-right: 1px solid var(--line);
+    text-align: left;
+    position: relative;
+  }
+  .cadence-step:last-child { border-right: none; }
+  .cadence-step-week {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .cadence-step-title {
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cadence-step-detail {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* Prerequisites box */
+  .quick-start-prerequisites {
+    background: white;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .quick-start-prerequisites-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .quick-start-prerequisites h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--navy);
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+  .quick-start-prerequisites ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .quick-start-prerequisites li {
+    padding: 6px 0 6px 22px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    position: relative;
+  }
+  .quick-start-prerequisites li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 8px;
+    height: 4px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+  .quick-start-prerequisites-note {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    line-height: 1.55;
+  }
 
   /* Deliverables strip (below accordion, same row logic as before) */
   .quick-start-deliverables-block {
@@ -1630,6 +1768,661 @@
     margin: 0 !important;
   }
 
+  /* =================== FOUNDER / WHO WE ARE =================== */
+  .founder {
+    padding: 100px 0;
+    background: var(--cream);
+  }
+  .founder .container {
+    max-width: 1260px;
+  }
+  .founder-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .founder-intro .section-eyebrow {
+    margin-bottom: 14px;
+  }
+  .founder-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .founder-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .founder-card {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 56px;
+    background: white;
+    padding: 56px;
+    box-shadow: 0 20px 50px rgba(10, 31, 61, 0.08);
+    border-top: 3px solid var(--gold);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .founder-photo {
+    position: relative;
+  }
+  .founder-photo-frame {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .founder-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .founder-photo-placeholder {
+    color: var(--ink-soft);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+    opacity: 0.6;
+  }
+  .founder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--navy);
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+  .founder-title {
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .founder-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 3px;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .founder-linkedin:hover {
+    color: var(--gold);
+  }
+  .founder-linkedin-icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .founder-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .founder-bio {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin: 0 0 32px;
+  }
+  .founder-bio strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .founder-stations-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .founder-stations {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .founder-station {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .founder-station:last-child {
+    border-bottom: none;
+  }
+  .founder-station-years {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 500;
+    padding-top: 2px;
+  }
+  .founder-station-role {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .founder-station-role strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .founder-station-role .station-company {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .founder-station-role .station-impact {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .founder-languages {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+  .founder-languages strong {
+    color: var(--navy);
+    font-weight: 600;
+    margin-right: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+
+  /* =================== REFERENCE CASE =================== */
+  .reference-case {
+    padding: 100px 0;
+    background: var(--navy);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .reference-case::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+  }
+  .reference-case .container {
+    max-width: 1100px;
+  }
+  .reference-case .section-eyebrow {
+    color: var(--gold-light);
+  }
+  .reference-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .reference-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: white;
+    line-height: 1.25;
+    margin: 0;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .reference-intro h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+    font-weight: 400;
+  }
+
+  .reference-card {
+    background: var(--navy-mid);
+    padding: 48px 56px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .reference-client {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 10px;
+  }
+  .reference-client strong {
+    color: white;
+    font-weight: 600;
+  }
+  .reference-period {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+
+  .reference-challenge {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .reference-challenge strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  .reference-components {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .reference-component {
+    position: relative;
+  }
+  .reference-component-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(184, 147, 90, 0.3);
+  }
+  .reference-component h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: white;
+    margin: 0 0 18px;
+    line-height: 1.3;
+  }
+  .reference-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .reference-result {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .reference-result-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gold-light);
+    line-height: 1.2;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .reference-result-label {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .reference-footer {
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* =================== DANACH-MODELL (CONTINUATION TIERS) =================== */
+  .continuation {
+    padding: 80px 0 100px;
+    background: var(--cream);
+  }
+  .continuation .container {
+    max-width: 1100px;
+  }
+  .continuation-intro {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .continuation-intro .section-eyebrow {
+    margin-bottom: 14px;
+  }
+  .continuation-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.25;
+    margin: 0 0 14px;
+  }
+  .continuation-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .continuation-intro p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .continuation-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .continuation-tier {
+    background: white;
+    padding: 36px 32px;
+    border-top: 3px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+  }
+  .continuation-tier.is-anchor {
+    background: var(--navy);
+    color: white;
+    border-top-color: var(--gold);
+  }
+  .continuation-tier-step {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .continuation-tier.is-anchor .continuation-tier-step {
+    color: var(--gold-light);
+  }
+  .continuation-tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .continuation-tier.is-anchor .continuation-tier-name {
+    color: white;
+  }
+  .continuation-tier-meta {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .continuation-tier.is-anchor .continuation-tier-meta {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .continuation-tier-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .continuation-tier.is-anchor .continuation-tier-price {
+    color: white;
+  }
+  .continuation-tier-unit {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .continuation-tier.is-anchor .continuation-tier-unit {
+    color: var(--gold-light);
+  }
+  .continuation-tier-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    flex-grow: 1;
+  }
+  .continuation-tier-features li {
+    padding: 8px 0 8px 22px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .continuation-tier.is-anchor .continuation-tier-features li {
+    color: rgba(255, 255, 255, 0.88);
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+  .continuation-tier-features li:last-child {
+    border-bottom: none;
+  }
+  .continuation-tier-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 10px;
+    height: 5px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    transform: rotate(-45deg);
+  }
+
+  .continuation-note {
+    text-align: center;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+    font-style: italic;
+    padding: 20px 24px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    line-height: 1.65;
+  }
+  .continuation-note strong {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* =================== FAQ =================== */
+  .faq {
+    padding: 100px 0;
+    background: white;
+  }
+  .faq .container {
+    max-width: 920px;
+  }
+  .faq-intro {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .faq-intro .section-eyebrow {
+    margin-bottom: 14px;
+  }
+  .faq-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.25;
+    margin: 0 0 14px;
+  }
+  .faq-intro h2 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .faq-intro p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .faq-list {
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 22px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--navy);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .faq-trigger:hover {
+    color: var(--gold);
+  }
+  .faq-trigger:focus {
+    outline: none;
+  }
+  .faq-trigger:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+  }
+  .faq-question-text {
+    padding-right: 8px;
+  }
+  .faq-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--gold);
+    transition: transform 0.3s;
+  }
+  .faq-icon::before {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+  .faq-icon::after {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+  }
+  .faq-trigger[aria-expanded="true"] .faq-icon::after {
+    transform: translateX(-50%) scaleY(0);
+  }
+  .faq-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .faq-trigger[aria-expanded="true"] + .faq-panel {
+    max-height: 3000px;
+  }
+  .faq-answer {
+    padding: 0 0 28px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 720px;
+  }
+  .faq-answer strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .faq-answer p {
+    margin: 0;
+  }
+  .faq-answer .faq-section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--gold);
+    margin: 32px 0 4px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    line-height: 1.3;
+  }
+  .faq-answer .faq-section-heading:first-of-type {
+    /* keep border-top even on first heading for visual rhythm */
+  }
+
+  .faq-footer-note {
+    margin-top: 48px;
+    padding: 24px 28px;
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink);
+    text-align: center;
+  }
+  .faq-footer-note strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
   /* =================== PRICING CTA =================== */
   .pricing-cta {
     background: var(--navy);
@@ -1841,6 +2634,9 @@
     .philosophy-label { position: static; }
     .service-card { padding: 48px 0; }
     .service-body { grid-template-columns: 1fr; gap: 32px; }
+    .service-lead { padding: 0 28px; margin-bottom: 14px; }
+    .service-lead-label { font-size: 10px; margin-bottom: 8px; }
+    .service-lead-question { font-size: 18px; }
     .service-question { font-size: 22px; padding: 0 28px; margin-bottom: 32px; }
     .service-question::before, .service-question::after { font-size: 28px; }
     .section-title { font-size: 30px; }
@@ -1895,6 +2691,52 @@
     .tech-grid { grid-template-columns: 1fr; gap: 20px; }
     .tech-item { padding: 24px; }
 
+    /* Mobile: founder / who we are */
+    .founder { padding: 56px 0; }
+    .founder-intro { margin-bottom: 32px; }
+    .founder-intro h2 { font-size: 26px; }
+    .founder-card {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 32px 24px;
+    }
+    .founder-photo {
+      max-width: 240px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .founder-station {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .founder-station-years { font-size: 13px; }
+    .founder-station-role { font-size: 14px; }
+
+    /* Mobile: reference case */
+    .reference-case { padding: 56px 0; }
+    .reference-intro { margin-bottom: 32px; }
+    .reference-intro h2 { font-size: 24px; }
+    .reference-card { padding: 28px 24px; }
+    .reference-components { grid-template-columns: 1fr; gap: 28px; }
+    .reference-component h4 { font-size: 17px; }
+
+    /* Mobile: continuation tiers */
+    .continuation { padding: 56px 0; }
+    .continuation-intro { margin-bottom: 32px; }
+    .continuation-intro h2 { font-size: 22px; }
+    .continuation-tiers { grid-template-columns: 1fr; gap: 16px; margin-bottom: 24px; }
+    .continuation-tier { padding: 28px 24px; }
+    .continuation-tier-name { font-size: 20px; }
+    .continuation-tier-price { font-size: 30px; }
+
+    /* Mobile: FAQ */
+    .faq { padding: 56px 0; }
+    .faq-intro { margin-bottom: 32px; }
+    .faq-intro h2 { font-size: 24px; }
+    .faq-trigger { font-size: 15px; padding: 18px 0; gap: 16px; }
+    .faq-answer { padding-bottom: 22px; font-size: 14.5px; }
+    .faq-footer-note { margin-top: 32px; padding: 18px 22px; font-size: 14px; }
+
     /* Mobile: guarantee */
     .guarantee-box { padding: 20px 22px; margin-top: 20px; }
 
@@ -1906,6 +2748,27 @@
     .quick-start-badge::before,
     .quick-start-badge::after { display: none; }
     .quick-start-card { padding: 32px 22px; }
+
+    /* Mobile: cadence (stack vertically on phones) */
+    .cadence-grid {
+      grid-template-columns: 1fr;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .cadence-step {
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding: 16px 18px;
+    }
+    .cadence-step:last-child { border-bottom: none; }
+    .cadence-step-week { font-size: 12px; margin-bottom: 4px; }
+    .cadence-step-title { font-size: 14px; }
+    .cadence-step-detail { font-size: 13px; }
+
+    /* Mobile: prerequisites */
+    .quick-start-prerequisites { padding: 18px 20px; }
+    .quick-start-prerequisites h4 { font-size: 16px; }
+
     .quick-start-header {
       grid-template-columns: 1fr;
       gap: 16px;
@@ -2172,6 +3035,197 @@
     .modal { padding: 40px 28px 32px; }
     .modal h3 { font-size: 22px; }
   }
+
+  /* =================== LEAD CAPTURE POPUP =================== */
+  .lead-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 31, 61, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .lead-popup-backdrop.is-open {
+    display: flex;
+    opacity: 1;
+  }
+  .lead-popup {
+    background: var(--cream);
+    max-width: 580px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 56px 56px 44px;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 50px 100px rgba(10, 31, 61, 0.45);
+    transform: translateY(24px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .lead-popup-backdrop.is-open .lead-popup {
+    transform: translateY(0) scale(1);
+  }
+  .lead-popup-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    font-family: inherit;
+  }
+  .lead-popup-close:hover { color: var(--navy); }
+
+  .lead-popup-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .lead-popup h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.18;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .lead-popup h3 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .lead-popup-lead {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 26px;
+  }
+  .lead-popup-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+  .lead-popup-bullets li {
+    font-size: 14px;
+    color: var(--ink);
+    padding: 4px 0 4px 22px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .lead-popup-bullets li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Form fields use existing .form-field styles, plus select-specific tweak */
+  .lead-popup .form-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 400;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='none' stroke='%23555' stroke-width='1.5' d='M1 1l5 5 5-5'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 38px;
+  }
+  .lead-popup .form-field select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 147, 90, 0.15);
+  }
+  .lead-popup .form-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .lead-popup-trust {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .lead-popup-trust strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .lead-popup-success {
+    display: none;
+    text-align: left;
+  }
+  .lead-popup-success.is-visible { display: block; }
+  .lead-popup-success h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .lead-popup-success p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .lead-popup-download {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 0.2s;
+    margin-top: 6px;
+  }
+  .lead-popup-download:hover { background: var(--navy-light); }
+
+  @media (max-width: 560px) {
+    .lead-popup { padding: 44px 24px 32px; }
+    .lead-popup h3 { font-size: 24px; }
+    .lead-popup .form-field-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
 </style>
 </head>
 <body>
@@ -2182,30 +3236,30 @@
     <a href="#" class="logo">North Finance <span>AI</span></a>
 
     <nav class="header-nav">
-      <a href="#leistungen">Services</a>
-      <a href="#kontakt">Contact</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#kontakt">Kontakt</a>
     </nav>
 
     <div class="header-actions">
       <div class="lang-switcher" id="lang-switcher">
-        <button type="button" class="lang-btn" id="lang-btn" aria-label="Select language" aria-expanded="false" aria-haspopup="true">
-          <span id="lang-current">EN</span>
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="Sprache wählen" aria-expanded="false" aria-haspopup="true">
+          <span id="lang-current">DE</span>
           <span class="chevron" aria-hidden="true">▾</span>
         </button>
         <div class="lang-dropdown" role="menu">
-          <button type="button" class="lang-option" role="menuitem" data-lang="de">
+          <button type="button" class="lang-option is-active" role="menuitem" data-lang="de">
             Deutsch <span class="check" aria-hidden="true">✓</span>
           </button>
-          <button type="button" class="lang-option is-active" role="menuitem" data-lang="en">
+          <button type="button" class="lang-option" role="menuitem" data-lang="en">
             English <span class="check" aria-hidden="true">✓</span>
           </button>
         </div>
       </div>
 
-      <a href="#" class="header-cta" data-open-contact>Request a conversation</a>
+      <a href="#" class="header-cta" data-open-contact>Gespräch anfragen</a>
     </div>
 
-    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
       <svg width="26" height="18" viewBox="0 0 26 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
         <line x1="0" y1="2" x2="26" y2="2"/>
         <line x1="0" y1="9" x2="26" y2="9"/>
@@ -2218,20 +3272,20 @@
 <!-- =================== HERO =================== -->
 <section class="hero">
   <div class="container">
-    <h1>Do you know how much of your capital is currently <em>sitting idle?</em></h1>
-    <p class="hero-sub">Most German mid-market CEOs know their revenue to the euro. Few know how much liquidity is locked in overdue receivables, missed early-payment discounts, and manual processes. We make that number visible — and recover it. With AI-supported analysis, Python-based automation, and native DATEV integration.</p>
+    <h1>Wissen Sie, wie viel Geld gerade in Ihrem Unternehmen <em>still&shy;steht?</em></h1>
+    <p class="hero-sub">Die meisten Geschäftsführer im deutschen Mittelstand kennen ihren Umsatz auf den Euro. Aber nicht, wie viel Liquidität in überfälligen Forderungen, fehlenden Skonti und manuellen Prozessen steckt. Wir machen diese Zahl sichtbar — und holen sie zurück. Mit KI-gestützten Analysen, Python-basierter Automatisierung und nativer DATEV-Anbindung.</p>
     <div class="hero-proof">
       <div class="hero-proof-item">
-        <div class="hero-proof-num">Fixed fees</div>
-        <div class="hero-proof-label">No hourly or day rates</div>
+        <div class="hero-proof-num">Festpreise</div>
+        <div class="hero-proof-label">Kein Stunden- oder Tagessatz</div>
       </div>
       <div class="hero-proof-item">
         <div class="hero-proof-num">DATEV</div>
-        <div class="hero-proof-label">SKR03 / SKR04 · GoBD-compliant (Germany's digital bookkeeping standard)</div>
+        <div class="hero-proof-label">SKR03 / SKR04 · konform mit Grundsätzen ordnungsmäßiger elektronischer Buchführung</div>
       </div>
       <div class="hero-proof-item">
-        <div class="hero-proof-num">2–6 weeks</div>
-        <div class="hero-proof-label">To measurable results</div>
+        <div class="hero-proof-num">2–6 Wochen</div>
+        <div class="hero-proof-label">Bis zum messbaren Ergebnis</div>
       </div>
     </div>
   </div>
@@ -2240,38 +3294,38 @@
 <!-- =================== SERVICES =================== -->
 <section class="services-section" id="leistungen">
   <div class="container">
-    <div class="section-eyebrow">Services</div>
-    <h2 class="section-title">Ten levers for your finance operations.</h2>
-    <p class="section-subtitle">Grouped into three areas. Click the area that matches your biggest pain point — below you'll find the specific services with questions, descriptions, and typical outcomes.</p>
+    <div class="section-eyebrow">Leistungen</div>
+    <h2 class="section-title">Zehn Hebel für Ihre Finanzprozesse.</h2>
+    <p class="section-subtitle">In drei Bereichen gebündelt. Klicken Sie den Bereich an, der bei Ihnen den größten Schmerz trifft — darunter finden Sie die konkreten Leistungen mit Fragen, Beschreibungen und typischen Ergebnissen.</p>
 
     <div class="cluster-tiles" role="tablist">
       <button type="button" class="cluster-tile" data-cluster-tile="1" aria-expanded="false" aria-controls="cluster-panel-1">
         <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="7" ry="2.5"/><path d="M5 5v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"/><path d="M5 9v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V9"/><path d="M5 13v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-4"/></svg></span>
-        <div class="cluster-tile-title">Unlock liquidity</div>
-        <div class="cluster-tile-tease">Wake the cash that's sleeping. Release capital that's tied up.</div>
+        <div class="cluster-tile-title">Liquidität freisetzen</div>
+        <div class="cluster-tile-tease">Geld das schläft, wecken. Kapital das gebunden ist, freisetzen.</div>
         <div class="cluster-tile-count">
           <span class="cluster-tile-count-num">4</span>
-          Services
+          Leistungen
           <span class="cluster-tile-arrow" aria-hidden="true">›</span>
         </div>
       </button>
       <button type="button" class="cluster-tile" data-cluster-tile="2" aria-expanded="false" aria-controls="cluster-panel-2">
         <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 21V3"/><path d="M3 21h18"/><path d="M6 17l4-5 3.5 3 5-7"/><path d="M15 8h3.5V11.5"/></svg></span>
-        <div class="cluster-tile-title">Steering & Decisions</div>
-        <div class="cluster-tile-tease">Make better decisions with clearer numbers — respond faster to margin erosion and unprofitable customers.</div>
+        <div class="cluster-tile-title">Steuerung & Entscheidungen</div>
+        <div class="cluster-tile-tease">Besser entscheiden mit klareren Zahlen — schneller reagieren auf Margenerosion und unprofitable Kunden.</div>
         <div class="cluster-tile-count">
           <span class="cluster-tile-count-num">2</span>
-          Services
+          Leistungen
           <span class="cluster-tile-arrow" aria-hidden="true">›</span>
         </div>
       </button>
       <button type="button" class="cluster-tile" data-cluster-tile="3" aria-expanded="false" aria-controls="cluster-panel-3">
         <span class="cluster-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="6" height="5" rx="0.5"/><rect x="15" y="4" width="6" height="5" rx="0.5"/><rect x="3" y="15" width="6" height="5" rx="0.5"/><rect x="15" y="15" width="6" height="5" rx="0.5"/><path d="M9 6.5h6"/><path d="M9 17.5h6"/><path d="M6 9v6"/><path d="M18 9v6"/></svg></span>
-        <div class="cluster-tile-title">Efficiency & Automation</div>
-        <div class="cluster-tile-tease">Reduce manual work, avoid errors, stay audit-ready.</div>
+        <div class="cluster-tile-title">Effizienz & Automatisierung</div>
+        <div class="cluster-tile-tease">Manuelle Arbeit reduzieren, Fehler vermeiden, prüfungssicher bleiben.</div>
         <div class="cluster-tile-count">
-          <span class="cluster-tile-count-num">4</span>
-          Services
+          <span class="cluster-tile-count-num">7</span>
+          Leistungen
           <span class="cluster-tile-arrow" aria-hidden="true">›</span>
         </div>
       </button>
@@ -2281,76 +3335,92 @@
     <div class="cluster-panel" id="cluster-panel-1" role="region" aria-labelledby="cluster-tile-1">
       <div class="cluster-panel-inner">
         <div class="service-card">
-        <p class="service-question">How much capital is currently tied up in receivables over 60 days past due — to the euro?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Forderungs&shy;management sagt</span>
+          <h4 class="service-lead-question">Wer schuldet Ihnen heute Geld?</h4>
+        </div>
+        <p class="service-question">Wie viel Geld steht bei Ihnen gerade auf offenen Posten über 60 Tage — auf den Euro genau?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Receivables Optimization Sprint</h3>
-        <div class="service-meta">DATEV · GoBD-compliant · 4–6 weeks</div>
-        <p class="service-desc">Automated dunning workflow in your DATEV environment with escalation stages and multilingual templates. Every day of DSO (Days Sales Outstanding) ties up capital that should be flowing into new orders — this is how you bring it back.<span class="example"><strong>Typical example:</strong> €450K in open items &gt;60 days, €120K recovered after six weeks.</span></p>
+        <h3 class="service-name">Forderungsmanagement-Intensivprojekt</h3>
+        <div class="service-meta">DATEV · konform mit Grundsätzen ordnungsmäßiger elektronischer Buchführung · 4–6 Wochen</div>
+        <p class="service-desc">Automatisierter Mahnprozess in Ihrer DATEV-Umgebung mit eskalierenden Stufen und mehrsprachigen Vorlagen. Jeder Tag Debitorenlaufzeit bindet Kapital, das in neue Aufträge fließen sollte — hier holen Sie es zurück.<span class="example"><strong>Typisches Beispiel:</strong> €450K auf offenen Posten &gt;60 Tage, nach sechs Wochen €120K zurückgeholt.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Recovers <strong>15–30 % of overdue items</strong> in the first 4–6 weeks. Some receivables are overdue because the customer is in distress, the invoice is disputed, or the relationship is too valuable to pressure — those stay untouched. The greater value is structural: an ongoing process that prevents the backlog from building up again.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Holt <strong>15–30 % der überfälligen Posten</strong> in den ersten 4–6 Wochen zurück. Manche Forderungen sind überfällig, weil der Kunde in Schwierigkeiten ist, die Rechnung strittig oder die Beziehung zu wichtig — die bleiben außen vor. Der größere Wert ist strukturell: ein laufender Prozess, der verhindert, dass sich der Berg wieder aufbaut.</p>
         <div class="service-number">
         <span class="service-number-value">€60K–€120K</span>
-        <span class="service-number-context">one-time cash recovery in 4–6 weeks at a €10M company with an elevated overdue balance (€300K–€500K at 60+ days)</span>
+        <span class="service-number-context">Einmal-Rückfluss in 4–6 Wochen bei einem €10M-Unternehmen mit erhöhtem Überfälligkeits-Bestand (€300K–€500K auf 60+ Tagen)</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">Do you know on which day in the next 90 days your cash balance will hit its lowest point?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">13-Wochen-Liquidität sagt</span>
+          <h4 class="service-lead-question">Wann wird es eng?</h4>
+        </div>
+        <p class="service-question">Wissen Sie, an welchem Tag in den nächsten 90 Tagen Ihr Kontostand am niedrigsten sein wird?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">13-Week Rolling Cash Forecast</h3>
-        <div class="service-meta">DATEV actuals · scenarios · weekly refresh</div>
-        <p class="service-desc">Rolling forecast built from DATEV actuals, open items, and recurring commitments — three scenarios, refreshed weekly. You see the squeezes weeks before the bank account reveals them.<span class="example"><strong>Typical example:</strong> December cash gap identified four weeks ahead, unplanned credit line avoided.</span></p>
+        <h3 class="service-name">13-Wochen Liquiditätsplanung</h3>
+        <div class="service-meta">DATEV-Ist · Szenarien · wöchentliche Aktualisierung</div>
+        <p class="service-desc">Rollierende Vorschau aus DATEV-Ist, offenen Posten und wiederkehrenden Verpflichtungen — drei Szenarien, wöchentlich aktualisiert. Sie sehen Engpässe Wochen bevor der Kontostand sie zeigt.<span class="example"><strong>Typisches Beispiel:</strong> Dezember-Gap vier Wochen vorher erkannt, ungeplante Kreditlinie vermieden.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact"><strong>3–6 weeks of advance warning</strong> on liquidity squeezes, instead of discovering them through the bank balance. Replaces gut feel with real numbers for payroll and supplier payments. The actual value: one bad decision avoided per year — an unnecessary credit line, a missed discount, a late supplier payment.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact"><strong>3–6 Wochen Vorwarnung</strong> bei Liquiditätsengpässen, statt es erst am Kontostand zu merken. Ersetzt Bauchgefühl durch echte Zahlen für Gehalts- und Lieferantenzahlungen. Der eigentliche Wert: eine schlechte Entscheidung pro Jahr vermeiden — eine unnötige Kreditlinie, ein verpasstes Skonto, ein verspäteter Lieferant.</p>
         <div class="service-number">
         <span class="service-number-value">€10K–€30K</span>
-        <span class="service-number-context">in avoided costs per year, consistent</span>
+        <span class="service-number-context">in vermiedenen Kosten pro Jahr, konsistent</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">Can you say to the euro how much liquidity is currently locked in your working capital — across receivables, inventory, and supplier terms?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Betriebs&shy;kapital sagt</span>
+          <h4 class="service-lead-question">Warum ist Ihr Geld gebunden?</h4>
+        </div>
+        <p class="service-question">Können Sie auf den Euro sagen, wie viel Liquidität in Ihrem Betriebskapital gerade gebunden ist — über Forderungen, Bestände und Lieferanten-Konditionen?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Working Capital Dashboard</h3>
-        <div class="service-meta">DSO · DPO · Cash Conversion Cycle · threshold alerts</div>
-        <p class="service-desc">Real-time view of DSO, DPO, inventory turnover, and Cash Conversion Cycle with threshold-based alerts. One view instead of five reports — so you can pull levers instead of searching for them.<span class="example"><strong>Typical example:</strong> DSO reduced from 52 to 41 days, €180K additional liquidity in the first year at €10M revenue.</span></p>
+        <h3 class="service-name">Betriebskapital-Übersicht</h3>
+        <div class="service-meta">Debitorenlaufzeit · Kreditorenlaufzeit · Kapitalbindungsdauer · Warnmeldungen</div>
+        <p class="service-desc">Echtzeit-Übersicht für Debitorenlaufzeit, Kreditorenlaufzeit, Lagerumschlag und Kapitalbindungsdauer mit Schwellenwert-Warnmeldungen. Eine Ansicht statt fünf Berichte — damit Sie Hebel bewegen, statt sie zu suchen.<span class="example"><strong>Typisches Beispiel:</strong> Debitorenlaufzeit von 52 auf 41 Tage reduziert, €180K zusätzliche Liquidität im ersten Jahr bei €10 Mio. Umsatz.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Gives you <strong>one view instead of five reports</strong>. Creates the visibility that enables working capital improvement — but the improvement itself requires operational change: renegotiated payment terms, tighter inventory, faster invoicing. Typical impact: <strong>0.5–1.5% of revenue</strong> as structurally released liquidity in the first year. A dashboard alone changes nothing.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Gibt Ihnen <strong>eine Ansicht statt fünf Berichte</strong>. Schafft Sichtbarkeit, die Betriebskapital-Verbesserung ermöglicht — aber die Verbesserung selbst braucht operative Veränderungen: neu verhandelte Zahlungsziele, strafferes Lager, schnellere Fakturierung. Typische Wirkung: <strong>0,5–1,5 % vom Umsatz</strong> als strukturell freigesetzte Liquidität im ersten Jahr. Eine Übersicht allein verändert gar nichts.</p>
         <div class="service-number">
         <span class="service-number-value">€15K–€225K</span>
-        <span class="service-number-context">structurally released liquidity in year one — 0.5–1.5% of revenue (scales with revenue: €3M–€15M)</span>
+        <span class="service-number-context">strukturell freigesetzte Liquidität im ersten Jahr — 0,5–1,5 % vom Umsatz (skaliert mit Umsatz: €3 Mio.–€15 Mio.)</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">How much early-payment discount did you leave on the table last year because payments went out too late?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Skonto-Optimierung sagt</span>
+          <h4 class="service-lead-question">Lassen Sie Geld auf dem Tisch liegen?</h4>
+        </div>
+        <p class="service-question">Wie viel Skonto haben Sie im letzten Jahr liegen lassen, weil Zahlungen zu spät rausgingen?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Early-Payment Discount &amp; Payment Run Optimization</h3>
-        <div class="service-meta">Supplier analysis · payment schedule · discount capture</div>
-        <p class="service-desc">Automated payment planning: capture discounts where they pay off, preserve liquidity where they don't. Every missed 2% discount is pure margin left behind.<span class="example"><strong>Typical example:</strong> On €4M procurement volume, €11K in additional discount captured per year.</span></p>
+        <h3 class="service-name">Skonto- &amp; Zahlungslauf-Optimierung</h3>
+        <div class="service-meta">Kreditoren-Analyse · Zahlungsplan · Skonto-Nutzung</div>
+        <p class="service-desc">Automatisierte Zahlungsplanung: Skonti mitnehmen wo es sich lohnt, Liquidität schonen wo nicht. Jedes verpasste 2-%-Skonto ist bare Marge, die Sie liegen lassen.<span class="example"><strong>Typisches Beispiel:</strong> Bei €4M Einkaufsvolumen €11K zusätzliches Skonto pro Jahr mitgenommen.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Not all suppliers offer early-payment discounts (40–60%), and the easy ones you already capture. The real gap: the <strong>15–30% of available discounts</strong> left behind due to slow approvals or poor payment timing. Pure margin effect, but not a six-figure one. Most effective when paired with invoice automation.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Nicht alle Lieferanten bieten Skonto (40–60 %), und die leichten nehmen Sie schon mit. Die echte Lücke sind die <strong>15–30 % der verfügbaren Skonti</strong>, die wegen langsamer Freigaben oder schlechtem Zahlungs-Timing liegenbleiben. Reiner Margeneffekt, aber kein sechsstelliger. Am wirkungsvollsten im Paket mit der Rechnungs-Automatisierung.</p>
         <div class="service-number">
         <span class="service-number-value">€6K–€12K</span>
-        <span class="service-number-context">per year, pure margin — at €4M procurement volume</span>
+        <span class="service-number-context">pro Jahr, reine Marge — bei €4M Einkaufsvolumen</span>
         </div>
         </div>
         </div>
@@ -2361,38 +3431,46 @@
     <div class="cluster-panel" id="cluster-panel-2" role="region" aria-labelledby="cluster-tile-2">
       <div class="cluster-panel-inner">
         <div class="service-card">
-        <p class="service-question">Can you tell me in 10 seconds which customer or product moved your profit most this month?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Führungs&shy;berichte sagt</span>
+          <h4 class="service-lead-question">Wissen Sie, womit Sie wirklich verdienen?</h4>
+        </div>
+        <p class="service-question">Können Sie mir in 10 Sekunden sagen, welcher Kunde oder welches Produkt Ihren Gewinn diesen Monat am meisten bewegt hat?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Monthly Management Reports</h3>
-        <div class="service-meta">P&amp;L vs. plan · variance analysis · by business day 5</div>
-        <p class="service-desc">Automated P&amp;L against plan, margin by product, customer, and channel — on business day five, not fifteen. Lets you respond to margin erosion while it's still correctable.<span class="example"><strong>Typical example:</strong> Price erosion on top-3 product identified ten days earlier, €35K margin saved in the quarter.</span></p>
+        <h3 class="service-name">Monatliche Führungsberichte</h3>
+        <div class="service-meta">Gewinn- und Verlustrechnung gegen Plan · Abweichungsanalyse · ab Werktag 5</div>
+        <p class="service-desc">Automatisiertes Gewinn- und Verlustrechnung gegen Plan, Marge nach Produkt, Kunde und Kanal — am fünften Werktag, nicht am fünfzehnten. So reagieren Sie auf Margenerosion, wenn sie noch korrigierbar ist.<span class="example"><strong>Typisches Beispiel:</strong> Preiserosion bei Top-3-Produkt zehn Tage früher erkannt, €35K Marge im Quartal gerettet.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Reliable P&amp;L by <strong>business day 5–7 instead of 10–15</strong>. Explains why numbers moved, not just that they did. Faster response to margin erosion and more informed pricing decisions. Some companies receive the reports and still don't act — in those cases the impact is zero, and that's not our problem.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Belastbare Gewinn- und Verlustrechnung am <strong>Werktag 5–7 statt 10–15</strong>. Erklärt, warum Zahlen sich bewegt haben, nicht nur dass. Schnellere Reaktion auf Margenerosion und fundiertere Preisentscheidungen. Manche Unternehmen bekommen die Berichte und handeln trotzdem nicht — dann ist die Wirkung null, und das ist nicht unser Problem.</p>
         <div class="service-number">
         <span class="service-number-value">€15K–€50K</span>
-        <span class="service-number-context">per year — if you actually act on the numbers</span>
+        <span class="service-number-context">pro Jahr, wenn Sie auf die Zahlen auch handeln</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">Do you know which of your top 20 customers are actually costing you money?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Kundenprofitabilität sagt</span>
+          <h4 class="service-lead-question">Welcher Kunde kostet Sie unter dem Strich?</h4>
+        </div>
+        <p class="service-question">Wissen Sie, welche Ihrer Top-20-Kunden Ihnen tatsächlich Geld kosten?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Customer Profitability Analysis</h3>
-        <div class="service-meta">One-time analysis · prioritized ranking · action recommendations</div>
-        <p class="service-desc">True margin per customer after discounts, payment terms, returns, and service costs — delivered as a prioritized list with concrete pricing adjustment proposals. You find out which of your top 20 make you money and which ones you're subsidizing.<span class="example"><strong>Typical example:</strong> Three customers repriced, €45K EBITDA impact in year one.</span></p>
+        <h3 class="service-name">Kundenprofitabilitäts-Analyse</h3>
+        <div class="service-meta">Einmalige Analyse · Priorisierte Rangliste · Handlungsempfehlungen</div>
+        <p class="service-desc">Echte Marge pro Kunde nach Rabatten, Zahlungszielen, Retouren und Bedienungskosten — als priorisierte Liste mit konkreten Preisanpassungs-Vorschlägen. Sie erfahren, welche Ihrer Top-20 Geld bringen und welche Sie subventionieren.<span class="example"><strong>Typisches Beispiel:</strong> Drei Kunden neu bepreist, €45K Ergebnis vor Zinsen, Steuern und Abschreibungen-Effekt im ersten Jahr.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">That 10–20% of your customers are unprofitable is almost always true. That you act on all of them is almost never. <strong>Most CEOs implement 30–50% of recommendations in the first year</strong> — some customers are repriced, terms renegotiated with others, the rest remains as is. The second-order effect is often the more important one: your sales team thinks differently about new deals.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Dass 10–20 % Ihrer Kunden unprofitabel sind, stimmt fast immer. Dass Sie bei allen handeln, stimmt fast nie. <strong>Die meisten Geschäftsführer setzen 30–50 % der Empfehlungen im ersten Jahr um</strong> — einige Kunden werden neu bepreist, bei anderen werden Konditionen nachverhandelt, der Rest bleibt wie er ist. Der Zweiteffekt ist oft wichtiger: Ihr Vertrieb denkt bei neuen Deals anders.</p>
         <div class="service-number">
         <span class="service-number-value">€30K–€80K</span>
-        <span class="service-number-context">EBITDA improvement in year one at €10M revenue — scales up and down with company size</span>
+        <span class="service-number-context">Gewinnverbesserung (vor Zinsen, Steuern und Abschreibungen) im ersten Jahr bei €10 Mio. Umsatz — skaliert nach oben und unten mit Unternehmensgröße</span>
         </div>
         </div>
         </div>
@@ -2403,76 +3481,161 @@
     <div class="cluster-panel" id="cluster-panel-3" role="region" aria-labelledby="cluster-tile-3">
       <div class="cluster-panel-inner">
         <div class="service-card">
-        <p class="service-question">How many days after month-end do you have reliable numbers — and when did you last catch a duplicate payment?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Bankabgleich sagt</span>
+          <h4 class="service-lead-question">Stimmen Ihre Zahlen wirklich?</h4>
+        </div>
+        <p class="service-question">Wie viele Tage nach Monatsende haben Sie belastbare Zahlen — und wann haben Sie zuletzt eine Doppelzahlung entdeckt?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Automated Bank Reconciliation</h3>
-        <div class="service-meta">DATEV integration · exception handling</div>
-        <p class="service-desc">Automatic matching of bank movements to ledger entries with an exception-handling rule set. Your accounting team stops spending half a day per week on reconciliation — and duplicate payments surface immediately.<span class="example"><strong>Typical example:</strong> 12 hours per month freed up, €6K in historical duplicate payments uncovered during the initial cleanup.</span></p>
+        <h3 class="service-name">Automatisierter Bankabgleich</h3>
+        <div class="service-meta">DATEV-Anbindung · Ausnahmebehandlung</div>
+        <p class="service-desc">Automatischer Abgleich von Bankbewegungen zu Buchungen mit Ausnahmebehandlungs-Regelwerk. Ihre Buchhaltung verbringt keinen halben Arbeitstag mehr pro Woche mit dem Abgleich — und Doppelzahlungen fallen sofort auf.<span class="example"><strong>Typisches Beispiel:</strong> 12 Stunden pro Monat freigesetzt, €6K historische Doppelzahlungen bei der Erstbereinigung entdeckt.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Shortens the bank reconciliation by <strong>1–2 days per month</strong> — note: the reconciliation, not the entire close. Frees up 8–15 hours of accounting work per month. During the initial cleanup, €2K–€10K in historical errors typically surface. After that, the value is error prevention and audit-readiness, not dramatic cost reduction.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Verkürzt den Bankabgleich um <strong>1–2 Tage pro Monat</strong> — wohlgemerkt den Abgleich, nicht den gesamten Abschluss. Setzt 8–15 Stunden Buchhaltungsarbeit pro Monat frei. Bei der Erstbereinigung tauchen typischerweise €2K–€10K an historischen Fehlern auf. Danach ist der Wert Fehlervermeidung und Prüfungssicherheit, nicht dramatische Kostensenkung.</p>
         <div class="service-number">
-        <span class="service-number-value">8–15 hrs</span>
-        <span class="service-number-context">freed up per month in accounting</span>
+        <span class="service-number-value">8–15 Std.</span>
+        <span class="service-number-context">freigesetzt pro Monat in der Buchhaltung</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">What does it cost you to process a single incoming invoice — including verification, approval, and posting?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Eingangsrechnungen sagt</span>
+          <h4 class="service-lead-question">Was kostet Sie eine einzelne Buchung?</h4>
+        </div>
+        <p class="service-question">Was kostet Sie die Bearbeitung einer einzelnen Eingangsrechnung — inklusive Prüfung, Freigabe, Buchung?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Accounts Payable Automation</h3>
-        <div class="service-meta">OCR capture · three-way matching · DATEV handoff</div>
-        <p class="service-desc">OCR-based invoice capture with automatic three-way matching against purchase order and goods receipt. Your accounting team stops pushing paper and starts reviewing exceptions.<span class="example"><strong>Typical example:</strong> 300 invoices/month, processing cost reduced from €18 to €8 per invoice.</span></p>
+        <h3 class="service-name">Eingangsrechnungs-Automatisierung</h3>
+        <div class="service-meta">Optische Belegerkennung · Drei-Wege-Abgleich · DATEV-Übergabe</div>
+        <p class="service-desc">Auf optischer Belegerkennung basierende Rechnungserfassung mit automatischem Drei-Wege-Abgleich gegen Bestellung und Wareneingang. Ihre Buchhaltung hört auf, Papier zu schieben, und fängt an, Ausnahmen zu prüfen.<span class="example"><strong>Typisches Beispiel:</strong> 300 Rechnungen/Monat, Bearbeitungskosten von €18 auf €8 pro Rechnung gesenkt.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Reduces processing cost by <strong>40–60% after a 3-month ramp-up period</strong>. In month one, the exception rate is still 20–30% while the system learns. At 300 invoices per month: roughly <strong>€20K–€35K</strong> in annual savings — slightly less in year one due to the ramp-up, reaching the upper end of the range from year two. The more important effect is often unmeasured — accounting stops being a bottleneck.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Senkt die Bearbeitungskosten um <strong>40–60 % nach einer 3-monatigen Einlaufphase</strong>. Im ersten Monat liegt die Ausnahmequote noch bei 20–30 %, bis das System lernt. Bei 300 Rechnungen pro Monat: rund <strong>€20K–€35K</strong> Ersparnis pro Jahr — im ersten Jahr durch die Einlaufphase etwas weniger, ab Jahr zwei am oberen Rand der Spanne. Der wichtigere Effekt ist oft nicht messbar — die Buchhaltung ist kein Engpass mehr.</p>
         <div class="service-number">
         <span class="service-number-value">€20K–€35K</span>
-        <span class="service-number-context">savings per year at 300 invoices/month, after ramp-up</span>
+        <span class="service-number-context">Ersparnis pro Jahr bei 300 Rechnungen/Monat nach Einlaufphase</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">When was your procedural documentation last updated — and who can produce it tomorrow for a tax audit?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Compliance-Prüfung sagt</span>
+          <h4 class="service-lead-question">Hält Ihre Verfahrens&shy;dokumentation einer Prüfung stand?</h4>
+        </div>
+        <p class="service-question">Wann wurde Ihre Verfahrens&shy;dokumentation zuletzt aktualisiert — und wer kann sie morgen bei einer Betriebs&shy;prüfung vorlegen?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Bookkeeping Compliance Review</h3>
-        <div class="service-meta">Procedural documentation · digital archiving · audit-readiness</div>
-        <p class="service-desc">Analysis of digital document archiving, procedural documentation, and process compliance against current GoBD standards (Germany's digital bookkeeping regulation) — delivered as a prioritized action list. At your next tax audit, you'll have clean records instead of excuses.<span class="example"><strong>Typical example:</strong> Procedural documentation updated, three process gaps closed, €30K in assessment risk neutralized.</span></p>
+        <h3 class="service-name">Buchführungs-Konformitätsprüfung</h3>
+        <div class="service-meta">Verfahrensdokumentation · Belegablage · Prüfungssicherheit</div>
+        <p class="service-desc">Analyse von digitaler Belegablage, Verfahrensdokumentation und Prozesskonformität nach aktuellen Grundsätzen ordnungsmäßiger elektronischer Buchführung — mit priorisierter Maßnahmenliste. Bei der nächsten Betriebsprüfung haben Sie saubere Unterlagen statt Ausreden.<span class="example"><strong>Typisches Beispiel:</strong> Verfahrensdokumentation aktualisiert, drei Prozess-Lücken geschlossen, €30K Zuschätzungsrisiko neutralisiert.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">In an audit, this protects against <strong>€20K–€80K in assessments</strong>. Factoring in the 5–10% audit probability per year at your company size, the expected value is <strong>€2K–€8K per year</strong>. This is insurance, not immediate profit — worth it when an audit has been announced or the last one was a while ago.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Im Prüfungsfall schützt das vor <strong>€20K–€80K an Zuschätzungen</strong>. Rechnet man die Prüfwahrscheinlichkeit von 5–10 % pro Jahr bei Ihrer Unternehmensgröße ein, ergibt sich ein erwarteter Wert von <strong>€2K–€8K pro Jahr</strong>. Das ist Versicherung, nicht Sofortgewinn — sinnvoll, wenn eine Prüfung angekündigt ist oder die letzte schon länger zurückliegt.</p>
         <div class="service-number">
-        <span class="service-number-value">€2K–€8K / year</span>
-        <span class="service-number-context">expected value: audit probability × assessment risk</span>
+        <span class="service-number-value">€2K–€8K / Jahr</span>
+        <span class="service-number-context">erwarteter Wert: Prüfwahrscheinlichkeit × Zuschätzungsrisiko</span>
         </div>
         </div>
         </div>
         </div>
 
         <div class="service-card">
-        <p class="service-question">How much do you pay your Steuerberater (German tax advisor) per year — and how much of that is cleanup work that should happen in-house?</p>
+        <div class="service-lead">
+          <span class="service-lead-label">Steuerberater-Übergabe sagt</span>
+          <h4 class="service-lead-question">Wo geht Ihre Buchhaltungs-Zeit verloren?</h4>
+        </div>
+        <p class="service-question">Wie viel zahlen Sie Ihrem Steuerberater pro Jahr — und wie viel davon ist reine Aufräumarbeit, die in Ihrem Haus passieren sollte?</p>
         <div class="service-body">
         <div class="service-left">
-        <h3 class="service-name">Tax Advisor Integration</h3>
-        <div class="service-meta">DATEV export · pre-validation · monthly package</div>
-        <p class="service-desc">Standardized DATEV handoff with pre-validated transactions and an automated monthly package. Your Steuerberater processes instead of asking questions — and the cleanup work moves back in-house, where it belongs.<span class="example"><strong>Typical example:</strong> Month-end close three days earlier, query loops reduced by 80%.</span></p>
+        <h3 class="service-name">Steuerberater</h3>
+        <div class="service-meta">DATEV-Export · Vorab-Validierung · Monatspaket</div>
+        <p class="service-desc">Standardisierte DATEV-Übergabe mit vorab-validierten Transaktionen und automatisiertem Monatspaket. Ihr Steuerberater verarbeitet, statt nachzufragen — und die Aufräumarbeit wandert zurück in Ihr Haus, wo sie hingehört.<span class="example"><strong>Typisches Beispiel:</strong> Monatsabschluss drei Tage früher, Rückfragen-Schleifen um 80 % reduziert.</span></p>
         </div>
         <div class="service-right">
-        <div class="service-impact-label">Outcome</div>
-        <p class="service-impact">Eliminates the constant query loops with your Steuerberater and accelerates month-end close by <strong>2–4 days</strong>. The main gain is operational: less month-end stress, fewer errors, cleaner handoffs. A fee reduction is possible, but only if your Steuerberater bills on time and materials — many use a statutory fee schedule (Gebührenordnung), in which case the time savings is the real value.</p>
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Beseitigt die ständigen Rückfragen-Schleifen mit dem Steuerberater und beschleunigt den Monatsabschluss um <strong>2–4 Tage</strong>. Der Hauptgewinn ist operativ: weniger Stress am Monatsende, weniger Fehler, klarere Übergaben. Eine Honorarreduzierung ist möglich, aber nur wenn Ihr Steuerberater auf Aufwandsbasis rechnet — viele rechnen nach Gebührenordnung, dann bleibt der Zeitgewinn der eigentliche Wert.</p>
         <div class="service-number">
-        <span class="service-number-value">2–4 days</span>
-        <span class="service-number-context">faster month-end close, roughly 80% fewer query loops</span>
+        <span class="service-number-value">2–4 Tage</span>
+        <span class="service-number-context">schnellerer Monatsabschluss, rund 80 % weniger Rückfragen-Schleifen</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <div class="service-lead">
+          <span class="service-lead-label">Laufende Buchhaltung sagt</span>
+          <h4 class="service-lead-question">Sind Ihre Zahlen aktuell genug zum Entscheiden?</h4>
+        </div>
+        <p class="service-question">Wer bucht Ihre laufenden Geschäftsvorfälle — und wie schnell sind Ihre Zahlen aktuell verfügbar?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Laufende Buchhaltung</h3>
+        <div class="service-meta">Geschäftsvorfälle · DATEV-konform · monatlich</div>
+        <p class="service-desc">Wir übernehmen Ihre laufende Finanzbuchhaltung — Eingangs- und Ausgangsrechnungen, Bankbuchungen, Reisekosten, Kassenbuch — gemäß §6 Nr. 3 StBerG. Bücher und Belege werden DATEV-konform geführt, sodass Ihr Steuerberater nur noch den Jahresabschluss erstellt, nicht die Aufräumarbeit.<span class="example"><strong>Typisches Beispiel:</strong> Bei 200–400 Geschäftsvorfällen pro Monat haben Sie Ihre Zahlen am 5. statt am 20. des Folgemonats.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Monatszahlen <strong>10–15 Tage früher</strong> verfügbar. Steuerberater-Rückfragen reduziert um typischerweise 70 %. Ihr Steuerberater konzentriert sich auf den Jahresabschluss und steuerliche Beratung — nicht auf Aufräumarbeit, die Sie auch im Haus erledigen lassen können.</p>
+        <div class="service-number">
+        <span class="service-number-value">10–15 Tage</span>
+        <span class="service-number-context">früher verfügbare Monatszahlen</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <div class="service-lead">
+          <span class="service-lead-label">USt-Voranmeldung sagt</span>
+          <h4 class="service-lead-question">Was zahlt Ihr Steuerberater für Aufräumarbeit?</h4>
+        </div>
+        <p class="service-question">Wie viel Zeit verbringt Ihr Steuerberater pro Monat damit, Ihre Umsatzsteuer-Daten aufzubereiten — und was zahlen Sie dafür?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Umsatzsteuer-Voranmeldung — Vorbereitung</h3>
+        <div class="service-meta">Vorbereitete Daten · Plausibilitäts-Check · Steuerberater-Übergabe</div>
+        <p class="service-desc">Wir bereiten Ihre Umsatzsteuer-Voranmeldung vollständig vor — Konten geprüft, Plausibilitäts-Check durchgeführt, Auffälligkeiten kommentiert. Ihr Steuerberater übermittelt nur noch, statt zu rekonstruieren. Das senkt sein Honorar für die USt-Voranmeldung typischerweise deutlich.<span class="example"><strong>Typisches Beispiel:</strong> Vor der Übergabe liegen Umsatz-Plausibilität, Vorsteuer-Quote und Reverse-Charge geprüft vor. Sein Aufwand: 15 Min. statt 2 Stunden.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Steuerberater-Honorar für die Umsatzsteuer-Voranmeldung typischerweise <strong>um 60–80 % reduziert</strong>. Plausibilität dokumentiert, keine Rückfragen-Schleifen. Wir erstellen die formale Anmeldung nicht selbst — die Übermittlung an das Finanzamt bleibt bei Ihrem Steuerberater, der dafür rechtlich zugelassen ist.</p>
+        <div class="service-number">
+        <span class="service-number-value">60–80 %</span>
+        <span class="service-number-context">Reduktion des Steuerberater-Honorars für USt-Voranmeldung</span>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="service-card">
+        <div class="service-lead">
+          <span class="service-lead-label">Jahresabschluss sagt</span>
+          <h4 class="service-lead-question">Wie viel kostet Sie der Jahresabschluss zu viel?</h4>
+        </div>
+        <p class="service-question">Wie viel kostet Sie der Jahresabschluss bei Ihrem Steuerberater — und wie viel davon ist reine Aufräumarbeit, weil die Daten nicht abschlussfertig waren?</p>
+        <div class="service-body">
+        <div class="service-left">
+        <h3 class="service-name">Jahresabschluss — Vorbereitung</h3>
+        <div class="service-meta">Abstimmung · Klärungsliste · Steuerberater-Übergabe</div>
+        <p class="service-desc">Wir bereiten Ihre Daten für den Jahresabschluss durch Ihren Steuerberater vor: Konten abgestimmt, Saldenliste geprüft, offene Posten dokumentiert, Klärungsliste mit kommentierten Sonderfällen erstellt. Ihr Steuerberater erstellt den Jahresabschluss — er wendet aber 50–70 % weniger Zeit für Aufräumarbeit auf.<span class="example"><strong>Typisches Beispiel:</strong> Bei einem Steuerberater-Honorar von €8.000 für den Jahresabschluss spart die Vorarbeit ca. €3.000–€5.000 Folgehonorar.</span></p>
+        </div>
+        <div class="service-right">
+        <div class="service-impact-label">Resultat</div>
+        <p class="service-impact">Steuerberater-Honorar für den Jahresabschluss typischerweise <strong>€3.000–€5.000 reduziert</strong>. Jahresabschluss 4–6 Wochen schneller fertig, weniger Rückfragen, klarere Datenlage. Die formale Erstellung bleibt bei Ihrem Steuerberater — wir reduzieren nur den Aufwand, nicht die Verantwortung.</p>
+        <div class="service-number">
+        <span class="service-number-value">€3.000–€5.000</span>
+        <span class="service-number-context">typische Honorar-Ersparnis beim Jahresabschluss</span>
         </div>
         </div>
         </div>
@@ -2487,100 +3650,100 @@
 <section class="comparison-section">
   <div class="container">
     <div class="comparison-intro">
-      <div class="section-eyebrow">The Comparison</div>
-      <h2>What your Steuerberater does — <em>and what's possible beyond that.</em></h2>
-      <p>Fifteen areas where your existing structure continues to work — and where more impact can be drawn from the same data.</p>
+      <div class="section-eyebrow">Der Vergleich</div>
+      <h2>Was Ihr Steuerberater macht — <em>und was darüber hinaus möglich ist.</em></h2>
+      <p>Dreizehn Bereiche, in denen Ihre bestehende Struktur weiterhin funktioniert — und in denen mehr Wirkung aus denselben Daten entstehen kann.</p>
       <div class="comparison-toggle-wrap">
         <button type="button" class="comparison-toggle" aria-expanded="false" aria-controls="comparison-collapsible">
           <span class="comparison-toggle-count">15</span>
-          <span>Show areas</span>
+          <span>Bereiche anzeigen</span>
           <span class="comparison-toggle-arrow" aria-hidden="true">›</span>
         </button>
       </div>
     </div>
 
     <div class="comparison-collapsible" id="comparison-collapsible" role="region">
-    <p class="comparison-question">How many of your important decisions in the last twelve months were based on numbers that were already too old — or on gut feel that later turned out to be wrong?</p>
+    <p class="comparison-question">Wie viele Ihrer wichtigen Entscheidungen der letzten zwölf Monate basierten auf Zahlen, die eigentlich schon zu alt waren — oder auf einem Bauchgefühl, das sich hinterher als falsch herausgestellt hat?</p>
 
     <div class="summary-table">
       <div class="summary-table-header">
-        <div class="stb-head">Steuerberater (Tax Advisor)</div>
+        <div class="stb-head">Steuerberater</div>
         <div class="nfai-head">North Finance AI Solutions</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Keeps your company formally clean, prepares statutory accounts, processes financial data, generates the open items list, and handles queries.</div>
-        <div class="nfai-cell">Makes the collaboration faster, standardizes the data handoff, pre-validates transactions, and significantly reduces queries. This cuts internal coordination effort and accelerates the <strong>month-end close</strong>.</div>
+        <div class="stb-cell">Hält Ihr Unternehmen formal sauber, erstellt Abschlüsse, verarbeitet Finanzdaten, erstellt die Liste der offenen Posten und klärt Rückfragen.</div>
+        <div class="nfai-cell">Macht die Zusammenarbeit schneller, standardisiert die Datenübergabe, prüft Transaktionen vor und reduziert Rückfragen deutlich. Das senkt internen Abstimmungsaufwand und beschleunigt den <strong>Monatsabschluss</strong>.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Sees open items, generates the open items list, and monitors receivables in the books.</div>
-        <div class="nfai-cell">Turns that data into an <strong>automated dunning and escalation process</strong>, so cash comes in faster, less liquidity stays tied up, and the receivables backlog is reduced more consistently.</div>
+        <div class="stb-cell">Sieht offene Posten, erstellt die Liste der offenen Posten und überwacht Forderungen in der Buchhaltung.</div>
+        <div class="nfai-cell">Setzt daraus einen <strong>automatisierten Mahn- und Eskalationsprozess</strong> auf, damit Geld schneller eingeht, weniger Liquidität gebunden bleibt und der Forderungsbestand konsequenter abgebaut wird.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Delivers historical numbers and standard accounting data.</div>
-        <div class="nfai-cell">Builds that into a <strong>rolling cash forecast</strong>, so squeezes become visible weeks earlier. This improves payment steering, reduces surprises, and strengthens liquidity certainty.</div>
+        <div class="stb-cell">Liefert Vergangenheitszahlen und klassische Buchhaltungsdaten.</div>
+        <div class="nfai-cell">Baut daraus eine <strong>rollierende Liquiditätsplanung</strong>, damit Engpässe Wochen früher sichtbar werden. Das verbessert die Steuerung von Zahlungen, reduziert Überraschungen und stärkt die Liquiditätssicherheit.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Posts bank movements and reconciles accounts.</div>
-        <div class="nfai-cell">Automates the reconciliation, detects <strong>duplicate payments, duplicate postings, and overpayments</strong>, and increases both quality and speed of the month-end close. This reduces error costs and avoids unnecessary cash outflows.</div>
+        <div class="stb-cell">Bucht Bankbewegungen und stimmt Konten ab.</div>
+        <div class="nfai-cell">Automatisiert den Abgleich, entdeckt <strong>Doppelzahlungen, doppelte Buchungen und Überzahlungen</strong> und erhöht so Qualität und Geschwindigkeit des Monatsabschlusses. Das reduziert Fehlerkosten und vermeidet unnötige Mittelabflüsse.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Produces standard reports and classical accounting deliverables.</div>
-        <div class="nfai-cell">Makes numbers <strong>management-relevant</strong>, with clear visibility into margins, variances, products, customers, and specific action points. Decisions get made faster and on sounder economic footing.</div>
+        <div class="stb-cell">Erstellt Standardauswertungen und klassisches Reporting.</div>
+        <div class="nfai-cell">Macht Zahlen <strong>führungsrelevant</strong>, mit klarer Sicht auf Margen, Abweichungen, Produkte, Kunden und konkreten Handlungsbedarf. Dadurch werden Entscheidungen schneller und wirtschaftlich fundierter getroffen.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Knows the bookkeeping and its structure.</div>
-        <div class="nfai-cell">Makes <strong>tied-up capital visible</strong> and shows where liquidity can be operationally released. This creates transparency over financial levers that often stay hidden in day-to-day operations.</div>
+        <div class="stb-cell">Kennt die Buchhaltung und deren Struktur.</div>
+        <div class="nfai-cell">Macht <strong>gebundenes Kapital sichtbar</strong> und zeigt, wo Liquidität operativ freigesetzt werden kann. Das schafft Transparenz über finanzielle Hebel, die im Tagesgeschäft oft verborgen bleiben.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Processes incoming invoices within the existing workflow.</div>
-        <div class="nfai-cell">Reduces <strong>manual effort before posting</strong> through automated capture, verification, and structured handoff. This lowers process cost, saves time, and increases the scalability of the finance function.</div>
+        <div class="stb-cell">Verarbeitet Eingangsrechnungen im bestehenden Ablauf.</div>
+        <div class="nfai-cell">Reduziert den <strong>manuellen Aufwand vor der Buchung</strong> durch automatisierte Erfassung, Prüfung und strukturierte Übergabe. Das senkt Prozesskosten, spart Zeit und erhöht die Skalierbarkeit der Finanzfunktion.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Posts supplier invoices and supports payment runs.</div>
-        <div class="nfai-cell">Optimizes payment timing so that <strong>early-payment discounts</strong> are better captured, overpayments avoided, and liquidity protected at the same time. This improves margin and strengthens the cash position.</div>
+        <div class="stb-cell">Verbucht Lieferantenrechnungen und begleitet Zahlungsläufe.</div>
+        <div class="nfai-cell">Optimiert Zahlungszeitpunkte, damit <strong>Preisnachlässe für frühzeitige Zahlung</strong> besser genutzt, Überzahlungen vermieden und Liquidität gleichzeitig geschützt werden. Das verbessert die Marge und stärkt den Zahlungsmittelbestand.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Shows revenue and cost at total or account level.</div>
-        <div class="nfai-cell">Shows which customers are <strong>actually profitable after all effects</strong> and where pricing adjustments or new terms are needed. This creates a direct foundation for profit improvement.</div>
+        <div class="stb-cell">Zeigt Umsatz und Kosten auf Gesamt- oder Kontenebene.</div>
+        <div class="nfai-cell">Zeigt, welche Kunden <strong>nach allen Effekten tatsächlich profitabel</strong> sind und wo Preisanpassungen oder neue Konditionen nötig sind. Das schafft eine direkte Grundlage für Ergebnisverbesserung.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Supports order, documentation, and formal compliance.</div>
-        <div class="nfai-cell">Also supports order, accuracy, and compliance — and strengthens the finance function <strong>operationally</strong>, making processes more robust and audit-ready. This reduces risk, rework, and workflow disruption.</div>
+        <div class="stb-cell">Unterstützt bei Ordnung, Dokumentation und formaler Sicherheit.</div>
+        <div class="nfai-cell">Unterstützt ebenfalls Ordnung, Korrektheit und Compliance, stärkt die Finanzfunktion <strong>operativ</strong> und macht Prozesse belastbarer und prüfungssicherer. Das reduziert Risiko, Nacharbeit und Störungen im Ablauf.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Supports standard tax processes and filings.</div>
-        <div class="nfai-cell">Additionally supports <strong>preparation and structuring for the VAT return</strong>, so filings are clean, complete, and on time. This reduces error and deadline risk and lightens internal workload.</div>
+        <div class="stb-cell">Unterstützt bei steuerlichen Standardprozessen und Deklarationen.</div>
+        <div class="nfai-cell">Unterstützt zusätzlich bei der <strong>Vorbereitung und Strukturierung für die Umsatzsteuervoranmeldung</strong>, damit Meldungen sauber, vollständig und fristgerecht erfolgen. Das senkt Fehler- und Fristrisiken und entlastet intern.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Ensures accuracy and compliance.</div>
-        <div class="nfai-cell">Translates the same data into <strong>liquidity, speed, transparency, accuracy, and better decisions</strong>. This makes finance not just correct, but economically effective.</div>
+        <div class="stb-cell">Sichert Korrektheit und Compliance.</div>
+        <div class="nfai-cell">Übersetzt dieselben Daten in <strong>Liquidität, Geschwindigkeit, Transparenz, Korrektheit und bessere Entscheidungen</strong>. Dadurch wird Finance nicht nur korrekt, sondern betriebswirtschaftlich wirksam.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Charges fees for a necessary service.</div>
-        <div class="nfai-cell">Raises the <strong>value of that collaboration</strong>, because the same finance structure now delivers more impact, more control, and more entrepreneurial value.</div>
+        <div class="stb-cell">Kostet Honorar für eine notwendige Leistung.</div>
+        <div class="nfai-cell">Hebt den <strong>Wert dieser Zusammenarbeit</strong>, weil aus derselben Finance-Struktur mehr Wirkung, mehr Steuerbarkeit und mehr unternehmerischer Nutzen entsteht.</div>
       </div>
 
       <div class="summary-table-row">
-        <div class="stb-cell">Prepares the VAT return based on posted data and submits it to the tax authority on time.</div>
-        <div class="nfai-cell">Prepares the data for the <strong>VAT return</strong> in a structured, pre-validated form, so your Steuerberater processes cleanly instead of correcting. Filings are more complete, queries are rarer, and deadline risk shrinks significantly.</div>
+        <div class="stb-cell">Erstellt die Umsatzsteuervoranmeldung auf Basis der gebuchten Daten und übermittelt sie fristgerecht an das Finanzamt.</div>
+        <div class="nfai-cell">Bereitet die Daten für die <strong>Umsatzsteuervoranmeldung</strong> strukturiert und vorab-geprüft auf, damit Ihr Steuerberater sauber übernimmt, statt zu korrigieren. Meldungen werden vollständiger, Rückfragen seltener und Fristrisiken deutlich kleiner.</div>
       </div>
 
       <div class="summary-table-row effect-row">
-        <div class="stb-cell">Financial effect</div>
-        <div class="nfai-cell">Potential annual savings on Steuerberater fees of <strong>four to six thousand euros</strong> on a forty-thousand-euro annual fee — plus internal time savings, avoided error costs, and earlier-available numbers for better decisions.</div>
+        <div class="stb-cell">Finanzieller Effekt</div>
+        <div class="nfai-cell">Mögliche jährliche Einsparung beim Steuerberaterhonorar von <strong>vier- bis sechstausend Euro</strong> bei einem Jahreshonorar von <strong>vierzigtausend Euro</strong> — zuzüglich interner Zeitersparnis, vermiedener Fehlerkosten und früher verfügbarer Zahlen für bessere Entscheidungen.</div>
       </div>
     </div>
     </div>
@@ -2591,38 +3754,38 @@
 <section class="quick-start" id="quick-start">
   <div class="container">
     <div class="quick-start-intro">
-      <div class="quick-start-badge">Recommended Starting Point</div>
-      <h2>The fastest result for <em>your working capital.</em></h2>
-      <p>Three of our highest-impact services — bundled as a fixed-fee package. Ideal for companies that want visible results quickly, without booking the full finance toolkit up front.</p>
+      <div class="quick-start-badge">Empfohlener Einstieg</div>
+      <h2>Das schnellste Ergebnis für <em>Ihr Betriebskapital.</em></h2>
+      <p>Zwei unserer wirkungsstärksten Leistungen — kombiniert als Festpreis-Paket. Ideal für Unternehmen, die schnell sichtbares Ergebnis wollen, ohne vorher den gesamten Finance-Baukasten zu buchen.</p>
     </div>
 
     <div class="quick-start-card">
       <div class="quick-start-header">
         <div>
-          <div class="quick-start-meta">Quick-Start · 6–8 weeks · fixed fee</div>
+          <div class="quick-start-meta">Quick-Start · 6–8 Wochen · Festpreis</div>
           <h3 class="quick-start-name">Cash-Flow Quick-Start</h3>
         </div>
         <div class="quick-start-price">
-          <div class="quick-start-price-value">€12,400</div>
-          <div class="quick-start-price-label">Net · fixed fee</div>
-          <div class="quick-start-price-breakeven">Typically pays back in <strong>6–10 weeks</strong></div>
+          <div class="quick-start-price-value">€15.800</div>
+          <div class="quick-start-price-label">Netto</div>
+          <div class="quick-start-price-breakeven">6–8 Wochen Premium-Finance-Beratung mit Hebel-Garantie · typisch <strong>4–8x ROI</strong> im ersten Jahr</div>
         </div>
       </div>
 
-      <div class="quick-start-section-label">What's included · click to expand</div>
+      <div class="quick-start-section-label">Im Paket enthalten · Klicken Sie zum Aufklappen</div>
       <div class="quick-start-accordion">
         <div class="qs-acc-item">
           <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-1">
             <span class="qs-acc-number">01</span>
-            <span class="qs-acc-title">Receivables Optimization Sprint</span>
-            <span class="qs-acc-tag">4–6 weeks</span>
+            <span class="qs-acc-title">Forderungsmanagement-Intensivprojekt</span>
+            <span class="qs-acc-tag">4–6 Wochen</span>
             <span class="qs-acc-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="qs-acc-panel" id="qs-panel-1" role="region">
             <div class="qs-acc-content">
-              <p>Automated dunning workflow in your existing environment — <strong>DATEV, Excel, or another ERP system</strong>. Escalation stages, multilingual templates, full documentation. Every day of DSO ties up capital that should be flowing into new orders.</p>
-              <div class="qs-acc-detail-label">Typical impact</div>
-              <div class="qs-acc-detail-value">Recovers 15–30% of overdue items in the first 4–6 weeks. At a €10M company, typically €60K–€120K in one-time cash recovery.</div>
+              <p>Automatisierter Mahnprozess in Ihrer bestehenden Umgebung — <strong>DATEV, Excel oder anderes ERP-System</strong>. Eskalierende Stufen, mehrsprachige Vorlagen, vollständige Dokumentation. Jeder Tag Debitorenlaufzeit bindet Kapital, das in neue Aufträge fließen sollte.</p>
+              <div class="qs-acc-detail-label">Typische Wirkung</div>
+              <div class="qs-acc-detail-value">Holt 15–30 % der überfälligen Posten in den ersten 4–6 Wochen zurück. Bei einem €10 Mio. Unternehmen typischerweise €60K–€120K Einmal-Rückfluss.</div>
             </div>
           </div>
         </div>
@@ -2630,15 +3793,15 @@
         <div class="qs-acc-item">
           <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-2">
             <span class="qs-acc-number">02</span>
-            <span class="qs-acc-title">13-Week Rolling Cash Forecast</span>
-            <span class="qs-acc-tag">Rolling</span>
+            <span class="qs-acc-title">13-Wochen Liquiditätsplanung</span>
+            <span class="qs-acc-tag">Rollierend</span>
             <span class="qs-acc-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="qs-acc-panel" id="qs-panel-2" role="region">
             <div class="qs-acc-content">
-              <p>Rolling forecast built from your financial data, open items, and recurring commitments. <strong>Three scenarios</strong> (conservative, realistic, optimistic), refreshed weekly. You see the squeezes weeks before the bank account reveals them.</p>
-              <div class="qs-acc-detail-label">Typical impact</div>
-              <div class="qs-acc-detail-value">Squeezes visible 4–8 weeks earlier. Decisions based on numbers instead of gut feel. Immediately presentable in bank meetings and financing discussions.</div>
+              <p>Rollierende Vorschau aus Ihren Finanzdaten, offenen Posten und wiederkehrenden Verpflichtungen. <strong>Drei Szenarien</strong> (konservativ, realistisch, optimistisch), wöchentlich aktualisiert. Sie sehen Engpässe Wochen bevor der Kontostand sie zeigt.</p>
+              <div class="qs-acc-detail-label">Typische Wirkung</div>
+              <div class="qs-acc-detail-value">Engpässe 4–8 Wochen früher sichtbar. Entscheidungen auf Zahlen statt auf Bauchgefühl. Bei Bankgesprächen und Finanzierungen sofort vorzeigbar.</div>
             </div>
           </div>
         </div>
@@ -2646,39 +3809,145 @@
         <div class="qs-acc-item">
           <button type="button" class="qs-acc-trigger" aria-expanded="false" aria-controls="qs-panel-3">
             <span class="qs-acc-number">03</span>
-            <span class="qs-acc-title">Automated Bank Reconciliation</span>
-            <span class="qs-acc-tag">Ongoing</span>
+            <span class="qs-acc-title">Automatisierter Bankabgleich</span>
+            <span class="qs-acc-tag">Laufend</span>
             <span class="qs-acc-chevron" aria-hidden="true">▾</span>
           </button>
           <div class="qs-acc-panel" id="qs-panel-3" role="region">
             <div class="qs-acc-content">
-              <p>Automatic matching of bank movements to ledger entries with exception handling. Your accounting team stops spending half a day per week on reconciliation — and <strong>duplicate payments surface immediately</strong>.</p>
-              <div class="qs-acc-detail-label">Typical impact</div>
-              <div class="qs-acc-detail-value">8–15 hours of accounting time freed up per month. During the initial cleanup, €2K–€10K in historical duplicate payments typically surface.</div>
+              <p>Automatisches Matching von Bankbewegungen zu Buchungen mit Ausnahmebehandlung. Ihre Buchhaltung verbringt keinen halben Arbeitstag mehr pro Woche mit dem Abgleich — und <strong>Doppelzahlungen fallen sofort auf</strong>.</p>
+              <div class="qs-acc-detail-label">Typische Wirkung</div>
+              <div class="qs-acc-detail-value">8–15 Stunden Buchhaltungszeit pro Monat freigesetzt. Bei der Erstbereinigung tauchen typischerweise €2K–€10K an historischen Doppelzahlungen auf.</div>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="quick-start-cadence">
+        <div class="quick-start-cadence-label">Der 6-Wochen-Plan</div>
+        <div class="cadence-grid">
+          <div class="cadence-step">
+            <div class="cadence-step-week">Woche 1</div>
+            <div class="cadence-step-title">Datenanalyse &amp; Setup</div>
+            <div class="cadence-step-detail">DATEV-Zugang, Datenanalyse letzte 12 Monate, Identifikation der Hotspots.</div>
+          </div>
+          <div class="cadence-step">
+            <div class="cadence-step-week">Woche 2–3</div>
+            <div class="cadence-step-title">Forderungsmanagement live</div>
+            <div class="cadence-step-detail">Mahnworkflow konfiguriert, erste Eskalations-Stufe automatisiert.</div>
+          </div>
+          <div class="cadence-step">
+            <div class="cadence-step-week">Woche 4</div>
+            <div class="cadence-step-title">Bankabgleich &amp; Forecast</div>
+            <div class="cadence-step-detail">Automatisierter Bankabgleich live, erste 13-Wochen-Liquiditäts-Iteration.</div>
+          </div>
+          <div class="cadence-step">
+            <div class="cadence-step-week">Woche 5</div>
+            <div class="cadence-step-title">Iteration &amp; Verfeinerung</div>
+            <div class="cadence-step-detail">Plausibilitätsprüfung, Anpassungen anhand erster Live-Daten.</div>
+          </div>
+          <div class="cadence-step">
+            <div class="cadence-step-week">Woche 6</div>
+            <div class="cadence-step-title">Übergabe &amp; Einweisung</div>
+            <div class="cadence-step-detail">Schriftliche Dokumentation, Team-Einweisung, Code-Übergabe.</div>
+          </div>
+          <div class="cadence-step">
+            <div class="cadence-step-week">Danach</div>
+            <div class="cadence-step-title">Optional: Check-in</div>
+            <div class="cadence-step-detail">Monatliche Begleitung €480, jederzeit kündbar.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-start-prerequisites">
+        <div class="quick-start-prerequisites-label">Voraussetzungen für die Hebel-Garantie</div>
+        <h4>Damit der 6-Wochen-Plan trägt, brauchen wir von Ihnen:</h4>
+        <ul>
+          <li>In Woche 1: DATEV-Export der letzten 12 Monate, Liste der offenen Posten, Zugang zum Buchhaltungssystem</li>
+          <li>Kickoff-Termin in Woche 1 (60 Min.) und Zwischen-Check in Woche 2 (30 Min.)</li>
+          <li>Eine zentrale Ansprechperson auf Ihrer Seite (typischerweise Buchhaltung oder Geschäftsführung)</li>
+        </ul>
+        <p class="quick-start-prerequisites-note">Werden diese Voraussetzungen nicht eingehalten, können wir den 6-Wochen-Rahmen nicht garantieren — und entsprechend auch nicht die Hebel-Garantie. Das ist keine Hürde, sondern eine ehrliche Vorab-Klärung.</p>
+      </div>
+
       <div class="quick-start-deliverables-block">
-        <div class="quick-start-section-label">What you receive concretely</div>
+        <div class="quick-start-section-label">Was Sie konkret erhalten</div>
         <ul class="quick-start-deliverables">
-          <li>Automated dunning workflow, live in your existing finance environment</li>
-          <li>Rolling 13-week cash forecast with weekly refresh</li>
-          <li>Three scenarios (conservative, realistic, optimistic)</li>
-          <li>Automated bank reconciliation with exception handling</li>
-          <li>Written results documentation after 6 weeks</li>
-          <li>Handover meeting including training for your team</li>
+          <li>Automatisierter Mahnprozess, live in Ihrer bestehenden Finanzumgebung</li>
+          <li>Rollierende 13-Wochen-Liquiditätsplanung mit wöchentlicher Aktualisierung</li>
+          <li>Drei Szenarien (konservativ, realistisch, optimistisch)</li>
+          <li>Automatisierter Bankabgleich mit Ausnahmebehandlung</li>
+          <li>Schriftliche Ergebnisdokumentation nach 6 Wochen</li>
+          <li>Übergabe-Termin inklusive Einweisung Ihres Teams</li>
         </ul>
       </div>
 
       <div class="quick-start-cta">
         <div class="quick-start-cta-note">
-          <strong>Impact guarantee included:</strong> If the first two weeks show the approach doesn't fit your situation, we wind down at cost.
+          <strong>Hebel-Garantie inklusive:</strong> Zeigen die ersten zwei Wochen, dass der Ansatz in Ihrer Situation nicht greift, beenden wir zum Selbstkostenpreis.
         </div>
-        <a href="#" class="quick-start-button-secondary" data-open-contact>Talk first</a>
-        <a href="#" class="quick-start-button" data-open-contact data-quick-start>Book Quick-Start</a>
+        <a href="#" class="quick-start-button-secondary" data-open-contact>Erst ins Gespräch</a>
+        <a href="#" class="quick-start-button" data-open-contact data-quick-start>Quick-Start buchen</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DANACH-MODELL / CONTINUATION =================== -->
+<section class="continuation">
+  <div class="container">
+    <div class="continuation-intro">
+      <div class="section-eyebrow">Und danach?</div>
+      <h2>Kein Lock-in. <em>Sie wählen, wie es weitergeht.</em></h2>
+      <p>Nach den sechs bis acht Wochen sind Ihre Prozesse stabil. Ob Sie selbst weiterfahren oder begleitet werden wollen, entscheiden Sie — monatlich kündbar, ohne Jahresvertrag.</p>
+    </div>
+
+    <div class="continuation-tiers">
+      <div class="continuation-tier is-anchor">
+        <div class="continuation-tier-step">Basis</div>
+        <div class="continuation-tier-name">Quick-Start</div>
+        <div class="continuation-tier-meta">6–8 Wochen · Festpreis</div>
+        <div class="continuation-tier-price">€15.800</div>
+        <div class="continuation-tier-unit">Einmalig</div>
+        <ul class="continuation-tier-features">
+          <li>Forderungsmanagement, 13-Wochen-Liquidität, Bankabgleich</li>
+          <li>Schriftliche Ergebnisdokumentation</li>
+          <li>Übergabe-Termin inklusive Einweisung</li>
+          <li>Hebel-Garantie inklusive</li>
+        </ul>
+      </div>
+
+      <div class="continuation-tier">
+        <div class="continuation-tier-step">Option</div>
+        <div class="continuation-tier-name">Monatlicher Check-in</div>
+        <div class="continuation-tier-meta">Laufend · monatlich kündbar</div>
+        <div class="continuation-tier-price">€480</div>
+        <div class="continuation-tier-unit">pro Monat</div>
+        <ul class="continuation-tier-features">
+          <li>60 Min. Video-Call pro Monat &amp; monatlicher Cash-Report</li>
+          <li><strong>Forecast-Genauigkeit:</strong> 13-Wochen-Forecast mit angestrebter Abweichung unter 15% MAPE</li>
+          <li><strong>Reaktionszeit:</strong> Bei Anomalien Alarm innerhalb von 24 Stunden</li>
+          <li><strong>Quartalsbericht:</strong> mind. 3 konkrete Optimierungs-Vorschläge</li>
+        </ul>
+      </div>
+
+      <div class="continuation-tier">
+        <div class="continuation-tier-step">Option</div>
+        <div class="continuation-tier-name">Quartals-Review</div>
+        <div class="continuation-tier-meta">Jedes Quartal · einzeln buchbar</div>
+        <div class="continuation-tier-price">€2.400</div>
+        <div class="continuation-tier-unit">pro Quartal</div>
+        <ul class="continuation-tier-features">
+          <li>Halbtägige Deep-Dive-Session</li>
+          <li>Identifikation neuer Hebel</li>
+          <li>Schriftlicher Quartalsbericht mit Empfehlungen</li>
+          <li>Ideal vor Bank- oder Investor-Gesprächen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="continuation-note">
+      Alle Folge-Formate sind <strong>freiwillig und monatlich kündbar</strong>. Sie können den Quick-Start buchen und danach allein weiterfahren — alle Prozesse laufen in Ihrer eigenen Umgebung.
     </div>
   </div>
 </section>
@@ -2687,26 +3956,26 @@
 <section class="fit-check">
   <div class="container">
     <div class="fit-check-intro">
-      <div class="section-eyebrow">Who This Is For</div>
-      <h2>We don't work with everyone — <em>and that's the point.</em></h2>
-      <p>The better the fit, the clearer the outcome. Here's an honest assessment of whether this work is the right lever for you.</p>
+      <div class="section-eyebrow">Für wen das passt</div>
+      <h2>Wir arbeiten nicht mit jedem — <em>und das ist der Punkt.</em></h2>
+      <p>Je besser der Fit, desto klarer das Ergebnis. Hier die ehrliche Einschätzung, ob diese Arbeit für Sie der richtige Hebel ist.</p>
       <div class="fit-toggle-wrap">
         <button type="button" class="fit-toggle" aria-expanded="false" aria-controls="fit-collapsible">
-          <span>Show criteria</span>
+          <span>Kriterien anzeigen</span>
           <span class="fit-toggle-arrow" aria-hidden="true">›</span>
         </button>
       </div>
     </div>
     <div class="fit-collapsible" id="fit-collapsible" role="region">
       <div class="fit-single-col">
-        <h3>This fits if you…</h3>
+        <h3>Passt, wenn Sie…</h3>
         <ul>
-          <li>run an <strong>established company</strong> — with a settled business model and an existing finance structure</li>
-          <li>want to <strong>structurally put cash flow and finances in order</strong> — not just short-term, but as an ongoing process</li>
-          <li>have an existing <strong>DATEV structure with a Steuerberater</strong> (SKR03 or SKR04)<span class="info-tooltip"><button type="button" class="info-icon" aria-label="Note on other systems" tabindex="0">i</button><span class="info-bubble" role="tooltip">Do you work with another system — for example SAP, Lexware, sevDesk, Excel, or another solution? Get in touch — we'll honestly clarify whether the work still fits, or whether we'd be better off referring you to a colleague.</span></span></li>
-          <li>want to scale your finance function <strong>without launching an ERP project</strong></li>
-          <li>are ready not only to look at the numbers, but to <strong>act</strong> on them</li>
-          <li>recognize the typical triggers: cash surprises, month-end numbers arriving too late, unclear customer margins, too many Steuerberater query loops</li>
+          <li>ein <strong>etabliertes Unternehmen</strong> führen — mit eingespieltem Geschäftsmodell und bestehender Finanzstruktur</li>
+          <li><strong>Cash-Flow und Finanzen strukturell in Ordnung bringen</strong> wollen — nicht nur kurzfristig, sondern als laufenden Prozess</li>
+          <li>eine bestehende <strong>DATEV-Struktur mit Steuerberater</strong> haben (SKR03 oder SKR04)<span class="info-tooltip"><button type="button" class="info-icon" aria-label="Hinweis zu anderen Systemen" tabindex="0">i</button><span class="info-bubble" role="tooltip">Arbeiten Sie mit einem anderen System — zum Beispiel SAP, Lexware, sevDesk, Excel oder anderen Lösungen? Sprechen Sie uns an — wir klären ehrlich, ob die Arbeit trotzdem passt oder ob wir Sie besser an einen Kollegen verweisen.</span></span></li>
+          <li>Ihre Finance-Funktion skalieren wollen, <strong>ohne ein ERP-Projekt</strong> zu starten</li>
+          <li>bereit sind, auf Zahlen nicht nur zu schauen, sondern zu <strong>handeln</strong></li>
+          <li>typische Auslöser spüren: Cash-Überraschungen, zu späte Monatszahlen, unklare Kundenmargen, zu viele Steuerberater-Rückfragen</li>
         </ul>
       </div>
     </div>
@@ -2717,29 +3986,384 @@
 <section class="tech-stack">
   <div class="container">
     <div class="tech-stack-intro">
-      <div class="section-eyebrow">How We Work</div>
-      <h2>Finance expertise <em>plus</em> modern technology.</h2>
-      <p>We're neither a pure consultancy nor a pure software house. We combine operational finance expertise with proprietary automation, native DATEV integration, and AI-supported analysis — so results become visible in weeks, not quarters.</p>
+      <div class="section-eyebrow">Womit wir arbeiten</div>
+      <h2>Finance-Expertise <em>plus</em> moderne Technologie.</h2>
+      <p>Wir sind keine reine Beratung und kein reines Software-Haus. Wir kombinieren operative Finance-Expertise mit eigenen Automatisierungen, nativer DATEV-Anbindung und KI-gestützten Analysen — damit Ergebnisse in Wochen sichtbar werden, nicht in Quartalen.</p>
     </div>
     <div class="tech-grid">
       <div class="tech-item">
-        <div class="tech-item-label">Operational Finance Expertise</div>
-        <h4>CFO quality without a CFO salary</h4>
-        <p>Years of hands-on finance practice in the German Mittelstand: liquidity steering, working capital, controlling, Steuerberater collaboration, German GAAP (HGB) closings, GoBD-compliant digital bookkeeping.</p>
-        <div class="tech-item-closer"><strong>Without</strong> a full-time CFO at <strong>€120–180K</strong> annual salary and a months-long search.</div>
+        <div class="tech-item-label">Operative Finance-Expertise</div>
+        <h4>CFO-Qualität ohne CFO-Gehalt</h4>
+        <p>Jahre aktive Finance-Praxis im deutschen Mittelstand: Liquiditätssteuerung, Working Capital, Controlling, Steuerberater-Zusammenarbeit, Abschlüsse nach HGB, konform mit den Grundsätzen ordnungsmäßiger elektronischer Buchführung.</p>
+        <div class="tech-item-closer"><strong>Ohne</strong> Vollzeit-CFO bei <strong>€120–180K</strong> Jahresgehalt und mehrmonatiger Suche.</div>
       </div>
       <div class="tech-item">
-        <div class="tech-item-label">Automation</div>
-        <h4>Automation without an ERP project</h4>
-        <p>Proprietary tools in Python and JavaScript: automated dunning workflows, bank reconciliations, dashboards, and handoff packages. Tailored to your existing structure — not standard software that you first have to adapt to.</p>
-        <div class="tech-item-closer"><strong>Without</strong> a 6-month ERP project at <strong>€50K+ effort</strong> and a system switch.</div>
+        <div class="tech-item-label">Automatisierung</div>
+        <h4>Automatisierung ohne ERP-Projekt</h4>
+        <p>Eigene Tools in Python und JavaScript: automatisierte Mahnprozesse, Bankabgleiche, Übersichten und Übergabepakete. Maßgeschneidert für Ihre bestehende Struktur — keine Standard-Software, die Sie erst an sich anpassen müssen.</p>
+        <div class="tech-item-closer"><strong>Ohne</strong> 6-monatiges ERP-Projekt bei <strong>€50K+ Aufwand</strong> und Systemumstellung.</div>
       </div>
       <div class="tech-item">
-        <div class="tech-item-label">AI-Supported</div>
-        <h4>AI speed with human accountability</h4>
-        <p>Claude-based analysis for pattern recognition in receivables, customer profitability, exception handling, and report generation. The AI does the preparatory work; we review and take responsibility for the output. Your data never leaves your environment.</p>
-        <div class="tech-item-closer"><strong>Without</strong> black-box risk, <strong>without</strong> data flowing out to third parties.</div>
+        <div class="tech-item-label">KI-gestützt</div>
+        <h4>KI-Geschwindigkeit mit menschlicher Verantwortung</h4>
+        <p>Claude-basierte Analysen für Mustererkennung in Debitoren, Kundenprofitabilität, Ausnahmebehandlung und Berichts-Erstellung. Die KI macht die Vorarbeit, wir prüfen und verantworten das Ergebnis. Ihre Daten verlassen Ihre Umgebung nicht.</p>
+        <div class="tech-item-closer"><strong>Ohne</strong> Black-Box-Risiko, <strong>ohne</strong> Datenabfluss zu Dritten.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOUNDER / WHO WE ARE =================== -->
+<section class="founder">
+  <div class="container">
+    <div class="founder-intro">
+      <div class="section-eyebrow">Wer wir sind</div>
+      <h2>Acht Jahre Senior-Finance in regulierten Umfeldern — <em>jetzt für Ihren Mittelstand.</em></h2>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-photo">
+        <div class="founder-photo-frame">
+          <img src="data:image/jpeg;base64,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" alt="Krisztina Toth, Head of Finance">
+        </div>
+        <div class="founder-name">Krisztina Toth</div>
+        <div class="founder-title">Head of Finance · München</div>
+        <a href="https://www.linkedin.com/in/krisztina-toth-2a2bba1ab" class="founder-linkedin" target="_blank" rel="noopener">
+          <svg class="founder-linkedin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.44v6.3zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+          LinkedIn-Profil ansehen
+        </a>
+      </div>
+
+      <div class="founder-content">
+        <p class="founder-bio">Ich habe acht Jahre Senior-Finance in regulierten und anspruchsvollen Umfeldern geführt — von <strong>€420 Mio. P&amp;L-Verantwortung bei Louis Vuitton Deutschland</strong> bis zur <strong>Finance-Transformation bei Segula Technologie</strong>. <strong>North Finance AI Solutions</strong> habe ich gegründet, um dieses Kaliber an Finance-Arbeit für den deutschen Mittelstand verfügbar zu machen — <strong>ohne das Gewicht eines CFO-Vollzeitgehalts.</strong></p>
+
+        <div class="founder-stations-label">Die Erfahrung dahinter</div>
+        <ul class="founder-stations">
+          <li class="founder-station">
+            <div class="founder-station-years">2024</div>
+            <div class="founder-station-role">
+              <span class="station-company">Segula Technologie Services</span> · Leiter Finanz- und Rechnungswesen
+              <span class="station-impact">16 Mitarbeitende, €2 Mio. jährliche Kostenreduktion, HGB + IFRS, Finance-Transformation in Restrukturierung</span>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="founder-station-years">2022–2024</div>
+            <div class="founder-station-role">
+              <span class="station-company">BNP Paribas Deutschland / Arval</span> · Teamleiter Controlling / Pricing
+              <span class="station-impact">ROE-Steigerung auf 30%, +5% Deckungsbeitragsmarge, 130.000 Fahrzeuge, €220 Mio. Umsatz</span>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="founder-station-years">2021–2022</div>
+            <div class="founder-station-role">
+              <span class="station-company">TSCNET Services</span> · Senior Finance Reporting Manager
+              <span class="station-impact">Regulierter 24/7-Betrieb, ENTSO-E-Umfeld, CAPEX-Governance für Netzinfrastruktur</span>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="founder-station-years">2020–2021</div>
+            <div class="founder-station-role">
+              <span class="station-company">Louis Vuitton Deutschland</span> · Senior Financial Controller
+              <span class="station-impact">€420 Mio. P&amp;L-Verantwortung, SAP HANA, HGB + IFRS, Group Reporting an LVMH</span>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="founder-station-years">2012–2020</div>
+            <div class="founder-station-role">
+              <span class="station-company">Sky Deutschland · Ferrari Financial Services · BMW · Société Générale</span>
+              <span class="station-impact">Finance-Fundament in regulierten deutschen Umfeldern — Controlling, Berichtswesen, Liquiditätsplanung</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="founder-languages">
+          <strong>Sprachen</strong>Deutsch · English · Magyar · Svenska
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== REFERENCE CASE (anonymisiert) =================== -->
+<section class="reference-case">
+  <div class="container">
+    <div class="reference-intro">
+      <div class="section-eyebrow">Erstes Referenzprojekt</div>
+      <h2>Sechs Wochen. Messbare Zahlen. <em>Keine Erfindung.</em></h2>
+    </div>
+
+    <div class="reference-card">
+      <p class="reference-client"><strong>Mittelständisches Dienstleistungsunternehmen in Bayern</strong>, ca. €5 Mio. Jahresumsatz, etablierte Struktur mit bestehendem Steuerberater.</p>
+      <div class="reference-period">März–April 2026 · 6 Wochen</div>
+
+      <p class="reference-challenge"><strong>Ausgangslage:</strong> Bankabgleich war manuell und zeitintensiv. Mahnprozess existierte, aber lief reaktiv — Rechnungen wurden oft erst ab 45 Tagen nachverfolgt. Historische Zahlungsfehler waren nicht systematisch überprüft worden.</p>
+
+      <div class="reference-components">
+        <div class="reference-component">
+          <div class="reference-component-label">Komponente 1</div>
+          <h4>Automatisierter Bankabgleich</h4>
+          <ul class="reference-results">
+            <li class="reference-result">
+              <span class="reference-result-value">16 Std.</span>
+              <span class="reference-result-label">Zeitersparnis pro Monat in der Buchhaltung</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">98 %</span>
+              <span class="reference-result-label">Abgleichs-Automatisierung nach 6 Wochen</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">6 Fälle</span>
+              <span class="reference-result-label">Historische Zahlungsfehler identifiziert (€3.270 kumuliert)</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">4 Tage</span>
+              <span class="reference-result-label">Schnellerer Monatsabschluss</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="reference-component">
+          <div class="reference-component-label">Komponente 2</div>
+          <h4>Automatisierter Mahnworkflow</h4>
+          <ul class="reference-results">
+            <li class="reference-result">
+              <span class="reference-result-value">€6.200</span>
+              <span class="reference-result-label">Zurückgeholte überfällige Rechnungen in 6 Wochen</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">95 %</span>
+              <span class="reference-result-label">Automatisierungsgrad der Mahnläufe</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">8 → 2</span>
+              <span class="reference-result-label">Manuelle Nachfass-Anrufe pro Monat (−75 %)</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">Laufend</span>
+              <span class="reference-result-label">Mahnprozess jetzt strukturiert und skalierbar</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reference-footer">
+        Die Referenz ist anonymisiert, um die Vertraulichkeit der Geschäftsbeziehung zu schützen. Alle Zahlen sind tatsächlich gemessen und können auf Nachfrage in einem Strategiegespräch im Detail erläutert werden.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FAQ =================== -->
+<section class="faq">
+  <div class="container">
+    <div class="faq-intro">
+      <div class="section-eyebrow">Häufige Fragen</div>
+      <h2>Was Geschäftsführer typischerweise <em>vor dem Gespräch wissen wollen.</em></h2>
+      <p>Die acht Fragen, die in Strategiegesprächen am häufigsten kommen. Direkt beantwortet, ohne Marketing-Sprache.</p>
+    </div>
+
+    <div class="faq-list">
+      <!-- Q1: Daten -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-1">
+          <span class="faq-question-text">Was passiert mit meinen Daten, wenn Sie KI nutzen?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-1" role="region">
+          <div class="faq-answer">
+            <p>Ihre Finanzdaten verlassen Ihre Infrastruktur nicht — die Automatisierungen laufen <strong>lokal in Ihrer Umgebung</strong>, in Ihrem DATEV-System oder einer separaten Python-Instanz, die nur Sie kontrollieren. Wenn wir KI-Analysen einsetzen (z. B. Mustererkennung in Debitoren), übertragen wir an Anthropic — das US-Unternehmen hinter Claude — ausschließlich <strong>technisch pseudonymisierte Daten</strong>: numerische Kundennummern, Beträge, Fälligkeiten. Niemals Klartextnamen, Adressen, Kontodaten oder Steuer-IDs. Vertraglich abgesichert durch <strong>Auftragsverarbeitungsvertrag (AVV) nach DSGVO Art. 28</strong> und <strong>Standardvertragsklauseln nach Art. 46 DSGVO</strong> für den USA-Datentransfer.</p>
+            <p style="margin-top: 14px;">Wenn Sie KI-Nutzung komplett ausschließen wollen, ist das möglich — wir bauen die Automatisierung dann <strong>ohne KI-Komponente</strong>. Etwas mehr manueller Konfigurationsaufwand, vergleichbares Endergebnis.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2: Steuerberater -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-2">
+          <span class="faq-question-text">Wie arbeiten Sie mit meinem Steuerberater zusammen?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-2" role="region">
+          <div class="faq-answer">
+            <p><strong>Die Tätigkeiten überlappen sich kaum — und mehrjährig kann es sich wirtschaftlich rechnen.</strong></p>
+
+            <p style="margin-top: 14px;">Ihr Steuerberater bleibt für die <strong>rechtlich vorbehaltenen Aufgaben</strong> zuständig: Jahresabschluss, Steuererklärungen, formelle Übermittlung der Umsatzsteuer-Voranmeldung an das Finanzamt, Außenprüfungs-Begleitung und steuerliche Beratung.</p>
+
+            <p style="margin-top: 14px;">Wir arbeiten <em>davor</em>: Wir übernehmen und strukturieren die <strong>operativen und buchhalterischen Aufgaben</strong>, die nicht Steuerberater-Vorbehalt sind — laufende Buchhaltung, Liquiditätsplanung, Forderungsmanagement, operatives Controlling und die saubere Datenaufbereitung für die formale Übergabe.</p>
+
+            <p style="margin-top: 14px;">Das Ziel ist nicht, dieselbe Arbeit zweimal zu bezahlen. Das Ziel ist, dass Ihr Steuerberater bessere Daten bekommt, weniger operative Vorarbeit nachziehen muss und sich auf seine Kernkompetenz konzentrieren kann.</p>
+
+            <p class="faq-section-heading">Die realistische Wirtschaftlichkeitsrechnung</p>
+
+            <p style="margin-top: 14px;"><em>Beispiel: Unternehmen mit ca. €5 Mio. Umsatz und bisher ca. €48.000 Steuerberaterkosten pro Jahr.</em></p>
+
+            <p style="margin-top: 14px;">Im ersten Jahr entsteht zunächst ein <strong>Aufbauaufwand</strong>. Prozesse, Datenqualität und Übergaben müssen sauber eingerichtet werden.</p>
+
+            <p class="faq-section-heading">Jahr 1 — Aufbau und Stabilisierung</p>
+
+            <p style="margin-top: 14px;"><strong>Einmaliger Quick-Start: €15.800</strong></p>
+
+            <p style="margin-top: 10px;">Dafür werden typischerweise aufgebaut:</p>
+            <p style="margin-top: 8px;">
+              • saubere DATEV-/Buchhaltungsstruktur<br>
+              • monatliche Liquiditätsübersicht<br>
+              • offene-Posten-Transparenz<br>
+              • Vorbereitung für Mahn- und Forderungsmanagement<br>
+              • bessere Übergabe an den Steuerberater<br>
+              • klare Verantwortlichkeiten zwischen Unternehmen, uns und Steuerberater
+            </p>
+
+            <p style="margin-top: 14px;"><strong>Realistischer Nutzen im ersten Jahr:</strong></p>
+            <p style="margin-top: 8px;">
+              • weniger Rückfragen und Abstimmungsschleifen<br>
+              • schnellere Monatsübersicht<br>
+              • bessere Sicht auf offene Forderungen und Zahlungsabflüsse<br>
+              • weniger Überraschungen bei Liquidität<br>
+              • erste Entlastung des Steuerberaters
+            </p>
+
+            <p style="margin-top: 14px;">Finanziell ist Jahr 1 meist kein reines „Sparjahr", sondern ein <strong>Strukturjahr</strong>.</p>
+
+            <p class="faq-section-heading">Ab Jahr 2 — wo sich der Vorteil zeigt</p>
+
+            <p style="margin-top: 14px;">Wenn die Prozesse stabil laufen und der Steuerberater weniger operative Vorarbeit leisten muss, kann sein Scope realistischer reduziert oder besser verhandelt werden.</p>
+
+            <p style="margin-top: 14px;"><strong>Realistische jährliche Effekte ab Jahr 2:</strong></p>
+            <p style="margin-top: 8px;">
+              • Reduktion Steuerberateraufwand: <strong>ca. €8.000–€18.000 p.a.</strong><br>
+              • interne Effizienzgewinne durch weniger manuelle Arbeit und weniger Fehler: <strong>ca. €5.000–€15.000 p.a.</strong><br>
+              • bessere Liquiditätssteuerung durch frühere Sicht auf offene Forderungen und Engpässe: <strong>einmaliger oder wiederkehrender Cash-Effekt möglich</strong>, abhängig vom Unternehmen
+            </p>
+
+            <p style="margin-top: 14px;"><em>Wichtig:</em> Liquiditätsfreisetzung ist kein Gewinn wie eine Kosteneinsparung. Aber sie ist für Unternehmer oft genauso relevant, weil weniger Geld unnötig in offenen Forderungen oder schlechten Zahlungsprozessen gebunden bleibt.</p>
+
+            <p class="faq-section-heading">Die ehrliche Aussage</p>
+
+            <p style="margin-top: 14px;">Sie investieren im ersten Jahr in <strong>Ordnung, Transparenz und bessere Steuerbarkeit</strong>.</p>
+
+            <p style="margin-top: 14px;">Ab dem zweiten Jahr kann sich das mehrfach rechnen — nicht durch eine theoretische Excel-Rechnung, sondern durch drei konkrete Effekte:</p>
+
+            <p style="margin-top: 14px;"><strong>1. Der Steuerberater bekommt bessere Daten und muss weniger operative Arbeit nachziehen.</strong><br>
+            Das reduziert Rückfragen, Korrekturen und Abstimmungsaufwand.</p>
+
+            <p style="margin-top: 14px;"><strong>2. Das Unternehmen sieht früher, wo Liquidität knapp wird.</strong><br>
+            Dadurch können Kreditlinien, verspätete Zahlungen oder ungeplante Engpässe besser vermieden werden.</p>
+
+            <p style="margin-top: 14px;"><strong>3. Das Management bekommt jeden Monat klare Zahlen statt verspäteter Buchhaltungsdaten.</strong><br>
+            Das verbessert Entscheidungen zu Kosten, Forderungen, Zahlungen und Wachstum.</p>
+
+            <p class="faq-section-heading">Abschluss</p>
+
+            <p style="margin-top: 14px;"><strong>Im ersten Jahr bauen wir die Finanzstruktur auf, die vielen Unternehmen fehlt:</strong> saubere Daten, klare Verantwortlichkeiten, Liquiditätsübersicht und weniger Abstimmungschaos.</p>
+
+            <p style="margin-top: 14px;"><strong>Ab Jahr 2 entsteht der wirtschaftliche Effekt:</strong> weniger Steuerberateraufwand, weniger interne Reibung und bessere Entscheidungen auf Basis aktueller Zahlen.</p>
+
+            <p style="margin-top: 14px;">Das ist keine Garantie auf pauschale Einsparungen — aber bei einem Unternehmen mit ca. €5 Mio. Umsatz reicht oft schon eine reduzierte Steuerberaterrechnung, ein vermiedener Liquiditätsengpass oder schneller eingezogene Forderungen, damit sich die Investition wirtschaftlich sinnvoll rechnet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3: SAP / Lexware / sevDesk -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-3">
+          <span class="faq-question-text">Was ist, wenn ich nicht DATEV nutze, sondern SAP, Lexware oder sevDesk?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-3" role="region">
+          <div class="faq-answer">
+            <p>Konkret: Mit folgenden Systemen arbeiten wir produktiv:</p>
+            <p style="margin-top: 14px;"><strong>DATEV</strong> (alle SKR-Varianten) · <strong>SAP S/4HANA</strong> · <strong>Lexware</strong> · <strong>sevDesk</strong> · <strong>Excel-basierte Buchhaltung</strong></p>
+            <p style="margin-top: 14px;">Mit reinem Excel arbeiten wir auch — das ist sogar oft der Ausgangspunkt. Bei selbstentwickelter Branchensoftware oder älteren ERP-Systemen prüfen wir den Anbindungsaufwand vorab und sagen ehrlich, ob es sich lohnt. <strong>Falls nicht, entfällt das Strategiegespräch ohne Kosten</strong> — Sie sollen nicht für einen Termin zahlen, der zu einem Nein führt.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4: Einzelleistungen -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-4">
+          <span class="faq-question-text">Kann ich einzelne Leistungen buchen, oder muss ich das ganze Quick-Start-Paket nehmen?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-4" role="region">
+          <div class="faq-answer">
+            <p><strong>Ja, einzelne Leistungen sind möglich.</strong> Das Quick-Start-Paket — Forderungsmanagement plus 13-Wochen-Liquidität plus Bankabgleich für €15.800 — ist die wirtschaftlichste Variante, weil die drei Komponenten sich gegenseitig verstärken (saubere Daten machen das Forecast aussagekräftiger, der Forecast macht das Forderungsmanagement zielgerichteter).</p>
+            <p style="margin-top: 14px;">Wenn Sie nur eine einzelne Leistung wollen — etwa nur das Forderungsmanagement oder nur den Bankabgleich —, ist das machbar. Den <strong>Festpreis pro Einzelleistung</strong> bespreche ich mit Ihnen im Strategiegespräch, abhängig vom Umfang Ihrer Daten. Im Strategiegespräch sehen wir, was für Ihre Situation am sinnvollsten ist — Paket oder Einzelleistung.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5: Wer macht die Arbeit -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-5">
+          <span class="faq-question-text">Wer macht die Arbeit — Sie persönlich oder ein Team?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-5" role="region">
+          <div class="faq-answer">
+            <p>Bei jedem Projekt mache ich, <strong>Krisztina Toth, persönlich</strong> die Finance-Arbeit — Konzept, Datenanalyse, Übergabe-Dokumentation, Strategie-Gespräch.</p>
+            <p style="margin-top: 14px;">Für die technische Umsetzung — Python-Scripts, DATEV-Anbindungen, Schnittstellen — arbeite ich mit ein bis zwei <strong>festen Entwicklungspartnern in Deutschland</strong> zusammen. Diese Partner unterzeichnen pro Projekt eine NDA und einen Auftragsverarbeitungsvertrag. Sie sehen ausschließlich die für die Code-Arbeit nötigen Datenstrukturen — keine Klartext-Kundennamen, keine identifizierbaren Beträge im Geschäftskontext.</p>
+            <p style="margin-top: 14px;"><strong>Verantwortliche und einzige Ansprechperson sind in jedem Fall ich.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6: Zeitaufwand Team -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-6">
+          <span class="faq-question-text">Wie viel Zeit muss mein Team investieren?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-6" role="region">
+          <div class="faq-answer">
+            <p>Während der Projektphase von <strong>6–8 Wochen</strong> rechnen Sie insgesamt mit ca. <strong>8–12 Stunden interner Mitwirkung</strong> — verteilt auf Geschäftsführung, Buchhaltung und Steuerberater.</p>
+            <p style="margin-top: 14px;"><strong>Und danach:</strong></p>
+            <p style="margin-top: 14px;">Nach Projektende reduzieren die laufenden Automatisierungen typischerweise den monatlichen manuellen Aufwand in der Buchhaltung um <strong>ca. 8–16 Stunden</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7: Hebel-Garantie -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-7">
+          <span class="faq-question-text">Was bedeutet „Hebel-Garantie" konkret?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-7" role="region">
+          <div class="faq-answer">
+            <p>Wenn die ersten zwei Wochen zeigen, dass der im Strategiegespräch identifizierte Hebel in Ihrer konkreten Situation nicht greift, beenden wir das Projekt zum <strong>reduzierten Selbstkostenpreis</strong> — und Sie behalten die bis dahin erstellte Analyse. Die Entscheidung treffen Sie nach den zwei Wochen, nicht ich. Den genauen Selbstkostenpreis nennen wir vorab im schriftlichen Angebot, damit Sie das Risiko exakt kennen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8: Code-Ownership -->
+      <div class="faq-item">
+        <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-8">
+          <span class="faq-question-text">Gehört der Code und die Automatisierung mir oder Ihnen?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel" id="faq-panel-8" role="region">
+          <div class="faq-answer">
+            <p><strong>Ihnen.</strong> Nach Projektende erhalten Sie:</p>
+            <p style="margin-top: 14px;">
+              • Den vollständigen, <strong>kommentierten Quellcode</strong> in einem Git-Repository<br>
+              • Eine <strong>Verfahrensdokumentation auf Deutsch</strong>, die Ihre Buchhaltung versteht (kein Python-Wissen nötig)<br>
+              • Eine <strong>technische Dokumentation</strong>, für jeden Python-Entwickler lesbar<br>
+              • Alle Konfigurationsdateien und Schnittstellen-Beschreibungen
+            </p>
+            <p style="margin-top: 14px;">Sie können damit:</p>
+            <p style="margin-top: 14px;">
+              • Jeden Python-Entwickler in Deutschland (typisch €80–120/Std.) mit der Wartung beauftragen<br>
+              • Optional unser Check-in-Modell für €480/Monat nutzen — kündbar monatlich<br>
+              • Den Code stilllegen und manuell weiterarbeiten
+            </p>
+            <p style="margin-top: 14px;"><strong>Kein Lock-in, keine Lizenzgebühren, keine versteckte Bindung.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-footer-note">
+      <strong>Ihre Frage ist nicht dabei?</strong> Schreiben Sie uns — wir antworten in der Regel innerhalb von 24 Stunden. Oder klären Sie es direkt im Strategiegespräch.
     </div>
   </div>
 </section>
@@ -2747,31 +4371,31 @@
 <!-- =================== PRICING CTA =================== -->
 <section class="pricing-cta" id="kontakt">
   <div class="container">
-    <div class="section-eyebrow">The Entry Point</div>
+    <div class="section-eyebrow">Der Einstieg</div>
     <div class="pricing-cta-content">
       <div>
-        <h2>A 90-minute conversation. <em>Three concrete next steps.</em></h2>
-        <p>We look at your situation and tell you where the biggest lever sits — and whether it justifies the effort. If it doesn't, we tell you that too.</p>
+        <h2>Ein 90-Minuten-Gespräch. <em>Drei konkrete nächste Schritte.</em></h2>
+        <p>Wir schauen uns Ihre Situation an und sagen Ihnen, wo der größte Hebel liegt — und ob er den Aufwand rechtfertigt. Wenn nicht, sagen wir Ihnen das.</p>
 
         <div class="guarantee-box">
-          <div class="guarantee-label">Our Impact Guarantee</div>
-          <p>If the lever identified during the conversation doesn't hold up in your situation, you pay only the cost of delivery on the project. You keep the analysis — no discussion.</p>
+          <div class="guarantee-label">Unsere Hebel-Garantie</div>
+          <p>Trägt der im Gespräch identifizierte Hebel in Ihrer Situation nicht, zahlen Sie für das Projekt nur die Selbstkosten. Die Analyse behalten Sie — ohne Diskussion.</p>
         </div>
 
         <div class="pricing-cta-buttons">
-          <a href="#" class="cta-button" data-open-contact>Request a conversation</a>
-          <a href="#quick-start" class="cta-button-outline">See Quick-Start</a>
+          <a href="#" class="cta-button" data-open-contact>Gespräch anfragen</a>
+          <a href="#quick-start" class="cta-button-outline">Quick-Start ansehen</a>
         </div>
       </div>
       <div class="pricing-detail">
-        <div class="pricing-detail-price">€450</div>
-        <div class="pricing-detail-label">Strategy conversation · fixed fee</div>
-        <div class="pricing-detail-breakeven">On subsequent project: <strong>€450 fully credited</strong></div>
+        <div class="pricing-detail-price">€480</div>
+        <div class="pricing-detail-label">Strategiegespräch · Festpreis</div>
+        <div class="pricing-detail-breakeven">Bei späterem Projekt: <strong>€480 werden vollständig angerechnet</strong></div>
         <ul class="pricing-includes">
-          <li>You leave the conversation with a <strong>prioritized lever</strong> and concrete next steps</li>
-          <li>We come prepared — your numbers are <strong>analyzed in advance</strong></li>
-          <li>You decide <strong>freely and without pressure</strong> after the conversation</li>
-          <li>90 minutes · <strong>online or in Munich</strong>, you choose</li>
+          <li>Sie verlassen das Gespräch mit einem <strong>priorisierten Hebel</strong> und konkreten nächsten Schritten</li>
+          <li>Wir kommen vorbereitet — Ihre Zahlen sind <strong>vorab analysiert</strong></li>
+          <li>Sie entscheiden <strong>frei und ohne Druck</strong> nach dem Gespräch</li>
+          <li>90 Minuten · <strong>online oder in München</strong>, Sie wählen</li>
         </ul>
       </div>
     </div>
@@ -2783,13 +4407,13 @@
   <div class="container">
     <div class="honesty-grid">
       <div class="philosophy-label">
-        Why we tell you what doesn't work.
-        <em>And why that produces better outcomes.</em>
+        Warum wir Ihnen sagen, was nicht funktioniert.
+        <em>Und warum das bessere Ergebnisse bringt.</em>
       </div>
       <div class="honesty-items">
         <div class="honesty-item">
-          <h4>No hourly rates, no day rates, no surprises.</h4>
-          <p>Every project has a fixed fee. What it costs us in effort is our problem. What it delivers to you in results is our shared measuring stick.</p>
+          <h4>Keine Stundensätze, keine Tagessätze, keine Überraschungen.</h4>
+          <p>Jedes Projekt hat einen Festpreis. Was es uns an Aufwand kostet, ist unser Problem. Was es Ihnen an Ergebnis bringt, ist unsere gemeinsame Messlatte.</p>
         </div>
       </div>
     </div>
@@ -2801,24 +4425,101 @@
   <div class="container">
     <div>
       <a href="#" class="logo">North Finance <span>AI</span></a>
-      <div class="footer-fine">Krisztina Toth · Munich · krisztina@northfinanceai.com</div>
+      <div class="footer-fine">Krisztina Toth · München · krisztina@northfinanceai.com</div>
     </div>
     <div style="text-align: right;">
-      <div>All prices net, plus statutory VAT.</div>
-      <div class="footer-fine">German version available at <a href="/" style="color: inherit;">northfinanceai.com</a>.</div>
+      <div>Alle Preise netto, zzgl. gesetzlicher USt.</div>
+      <div class="footer-fine">Englische Version auf Anfrage verfügbar.</div>
     </div>
   </div>
 </footer>
 
+<!-- =================== LEAD CAPTURE POPUP =================== -->
+<div class="lead-popup-backdrop" id="lead-popup" role="dialog" aria-modal="true" aria-labelledby="lead-popup-title" aria-hidden="true">
+  <div class="lead-popup">
+    <button type="button" class="lead-popup-close" aria-label="Schließen" data-close-lead>×</button>
+
+    <!-- Form state -->
+    <div class="lead-popup-form-view">
+      <div class="lead-popup-eyebrow">Kostenlos · 7-Punkte-Diagnose</div>
+      <h3 id="lead-popup-title">Die 7 Hebel für mehr <em>Cash-Flow</em> in 30 Tagen.</h3>
+      <p class="lead-popup-lead">
+        Eine kompakte Diagnose-Checkliste für CFOs und Geschäftsführer von KMU. Identifizieren Sie binnen 20 Minuten, wo in Ihrem Unternehmen der größte Liquiditäts-Hebel liegt — bevor Sie einen Berater bezahlen.
+      </p>
+      <ul class="lead-popup-bullets">
+        <li>Forderungsmanagement: Welche 3 Kennzahlen jetzt zählen</li>
+        <li>13-Wochen-Forecast: Sofort-Setup ohne Tool-Investment</li>
+        <li>Bankabgleich-Quick-Audit: Wo Sie typischerweise Cash verlieren</li>
+      </ul>
+
+      <div class="form-message is-error" id="lead-form-error" role="alert" style="display:none;"></div>
+
+      <form id="lead-popup-form" novalidate>
+        <div class="form-field">
+          <label for="lp-name">Name</label>
+          <input type="text" id="lp-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="lp-email">E-Mail (geschäftlich)</label>
+          <input type="email" id="lp-email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="lp-company">Unternehmen</label>
+          <input type="text" id="lp-company" name="company" required autocomplete="organization">
+        </div>
+        <div class="form-field-row">
+          <div class="form-field">
+            <label for="lp-revenue">Jahresumsatz</label>
+            <select id="lp-revenue" name="revenue" required>
+              <option value="">Bitte wählen</option>
+              <option value="<5M">unter € 5 Mio.</option>
+              <option value="5-15M">€ 5 – 15 Mio.</option>
+              <option value="15-50M">€ 15 – 50 Mio.</option>
+              <option value=">50M">über € 50 Mio.</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="lp-phone">Telefon</label>
+            <input type="tel" id="lp-phone" name="phone" required autocomplete="tel" placeholder="+49 ...">
+          </div>
+        </div>
+
+        <!-- Honeypot anti-spam (must remain empty) -->
+        <input type="text" name="website" id="lp-website" style="position:absolute;left:-9999px;" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <!-- Source tracking -->
+        <input type="hidden" name="source" value="popup_5s_landing">
+
+        <button type="submit" class="form-submit" id="lead-submit-btn">Diagnose-Checkliste anfordern</button>
+        <p class="lead-popup-trust">
+          <strong>DSGVO-konform.</strong> Ihre Daten werden ausschließlich zur Zustellung der Checkliste und einmaliger Folge-Information verwendet. Keine Weitergabe an Dritte. Abmeldung jederzeit per E-Mail.
+        </p>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="lead-popup-success" id="lead-popup-success">
+      <div class="lead-popup-eyebrow">Vielen Dank</div>
+      <h4>Ihre Checkliste ist auf dem Weg.</h4>
+      <p>
+        Wir haben die Liquiditäts-Diagnose an Ihre E-Mail gesendet. Sie können sie auch direkt hier herunterladen:
+      </p>
+      <a href="/downloads/liquiditaets-diagnose.pdf" class="lead-popup-download" download>Jetzt herunterladen</a>
+      <p style="margin-top: 24px; font-size: 14px;">
+        Falls Sie unmittelbar Rücksprache wünschen: <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
 <!-- =================== CONTACT MODAL =================== -->
 <div class="modal-backdrop" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
   <div class="modal">
-    <button type="button" class="modal-close" aria-label="Close" data-close-contact>×</button>
+    <button type="button" class="modal-close" aria-label="Schließen" data-close-contact>×</button>
 
     <!-- Form state -->
     <div class="form-view">
-      <div class="modal-eyebrow">Strategy conversation</div>
-      <h3 id="contact-modal-title">Let's have a <em>brief conversation.</em></h3>
+      <div class="modal-eyebrow">Strategiegespräch</div>
+      <h3 id="contact-modal-title">Lassen Sie uns <em>kurz sprechen.</em></h3>
 
       <div class="form-message is-error" id="form-error" role="alert"></div>
 
@@ -2828,36 +4529,36 @@
           <input type="text" id="cf-name" name="name" required autocomplete="name">
         </div>
         <div class="form-field">
-          <label for="cf-email">Email</label>
+          <label for="cf-email">E-Mail</label>
           <input type="email" id="cf-email" name="email" required autocomplete="email">
         </div>
         <div class="form-field">
-          <label for="cf-company">Company</label>
+          <label for="cf-company">Unternehmen</label>
           <input type="text" id="cf-company" name="company" autocomplete="organization">
         </div>
         <div class="form-field">
-          <label for="cf-message">Your situation (briefly)</label>
-          <textarea id="cf-message" name="message" placeholder="E.g. revenue, industry, where you suspect the biggest lever currently sits."></textarea>
+          <label for="cf-message">Ihre Situation (kurz)</label>
+          <textarea id="cf-message" name="message" placeholder="Z.B. Umsatz, Branche, wo Sie gerade den größten Hebel vermuten."></textarea>
         </div>
 
         <!-- Formsubmit honeypot (anti-spam) -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <!-- Formsubmit config -->
-        <input type="hidden" name="_subject" value="[EN] New inquiry via northfinanceai.com">
+        <input type="hidden" name="_subject" value="Neue Anfrage über northfinanceai.com">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
 
-        <button type="submit" class="form-submit" id="form-submit-btn">Send inquiry</button>
-        <p class="form-note">Your data is used exclusively to get in touch. No sharing with third parties, no newsletter.</p>
+        <button type="submit" class="form-submit" id="form-submit-btn">Anfrage senden</button>
+        <p class="form-note">Ihre Daten werden ausschließlich zur Kontaktaufnahme verwendet. Keine Weitergabe an Dritte, kein Newsletter.</p>
       </form>
     </div>
 
     <!-- Success state -->
     <div class="form-success" id="form-success">
-      <div class="modal-eyebrow">Thank you</div>
-      <h4>Your inquiry has been received.</h4>
-      <p>We'll get back to you within 24 hours — usually much sooner. If it's urgent, you can reach us directly at <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>.</p>
-      <button type="button" class="form-submit" data-close-contact style="background: var(--gold); color: var(--navy);">Close</button>
+      <div class="modal-eyebrow">Vielen Dank</div>
+      <h4>Ihre Anfrage ist angekommen.</h4>
+      <p>Wir melden uns innerhalb von 24 Stunden bei Ihnen — meist deutlich schneller. Falls es dringend ist, erreichen Sie uns direkt unter <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>.</p>
+      <button type="button" class="form-submit" data-close-contact style="background: var(--gold); color: var(--navy);">Schließen</button>
     </div>
   </div>
 </div>
@@ -2894,27 +4595,27 @@
       // Pre-fill the message field with Quick-Start context
       var messageField = document.getElementById('cf-message');
       if (messageField) {
-        messageField.value = 'I am interested in the Cash-Flow Quick-Start package (€12,400, 6–8 weeks: Receivables Optimization, 13-Week Rolling Cash Forecast, and Automated Bank Reconciliation). Please get back to me.';
+        messageField.value = 'Ich interessiere mich für das Cash-Flow Quick-Start Paket (€15.800, 6–8 Wochen: Forderungsmanagement, 13-Wochen-Liquiditätsplanung und automatisierter Bankabgleich). Bitte melden Sie sich zurück.';
       }
       // Swap the form subject line via hidden Formsubmit input
       var subjectInput = form.querySelector('input[name="_subject"]');
       if (subjectInput) {
-        subjectInput.value = '[EN] QUICK-START inquiry via northfinanceai.com';
+        subjectInput.value = 'QUICK-START Anfrage über northfinanceai.com';
       }
       // Update modal headline for visual confirmation
       var modalTitle = document.getElementById('contact-modal-title');
       if (modalTitle) {
-        modalTitle.innerHTML = 'Request <em>Quick-Start.</em>';
+        modalTitle.innerHTML = 'Quick-Start <em>anfragen.</em>';
       }
     } else {
       // Reset to default subject and headline
       var subjectInput2 = form.querySelector('input[name="_subject"]');
       if (subjectInput2) {
-        subjectInput2.value = '[EN] New inquiry via northfinanceai.com';
+        subjectInput2.value = 'Neue Anfrage über northfinanceai.com';
       }
       var modalTitle2 = document.getElementById('contact-modal-title');
       if (modalTitle2) {
-        modalTitle2.innerHTML = 'Let\'s have a <em>brief conversation.</em>';
+        modalTitle2.innerHTML = 'Lassen Sie uns <em>kurz sprechen.</em>';
       }
     }
 
@@ -2939,7 +4640,7 @@
     errorBox.classList.remove('is-visible');
     errorBox.textContent = '';
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send inquiry';
+    submitBtn.textContent = 'Anfrage senden';
   }
 
   function showError(msg) {
@@ -2983,16 +4684,16 @@
     var name = form.name.value.trim();
     var email = form.email.value.trim();
     if (!name || !email) {
-      showError('Please fill in name and email.');
+      showError('Bitte füllen Sie Name und E-Mail aus.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showError('Please enter a valid email address.');
+      showError('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
       return;
     }
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+    submitBtn.textContent = 'Wird gesendet…';
 
     var formData = new FormData(form);
     var data = {};
@@ -3007,20 +4708,20 @@
       body: JSON.stringify(data)
     })
     .then(function(response) {
-      if (!response.ok) throw new Error('Network error (' + response.status + ')');
+      if (!response.ok) throw new Error('Netzwerkfehler (' + response.status + ')');
       return response.json();
     })
     .then(function(result) {
       if (result && (result.success === 'true' || result.success === true)) {
         showSuccess();
       } else {
-        throw new Error(result.message || 'Unknown error');
+        throw new Error(result.message || 'Unbekannter Fehler');
       }
     })
     .catch(function(err) {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send inquiry';
-      showError('Your inquiry could not be sent. Please write to us directly at krisztina@northfinanceai.com.');
+      submitBtn.textContent = 'Anfrage senden';
+      showError('Ihre Anfrage konnte nicht gesendet werden. Bitte schreiben Sie uns direkt an krisztina@northfinanceai.com.');
       console.error('Form submission error:', err);
     });
   });
@@ -3086,18 +4787,18 @@
         e.stopPropagation();
         var lang = this.getAttribute('data-lang');
 
-        if (lang === 'en') {
-          // Already in English — just close
+        if (lang === 'de') {
+          // Already in German — just close
           langSwitcher.classList.remove('is-open');
           langBtn.setAttribute('aria-expanded', 'false');
           return;
         }
 
-        if (lang === 'de') {
-          // Navigate to German version
+        if (lang === 'en') {
+          // Navigate to English version
           langSwitcher.classList.remove('is-open');
           langBtn.setAttribute('aria-expanded', 'false');
-          window.location.href = '/';
+          window.location.href = '/en/';
         }
       });
     }
@@ -3110,6 +4811,15 @@
       var item = this.parentElement;
       var isOpen = item.classList.toggle('is-open');
       this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
+  // ===== FAQ ACCORDION (independent toggles — multiple can be open) =====
+  var faqTriggers = document.querySelectorAll('.faq-trigger');
+  for (var f = 0; f < faqTriggers.length; f++) {
+    faqTriggers[f].addEventListener('click', function() {
+      var isOpen = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
   }
 
@@ -3178,7 +4888,7 @@
       // Update label text based on state
       var labelSpan = this.querySelector('span:nth-child(2)');
       if (labelSpan) {
-        labelSpan.textContent = isOpen ? 'Hide areas' : 'Show areas';
+        labelSpan.textContent = isOpen ? 'Bereiche ausblenden' : 'Bereiche anzeigen';
       }
     });
   }
@@ -3193,7 +4903,7 @@
       this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       var labelSpan = this.querySelector('span:nth-child(1)');
       if (labelSpan) {
-        labelSpan.textContent = isOpen ? 'Hide criteria' : 'Show criteria';
+        labelSpan.textContent = isOpen ? 'Kriterien ausblenden' : 'Kriterien anzeigen';
       }
     });
   }
@@ -3205,8 +4915,164 @@
     menuToggle.addEventListener('click', function() {
       var isOpen = siteHeader.classList.toggle('is-menu-open');
       menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      menuToggle.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
     });
+  }
+})();
+</script>
+
+<script>
+/* =================== LEAD CAPTURE POPUP — self-contained =================== */
+(function() {
+  'use strict';
+
+  var POPUP_DELAY_MS = 5000;          // 5-second trigger
+  var DISMISS_COOLDOWN_DAYS = 7;       // don't show again for 7 days after dismiss
+  var STORAGE_KEY_DISMISSED = 'nf_lead_popup_dismissed_at';
+  var STORAGE_KEY_SUBMITTED = 'nf_lead_popup_submitted';
+  var API_ENDPOINT = '/api/lead-capture';   // Vercel serverless function
+
+  var popup = document.getElementById('lead-popup');
+  if (!popup) return;
+  var form = document.getElementById('lead-popup-form');
+  var formView = popup.querySelector('.lead-popup-form-view');
+  var successView = document.getElementById('lead-popup-success');
+  var errorBox = document.getElementById('lead-form-error');
+  var submitBtn = document.getElementById('lead-submit-btn');
+  var closeButtons = popup.querySelectorAll('[data-close-lead]');
+  var firstFocusable = document.getElementById('lp-name');
+
+  // ---------- Storage helpers (graceful if storage blocked) ----------
+  function safeGet(key) {
+    try { return window.localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function safeSet(key, val) {
+    try { window.localStorage.setItem(key, val); } catch (e) { /* ignore */ }
+  }
+
+  // ---------- Should we show? ----------
+  function shouldShow() {
+    // Manual disable for testing: ?nopopup=1
+    if (location.search.indexOf('nopopup=1') !== -1) return false;
+    // Already submitted → never again
+    if (safeGet(STORAGE_KEY_SUBMITTED) === '1') return false;
+    // Dismissed within cooldown → skip
+    var dismissedAt = safeGet(STORAGE_KEY_DISMISSED);
+    if (dismissedAt) {
+      var ageMs = Date.now() - parseInt(dismissedAt, 10);
+      if (ageMs < DISMISS_COOLDOWN_DAYS * 86400000) return false;
+    }
+    return true;
+  }
+
+  // ---------- Open / close ----------
+  var bodyOverflowBefore = '';
+  function openPopup() {
+    popup.classList.add('is-open');
+    popup.setAttribute('aria-hidden', 'false');
+    bodyOverflowBefore = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    // Focus first input after transition
+    setTimeout(function() { if (firstFocusable) firstFocusable.focus(); }, 350);
+  }
+  function closePopup(reason) {
+    popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = bodyOverflowBefore;
+    if (reason === 'dismiss') {
+      safeSet(STORAGE_KEY_DISMISSED, String(Date.now()));
+    }
+  }
+
+  // ---------- Wire close triggers ----------
+  for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].addEventListener('click', function() { closePopup('dismiss'); });
+  }
+  popup.addEventListener('click', function(e) {
+    if (e.target === popup) closePopup('dismiss');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && popup.classList.contains('is-open')) closePopup('dismiss');
+  });
+
+  // ---------- Validation ----------
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = 'block';
+    errorBox.classList.add('is-visible');
+  }
+  function clearError() {
+    errorBox.textContent = '';
+    errorBox.style.display = 'none';
+    errorBox.classList.remove('is-visible');
+  }
+  function validEmail(s) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+  }
+
+  // ---------- Submit handler ----------
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    clearError();
+
+    // Honeypot: if filled, silently abort (it's a bot)
+    var honey = document.getElementById('lp-website');
+    if (honey && honey.value) {
+      // Pretend success so the bot moves on
+      formView.style.display = 'none';
+      successView.classList.add('is-visible');
+      return;
+    }
+
+    var data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      company: form.company.value.trim(),
+      revenue: form.revenue.value,
+      phone: form.phone.value.trim(),
+      source: form.source.value,
+      url: location.href,
+      submitted_at: new Date().toISOString()
+    };
+
+    if (!data.name)            return showError('Bitte geben Sie Ihren Namen an.');
+    if (!validEmail(data.email)) return showError('Bitte geben Sie eine gültige E-Mail-Adresse an.');
+    if (!data.company)         return showError('Bitte geben Sie Ihr Unternehmen an.');
+    if (!data.revenue)         return showError('Bitte wählen Sie Ihre Umsatzklasse.');
+    if (!data.phone || data.phone.length < 6) return showError('Bitte geben Sie eine gültige Telefonnummer an.');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet …';
+
+    fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function() {
+      safeSet(STORAGE_KEY_SUBMITTED, '1');
+      formView.style.display = 'none';
+      successView.classList.add('is-visible');
+      // Optional: dataLayer/GA event
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: 'lead_captured', source: data.source });
+      }
+    })
+    .catch(function(err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Diagnose-Checkliste anfordern';
+      showError('Es gab ein technisches Problem. Bitte versuchen Sie es in einem Moment erneut oder schreiben Sie an krisztina@northfinanceai.com.');
+      if (window.console) console.error('Lead capture error:', err);
+    });
+  });
+
+  // ---------- Trigger ----------
+  if (shouldShow()) {
+    setTimeout(openPopup, POPUP_DELAY_MS);
   }
 })();
 </script>
