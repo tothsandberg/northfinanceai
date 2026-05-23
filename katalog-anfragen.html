@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Leistungskatalog anfragen · North Finance AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0a1f3d;
+    --navy-light: #14304f;
+    --gold: #b8935a;
+    --gold-soft: #c9a961;
+    --cream: #f7f3ec;
+    --cream-dark: #efe9de;
+    --ink: #2a2a2a;
+    --ink-soft: #555555;
+    --line: #e5dfd2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .card {
+    background: white;
+    max-width: 540px;
+    width: 100%;
+    border-top: 3px solid var(--gold);
+    padding: 56px 48px 44px;
+    box-shadow: 0 30px 60px rgba(10, 31, 61, 0.15);
+  }
+
+  .card-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+  .card-logo span { color: var(--gold); font-style: italic; }
+
+  .card-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .card h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .card h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+
+  .card p {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  .lead-summary {
+    background: var(--cream-dark);
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+  .lead-summary-row { display: flex; gap: 12px; margin-bottom: 6px; }
+  .lead-summary-row:last-child { margin-bottom: 0; }
+  .lead-summary-label {
+    font-weight: 600;
+    color: var(--navy);
+    min-width: 110px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 24px;
+  }
+  .submit-btn:hover:not(:disabled) { background: var(--navy-light); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .helper-note {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    line-height: 1.55;
+  }
+
+  .error-state, .success-state { display: none; }
+  body.is-error .request-state { display: none; }
+  body.is-error .error-state { display: block; }
+  body.is-success .request-state { display: none; }
+  body.is-success .success-state { display: block; }
+
+  .success-state h1 em { color: var(--gold); }
+
+  @media (max-width: 560px) {
+    .card { padding: 40px 28px 32px; }
+    .card h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+
+  <!-- ─── REQUEST STATE (initial view) ─── -->
+  <div class="request-state">
+    <div class="card-logo">North Finance <span>AI</span></div>
+    <div class="card-eyebrow">Vertraulich · Auf Anfrage</div>
+    <h1>Leistungs<em>katalog</em> anfragen</h1>
+    <p>
+      Sie sind dabei, Zugang zu unserem detaillierten Leistungskatalog anzufragen — mit allen Paketen, Konditionen und Preisen.
+    </p>
+
+    <div class="lead-summary" id="lead-summary">
+      <div class="lead-summary-row">
+        <div class="lead-summary-label">Name:</div>
+        <div id="lead-name">—</div>
+      </div>
+      <div class="lead-summary-row">
+        <div class="lead-summary-label">Unternehmen:</div>
+        <div id="lead-company">—</div>
+      </div>
+      <div class="lead-summary-row">
+        <div class="lead-summary-label">E-Mail:</div>
+        <div id="lead-email">—</div>
+      </div>
+    </div>
+
+    <p style="font-size: 14px;">
+      Krisztina prüft Ihre Anfrage persönlich. Nach Freigabe erhalten Sie innerhalb von 24 Stunden Ihren persönlichen Zugangscode per E-Mail.
+    </p>
+
+    <button type="button" class="submit-btn" id="submit-btn">Anfrage absenden</button>
+
+    <p class="helper-note">
+      Falls Sie diese Anfrage nicht selbst ausgelöst haben, ignorieren Sie diese Seite einfach. Es wird keine Anfrage erstellt, solange Sie nicht auf den Button klicken.
+    </p>
+  </div>
+
+  <!-- ─── SUCCESS STATE ─── -->
+  <div class="success-state">
+    <div class="card-logo">North Finance <span>AI</span></div>
+    <div class="card-eyebrow">Anfrage eingegangen</div>
+    <h1>Vielen <em>Dank</em>.</h1>
+    <p>
+      Ihre Anfrage für den Leistungskatalog wurde an Krisztina übermittelt. Sie erhalten innerhalb von <strong>24 Stunden</strong> eine E-Mail mit Ihrem persönlichen Zugangscode.
+    </p>
+    <p>
+      Eine Bestätigungs-E-Mail wurde an Ihre Adresse versendet — bitte prüfen Sie auch Ihren Spam-Ordner.
+    </p>
+
+    <p class="helper-note">
+      Bei Rückfragen erreichen Sie Krisztina direkt unter <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>.
+    </p>
+  </div>
+
+  <!-- ─── ERROR STATE ─── -->
+  <div class="error-state">
+    <div class="card-logo">North Finance <span>AI</span></div>
+    <div class="card-eyebrow">Anfrage nicht möglich</div>
+    <h1>Link <em>ungültig</em> oder abgelaufen.</h1>
+    <p id="error-message">
+      Der Anfrage-Link aus der E-Mail scheint ungültig oder abgelaufen zu sein. Anfrage-Links sind aus Sicherheitsgründen 30 Tage gültig.
+    </p>
+    <p>
+      Bitte starten Sie erneut mit einer neuen Anfrage über <a href="https://northfinanceai.com" style="color: var(--gold); text-decoration: none;">northfinanceai.com</a> — oder schreiben Sie direkt an <a href="mailto:krisztina@northfinanceai.com" style="color: var(--gold); text-decoration: none;">krisztina@northfinanceai.com</a>.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ─── Parse token from URL ───
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('token');
+
+  if (!token) {
+    showError('Kein Anfrage-Token gefunden. Bitte verwenden Sie den Link aus Ihrer Bestätigungs-E-Mail.');
+    return;
+  }
+
+  // ─── Decode token payload to show the lead's details (display only — server still verifies) ───
+  try {
+    var parts = token.split('.');
+    if (parts.length !== 2) throw new Error('Bad token format');
+    var payloadJson = atob(parts[0].replace(/-/g, '+').replace(/_/g, '/'));
+    var payload = JSON.parse(payloadJson);
+
+    if (payload.exp && Date.now() > payload.exp) {
+      showError('Der Anfrage-Link ist abgelaufen (30 Tage gültig). Bitte starten Sie eine neue Anfrage.');
+      return;
+    }
+
+    setText('lead-name', payload.name || '—');
+    setText('lead-company', payload.company || '—');
+    setText('lead-email', payload.email || '—');
+  } catch (e) {
+    showError('Der Anfrage-Link ist ungültig.');
+    return;
+  }
+
+  // ─── Submit handler ───
+  var submitBtn = document.getElementById('submit-btn');
+  submitBtn.addEventListener('click', function() {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet …';
+
+    fetch('/api/catalogue-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token })
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function() {
+      document.body.classList.add('is-success');
+    })
+    .catch(function(err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Anfrage absenden';
+      showError('Es gab ein technisches Problem. Bitte versuchen Sie es in einem Moment erneut oder schreiben Sie an krisztina@northfinanceai.com.');
+      if (window.console) console.error('Catalogue request error:', err);
+    });
+  });
+
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('error-message');
+    if (el && msg) el.textContent = msg;
+    document.body.classList.add('is-error');
+  }
+})();
+</script>
+
+</body>
+</html>
