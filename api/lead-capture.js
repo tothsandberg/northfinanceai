@@ -1,18 +1,22 @@
 // api/lead-capture.js
-// Vercel serverless function that:
-//   1. Receives lead-capture POSTs from the CFO-Diagnose popup
-//   2. Emails Krisztina with the full diagnosis
-//   3. Emails the customer a confirmation
+// Vercel serverless function for the CFO-Diagnose popup submission.
+//   1. Validates form data
+//   2. Emails Krisztina with the full diagnosis (notification)
+//   3. Emails the lead with confirmation + a "Leistungskatalog anfragen" button
 //
-// Required env var:  RESEND_API_KEY  (set in Vercel → Settings → Environments → Production)
-// No npm packages required — uses fetch + Resend's REST API directly.
+// Required env vars:
+//   RESEND_API_KEY     - for sending emails
+//   APPROVAL_SECRET    - for signing the lead token used in the catalogue request button
 
-// ─── CONFIG ────────────────────────────────────────────────────────────────
+import crypto from 'node:crypto';
+
 const OWNER_EMAIL = 'krisztina@northfinanceai.com';
-
-// Sender address. Domain (northfinanceai.com) must be verified in Resend.
 const FROM_EMAIL = 'North Finance AI <noreply@northfinanceai.com>';
-// ───────────────────────────────────────────────────────────────────────────
+const SITE_URL = 'https://northfinanceai.com';
+
+// Signed lead-token is valid for 30 days — gives the lead a reasonable window
+// to come back to the confirmation email and click "Katalog anfragen".
+const LEAD_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -28,7 +32,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
 
-    // Server-side validation (never trust the client)
+    // Validation
     if (!data.name || !data.company || !data.phone || !data.email) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -48,7 +52,17 @@ export default async function handler(req, res) {
 
     const diag = data.diagnosis || {};
 
-    // ─── Email 1: Notification to Krisztina ─────────────────────────────────
+    // ─── Generate signed lead token for the catalogue request button ─────
+    const leadToken = sign({
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      exp: Date.now() + LEAD_TOKEN_TTL_MS
+    }, process.env.APPROVAL_SECRET);
+
+    const katalogRequestUrl = `${SITE_URL}/katalog-anfragen?token=${encodeURIComponent(leadToken)}`;
+
+    // ─── Email 1: Notification to Krisztina ─────────────────────────────
     const ownerHtml = `
       <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 640px; color: #2a2a2a;">
         <h2 style="color: #0a1f3d; border-bottom: 2px solid #c9a961; padding-bottom: 8px;">
@@ -93,14 +107,21 @@ export default async function handler(req, res) {
       html: ownerHtml
     });
 
-    // ─── Email 2: Confirmation to the customer ─────────────────────────────
+    // ─── Email 2: Confirmation + Katalog request CTA to the lead ────────
     const customerHtml = `
-      <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; color: #2a2a2a; line-height: 1.6;">
+      <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 580px; color: #2a2a2a; line-height: 1.6;">
         <p>Sehr geehrte/r ${esc(data.name)},</p>
 
         <p>vielen Dank für Ihre Anfrage. Wir haben Ihre Angaben erhalten und Krisztina wird sich <strong>innerhalb von 24 Stunden</strong> persönlich auf der von Ihnen angegebenen Nummer (${esc(data.phone)}) bei Ihnen melden.</p>
 
         <p>Im Gespräch konkretisieren wir die Hebel auf Ihre Zahlen und sagen Ihnen, ob ein Projekt sinnvoll ist. Wenn nicht, sagen wir das auch — die Rücksprache ist kostenlos und ohne Folgekosten.</p>
+
+        <div style="background: #f5f0e6; border-left: 3px solid #c9a961; padding: 24px; margin: 32px 0;">
+          <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #c9a961; font-weight: 700; margin-bottom: 12px;">Optional · Vor dem Gespräch</div>
+          <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 22px; color: #0a1f3d; margin: 0 0 12px; line-height: 1.3;">Detaillierten Leistungskatalog anfragen</h3>
+          <p style="margin: 0 0 18px; font-size: 14px;">Konditionen, Paketdetails und Preise teilen wir nicht öffentlich. Auf Anfrage prüft Krisztina persönlich und stellt Ihnen einen vertraulichen Zugang zum Leistungskatalog bereit.</p>
+          <a href="${katalogRequestUrl}" style="display: inline-block; background: #0a1f3d; color: white; padding: 14px 28px; text-decoration: none; font-family: Arial, sans-serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;">Leistungskatalog anfragen</a>
+        </div>
 
         <p>Falls Sie zwischenzeitlich unmittelbar Rücksprache wünschen, erreichen Sie uns direkt unter <a href="mailto:krisztina@northfinanceai.com" style="color: #c9a961;">krisztina@northfinanceai.com</a>.</p>
 
@@ -129,13 +150,12 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true });
 
   } catch (err) {
-    // Full error visible in Vercel function logs, but not leaked to the client.
     console.error('Lead capture failed:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
+// ─── HELPERS ────────────────────────────────────────────────────────────
 
 async function sendEmail({ from, to, reply_to, subject, html }) {
   const response = await fetch('https://api.resend.com/emails', {
@@ -146,7 +166,6 @@ async function sendEmail({ from, to, reply_to, subject, html }) {
     },
     body: JSON.stringify({ from, to, reply_to, subject, html })
   });
-
   if (!response.ok) {
     const errorBody = await response.text();
     throw new Error(`Resend API error ${response.status}: ${errorBody}`);
@@ -154,7 +173,15 @@ async function sendEmail({ from, to, reply_to, subject, html }) {
   return response.json();
 }
 
-// Minimal HTML escaper to prevent injection in the email bodies.
+// HMAC-SHA256 signing for tamper-proof tokens.
+// Token format:  base64url(payload).base64url(signature)
+function sign(payload, secret) {
+  const json = JSON.stringify(payload);
+  const data = Buffer.from(json).toString('base64url');
+  const sig = crypto.createHmac('sha256', secret || 'dev-secret').update(data).digest('base64url');
+  return `${data}.${sig}`;
+}
+
 function esc(str) {
   if (str == null) return '';
   return String(str)

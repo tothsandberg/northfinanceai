@@ -1,16 +1,14 @@
 // api/catalogue-access.js
-// Validates a catalogue access code and emails Krisztina each time:
-//   - on SUCCESS: who accessed, when, from where
-//   - on FAILURE: which code was tried, IP, browser (so attacks are visible)
+// Validates a catalogue access code against:
+//   (1) Vercel KV  (codes generated via the new request/approve flow)
+//   (2) CATALOGUE_CODES env var  (fallback — for any manually-added codes)
+//
+// Logs every attempt (success and failure) by emailing Krisztina.
 //
 // Required env vars:
-//   RESEND_API_KEY    (already set from lead-capture)
-//   CATALOGUE_CODES   (JSON string — see below)
-//
-// CATALOGUE_CODES format (paste this as the Value in Vercel):
-//   {"MUELLER-XY42":{"name":"Hans Müller","company":"Müller GmbH","issued":"2026-05-23"}}
-//
-// Add new codes by editing the env var in Vercel → Settings → Environments → Production.
+//   RESEND_API_KEY, KV_REST_API_URL, KV_REST_API_TOKEN
+// Optional:
+//   CATALOGUE_CODES — JSON of fallback manually-issued codes (legacy support)
 
 const OWNER_EMAIL = 'krisztina@northfinanceai.com';
 const FROM_EMAIL = 'North Finance AI <noreply@northfinanceai.com>';
@@ -26,17 +24,31 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing code' });
   }
 
-  // Parse the code list from env var
-  let codesData;
+  // ─── Look up the code: KV first, then env-var fallback ───
+  let codeMatch = null;
+  let source = null;
+
   try {
-    codesData = JSON.parse(process.env.CATALOGUE_CODES || '{}');
+    const kvRecord = await kvGet(`catalogue:active:${submittedCode}`);
+    if (kvRecord) {
+      codeMatch = kvRecord;
+      source = 'kv';
+    }
   } catch (e) {
-    console.error('Invalid CATALOGUE_CODES env var:', e);
-    return res.status(500).json({ error: 'Configuration error' });
+    console.error('KV lookup failed:', e);
   }
 
-  // Case-insensitive match (codes are stored uppercase in the env var)
-  const codeMatch = codesData[submittedCode];
+  if (!codeMatch) {
+    try {
+      const fallbackCodes = JSON.parse(process.env.CATALOGUE_CODES || '{}');
+      if (fallbackCodes[submittedCode]) {
+        codeMatch = fallbackCodes[submittedCode];
+        source = 'env-var';
+      }
+    } catch (e) {
+      console.error('CATALOGUE_CODES env var invalid:', e);
+    }
+  }
 
   const ip = String(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown').split(',')[0].trim();
   const userAgent = String(req.headers['user-agent'] || 'unknown');
@@ -46,7 +58,7 @@ export default async function handler(req, res) {
   });
 
   if (!codeMatch) {
-    // INVALID CODE → notify Krisztina so she sees attack attempts
+    // INVALID — notify Krisztina
     try {
       await sendEmail({
         to: OWNER_EMAIL,
@@ -55,7 +67,6 @@ export default async function handler(req, res) {
           <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 580px; color: #2a2a2a;">
             <h2 style="color: #c53030;">Ungültiger Zugangsversuch</h2>
             <p>Jemand hat versucht, mit einem ungültigen Code auf den Leistungskatalog zuzugreifen.</p>
-
             <table cellpadding="8" style="border-collapse: collapse; font-size: 14px; margin-top: 20px;">
               <tr><td><strong>Versuchter Code:</strong></td><td><code style="background: #f5f5f5; padding: 2px 6px;">${esc(submittedCode)}</code></td></tr>
               <tr><td><strong>Zeit:</strong></td><td>${timestamp}</td></tr>
@@ -63,7 +74,6 @@ export default async function handler(req, res) {
               <tr><td><strong>Browser:</strong></td><td style="font-size: 12px;">${esc(userAgent)}</td></tr>
               <tr><td><strong>Herkunft:</strong></td><td style="font-size: 12px;">${esc(referer)}</td></tr>
             </table>
-
             <p style="color: #777; font-size: 12px; margin-top: 24px;">
               Einzelne Fehlversuche sind normal (Tippfehler). Mehrere Versuche aus derselben IP innerhalb weniger Minuten könnten einen Angriff bedeuten.
             </p>
@@ -76,7 +86,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: 'Invalid code' });
   }
 
-  // VALID CODE → log access + return customer info
+  // VALID — log access + return customer info
   try {
     await sendEmail({
       to: OWNER_EMAIL,
@@ -86,26 +96,25 @@ export default async function handler(req, res) {
           <h2 style="color: #0a1f3d; border-bottom: 2px solid #c9a961; padding-bottom: 8px;">
             Leistungskatalog wurde geöffnet
           </h2>
-
           <table cellpadding="8" style="border-collapse: collapse; font-size: 15px; margin-top: 20px;">
             <tr><td><strong>Kunde:</strong></td><td>${esc(codeMatch.name)}</td></tr>
             <tr><td><strong>Unternehmen:</strong></td><td>${esc(codeMatch.company)}</td></tr>
+            <tr><td><strong>E-Mail:</strong></td><td>${esc(codeMatch.email || '—')}</td></tr>
             <tr><td><strong>Code:</strong></td><td><code style="background: #f5f0e6; padding: 2px 6px;">${esc(submittedCode)}</code></td></tr>
+            <tr><td><strong>Code-Quelle:</strong></td><td>${esc(source)}</td></tr>
             <tr><td><strong>Code ausgegeben:</strong></td><td>${esc(codeMatch.issued || '—')}</td></tr>
             <tr><td><strong>Zugriff am:</strong></td><td>${timestamp}</td></tr>
             <tr><td><strong>IP-Adresse:</strong></td><td>${esc(ip)}</td></tr>
           </table>
-
           <div style="background: #f5f0e6; border-left: 3px solid #c9a961; padding: 16px; margin-top: 24px;">
             <p style="margin: 0; font-style: italic; color: #6b5530;">
-              <strong>💡 Sales-Signal:</strong> Wenn dieser Kunde den Katalog mehrfach innerhalb einer Woche öffnet, ist das ein starkes Kaufsignal. Sie können dann proaktiv nachfassen.
+              <strong>💡 Sales-Signal:</strong> Wenn dieser Kunde den Katalog mehrfach innerhalb einer Woche öffnet, ist das ein starkes Kaufsignal.
             </p>
           </div>
         </div>
       `
     });
   } catch (err) {
-    // Don't block the customer if the notification email fails — still grant access.
     console.error('Failed to send access notification:', err);
   }
 
@@ -118,7 +127,7 @@ export default async function handler(req, res) {
   });
 }
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
+// ─── HELPERS ─────────────────────────────────────────────────────────────
 
 async function sendEmail({ to, subject, html }) {
   const response = await fetch('https://api.resend.com/emails', {
@@ -127,19 +136,27 @@ async function sendEmail({ to, subject, html }) {
       'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      from: FROM_EMAIL,
-      to: to,
-      subject: subject,
-      html: html
-    })
+    body: JSON.stringify({ from: FROM_EMAIL, to, subject, html })
   });
-
   if (!response.ok) {
     const errorBody = await response.text();
     throw new Error(`Resend API error ${response.status}: ${errorBody}`);
   }
   return response.json();
+}
+
+async function kvGet(key) {
+  if (!process.env.KV_REST_API_URL) return null;
+  const response = await fetch(`${process.env.KV_REST_API_URL}/get/${encodeURIComponent(key)}`, {
+    headers: { 'Authorization': `Bearer ${process.env.KV_REST_API_TOKEN}` }
+  });
+  if (!response.ok) {
+    if (response.status === 404) return null;
+    throw new Error(`KV get failed: ${response.status}`);
+  }
+  const data = await response.json();
+  if (data.result == null) return null;
+  try { return JSON.parse(data.result); } catch (e) { return data.result; }
 }
 
 function esc(str) {
