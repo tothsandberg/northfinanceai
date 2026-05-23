@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Leistungskatalog · North Finance AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0a1f3d;
+    --navy-light: #14304f;
+    --gold: #b8935a;
+    --gold-soft: #c9a961;
+    --cream: #f7f3ec;
+    --cream-dark: #efe9de;
+    --ink: #2a2a2a;
+    --ink-soft: #555555;
+    --line: #e5dfd2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* ─── GATE ─── */
+  .gate {
+    background: white;
+    max-width: 480px;
+    width: 100%;
+    border-top: 3px solid var(--gold);
+    padding: 56px 48px 44px;
+    box-shadow: 0 30px 60px rgba(10, 31, 61, 0.15);
+    position: relative;
+  }
+
+  .gate-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 36px;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .gate-logo span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .gate-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .gate h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .gate h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .gate-lead {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+
+  .gate-error {
+    background: #fdf2f2;
+    border-left: 3px solid #c53030;
+    color: #742a2a;
+    padding: 12px 14px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: none;
+    line-height: 1.5;
+  }
+  .gate-error.is-visible { display: block; }
+
+  .gate-form label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .gate-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    background: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+  }
+  .gate-form input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 147, 90, 0.15);
+  }
+  .gate-form input::placeholder {
+    color: #bbb;
+    letter-spacing: 0.08em;
+  }
+
+  .gate-submit {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 24px;
+  }
+  .gate-submit:hover:not(:disabled) { background: var(--navy-light); }
+  .gate-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .gate-help {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 32px;
+    line-height: 1.55;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .gate-help a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .gate-help a:hover { text-decoration: underline; }
+
+  /* ─── PLACEHOLDER (until Phase 2 content lands) ─── */
+  .catalogue-placeholder {
+    display: none;
+    max-width: 720px;
+    width: 100%;
+    background: white;
+    border-top: 3px solid var(--gold);
+    padding: 64px 64px 56px;
+    box-shadow: 0 30px 60px rgba(10, 31, 61, 0.12);
+    text-align: left;
+  }
+  .catalogue-placeholder .gate-logo { margin-bottom: 28px; }
+  .catalogue-placeholder .gate-eyebrow { margin-bottom: 16px; }
+  .catalogue-placeholder h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .catalogue-placeholder h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .catalogue-placeholder p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .catalogue-placeholder .contact-card {
+    background: var(--cream-dark);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin-top: 28px;
+  }
+  .catalogue-placeholder .contact-card a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  body.is-authenticated .gate { display: none; }
+  body.is-authenticated .catalogue-placeholder { display: block; }
+
+  @media (max-width: 560px) {
+    .gate { padding: 44px 28px 32px; }
+    .gate h1 { font-size: 26px; }
+    .catalogue-placeholder { padding: 40px 28px 32px; }
+    .catalogue-placeholder h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── ACCESS GATE ─── -->
+<div class="gate" id="gate" role="dialog" aria-labelledby="gate-title">
+  <div class="gate-logo">North Finance <span>AI</span></div>
+  <div class="gate-eyebrow">Vertraulich</div>
+  <h1 id="gate-title">Leistungs<em>katalog</em></h1>
+  <p class="gate-lead">
+    Dieser Bereich enthält detaillierte Konditionen, Pakete und Preise. Der Zugang wird persönlich nach dem Strategiegespräch vergeben.
+  </p>
+
+  <div class="gate-error" id="gate-error" role="alert"></div>
+
+  <form class="gate-form" id="gate-form" autocomplete="off" novalidate>
+    <label for="gate-code">Zugangscode</label>
+    <input
+      type="text"
+      id="gate-code"
+      name="code"
+      required
+      autocomplete="off"
+      autocapitalize="characters"
+      spellcheck="false"
+      placeholder="z.B. MUSTER-XY42"
+      maxlength="40"
+    >
+    <button type="submit" class="gate-submit" id="gate-submit">Katalog öffnen</button>
+  </form>
+
+  <p class="gate-help">
+    Noch keinen Code?
+    <a href="https://northfinanceai.com/#kontakt">Strategiegespräch anfragen</a>
+    — den Code erhalten Sie persönlich nach dem Termin.
+  </p>
+</div>
+
+<!-- ─── PHASE 2 PLACEHOLDER (replaced once full catalogue is built) ─── -->
+<div class="catalogue-placeholder" id="catalogue-placeholder">
+  <div class="gate-logo">North Finance <span>AI</span></div>
+  <div class="gate-eyebrow">Vorabzugang · Vertraulich</div>
+  <h2>Willkommen, <em><span id="customer-name">Kunde</span></em></h2>
+  <p>
+    Vielen Dank für Ihr Interesse. Ihr Zugang wurde gerade verifiziert und Krisztina ist darüber informiert worden.
+  </p>
+  <p>
+    Der vollständige Leistungskatalog mit allen Paketen, Konditionen und Preisen wird derzeit fertiggestellt und steht Ihnen innerhalb der nächsten Tage zur Verfügung. Sobald er bereit ist, wird sich Krisztina persönlich bei Ihnen melden — unter derselben Telefonnummer oder E-Mail, mit der Sie das Strategiegespräch geführt haben.
+  </p>
+
+  <div class="contact-card">
+    <p style="margin: 0; font-size: 15px; color: var(--ink);">
+      <strong>Bei Rückfragen erreichen Sie Krisztina direkt:</strong><br>
+      <a href="mailto:krisztina@northfinanceai.com">krisztina@northfinanceai.com</a>
+    </p>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var form = document.getElementById('gate-form');
+  var input = document.getElementById('gate-code');
+  var submit = document.getElementById('gate-submit');
+  var errorBox = document.getElementById('gate-error');
+  var customerNameEl = document.getElementById('customer-name');
+
+  // ─── Check existing session ───
+  try {
+    var session = sessionStorage.getItem('nfa_catalog_auth');
+    if (session) {
+      var parsed = JSON.parse(session);
+      if (parsed && parsed.name) {
+        unlockCatalogue(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // ─── Auto-focus input ───
+  setTimeout(function() {
+    if (input && !document.body.classList.contains('is-authenticated')) {
+      input.focus();
+    }
+  }, 100);
+
+  // ─── Handle form submit ───
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var code = (input.value || '').trim();
+    if (!code) {
+      showError('Bitte geben Sie Ihren Zugangscode ein.');
+      return;
+    }
+
+    hideError();
+    submit.disabled = true;
+    submit.textContent = 'Wird geprüft …';
+
+    fetch('/api/catalogue-access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code })
+    })
+    .then(function(res) {
+      if (res.status === 401) throw new Error('INVALID_CODE');
+      if (!res.ok) throw new Error('SERVER_ERROR');
+      return res.json();
+    })
+    .then(function(data) {
+      try {
+        sessionStorage.setItem('nfa_catalog_auth', JSON.stringify(data.customer));
+      } catch (e) {}
+      unlockCatalogue(data.customer);
+    })
+    .catch(function(err) {
+      submit.disabled = false;
+      submit.textContent = 'Katalog öffnen';
+      if (err && err.message === 'INVALID_CODE') {
+        showError('Code ungültig. Bitte prüfen Sie die Schreibweise — oder kontaktieren Sie Krisztina, falls der Code abgelaufen ist.');
+      } else {
+        showError('Es gab ein technisches Problem. Bitte versuchen Sie es in einem Moment erneut oder schreiben Sie an krisztina@northfinanceai.com.');
+      }
+      if (window.console) console.error('Catalogue access error:', err);
+    });
+  });
+
+  function unlockCatalogue(customer) {
+    if (customerNameEl && customer && customer.name) {
+      customerNameEl.textContent = customer.name;
+    }
+    document.body.classList.add('is-authenticated');
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add('is-visible');
+  }
+  function hideError() {
+    errorBox.classList.remove('is-visible');
+  }
+})();
+</script>
+
+</body>
+</html>
