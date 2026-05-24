@@ -1,1 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Finance Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #F8F9FA;
+            color: #0A1929;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 30px 0;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E8ECEF;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .language-dropdown {
+            position: relative;
+        }
+
+        .lang-selected {
+            color: #0A2540;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border: 1px solid #E8ECEF;
+            border-radius: 20px;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .lang-selected:hover {
+            border-color: #0A2540;
+        }
+
+        .lang-selected::after {
+            content: '▼';
+            font-size: 10px;
+            color: #6B7C8E;
+        }
+
+        .lang-options {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #FFFFFF;
+            border: 1px solid #E8ECEF;
+            border-radius: 12px;
+            padding: 8px 0;
+            min-width: 120px;
+            box-shadow: 0 10px 40px rgba(10, 25, 41, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .language-dropdown:hover .lang-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            color: #0A2540;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 10px 20px;
+            display: block;
+            transition: background 0.2s;
+        }
+
+        .lang-option:hover {
+            background: #F8F9FA;
+        }
+
+        .lang-option.active {
+            color: #0A2540;
+            background: #E8ECEF;
+        }
+
+        /* Welcome Modal */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+
+        .welcome-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal-content {
+            background: #FFFFFF;
+            padding: 60px 80px;
+            border-radius: 0;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: #0A1929;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            color: #6B7C8E;
+            line-height: 1.6;
+            margin-bottom: 50px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .visitor-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .visitor-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            border: 1px solid #E8ECEF;
+            background: #FFFFFF;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+            text-align: left;
+        }
+
+        .visitor-option:hover {
+            border-color: #0A2540;
+            background: #F8F9FA;
+        }
+
+        .visitor-option-text {
+            font-size: 16px;
+            color: #0A2540;
+            font-weight: 500;
+        }
+
+        .visitor-option-arrow {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #0A2540;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .visitor-option-arrow::after {
+            content: '→';
+            color: #0A2540;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .visitor-option:hover .visitor-option-arrow {
+            background: #0A2540;
+        }
+
+        .visitor-option:hover .visitor-option-arrow::after {
+            color: #FFFFFF;
+        }
+
+        /* Lead Magnet Modal */
+        .lead-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+
+        .lead-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .lead-modal-content {
+            background: #FFFFFF;
+            padding: 50px 60px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(10, 25, 41, 0.3);
+        }
+
+        .lead-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #6B7C8E;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .lead-close:hover {
+            color: #0A1929;
+        }
+
+        .lead-icon {
+            display: none;
+        }
+
+        .lead-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: #0A1929;
+            margin-bottom: 16px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .lead-description {
+            font-size: 16px;
+            color: #6B7C8E;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .lead-benefits {
+            margin-bottom: 32px;
+        }
+
+        .lead-benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #0A1929;
+        }
+
+        .lead-benefit-check {
+            width: 24px;
+            height: 24px;
+            background: #0A2540;
+            color: #F8F9FA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .lead-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .lead-form input {
+            padding: 14px 18px;
+            border: 1px solid #E8ECEF;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .lead-form input:focus {
+            outline: none;
+            border-color: #0A2540;
+        }
+
+        .lead-submit {
+            background: #0A2540;
+            color: #F8F9FA;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.3s;
+            margin-top: 8px;
+        }
+
+        .lead-submit:hover {
+            background: #0A1929;
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+        }
+
+        .lead-privacy {
+            font-size: 13px;
+            color: #6B7C8E;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .lead-modal-content {
+                padding: 40px 30px;
+            }
+
+            .lead-title {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 40px 30px;
+            }
+
+            .modal-title {
+                font-size: 32px;
+            }
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #0A1929;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #6B7C8E;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0A1929;
+        }
+
+        .cta-button {
+            background: #0A2540;
+            color: #F8F9FA;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+            background: #0A1929;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #0A1929;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0A2540 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: #6B7C8E;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .primary-btn {
+            background: #0A2540;
+            color: #F8F9FA;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .primary-btn:hover {
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
+            background: #0A1929;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: #0A2540;
+            padding: 16px 40px;
+            border: 1px solid #0A2540;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .secondary-btn:hover {
+            border-color: #0A2540;
+            background: #0A2540;
+            color: #F8F9FA;
+        }
+
+        /* 3D Canvas */
+        #canvas3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: #FFFFFF;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            background: #FFFFFF;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #E8ECEF;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+
+        .feature-card:hover {
+            border-color: #0A2540;
+            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
+        }
+
+
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #0A2540;
+        }
+
+        .feature-card p {
+            color: #6B7C8E;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: -1px;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #0A1929;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 100px 0;
+            background: #F8F9FA;
+            color: #0A1929;
+        }
+
+        .problem-content {
+            text-align: center;
+        }
+
+        .problem-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #0A1929;
+        }
+
+        .problem-subtitle {
+            font-size: 20px;
+            color: #6B7C8E;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .problem-item {
+            text-align: center;
+        }
+
+        .problem-number {
+            font-size: 56px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-bottom: 16px;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .problem-text {
+            font-size: 16px;
+            color: #0A1929;
+            line-height: 1.5;
+        }
+
+        /* Value Section */
+        .value-section {
+            padding: 120px 0;
+            background: #FFFFFF;
+        }
+
+        .value-wrapper {
+            display: flex;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .value-left {
+            flex: 0 0 350px;
+            position: sticky;
+            top: 120px;
+        }
+
+        .value-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 48px;
+            font-weight: 400;
+            color: #0A1929;
+            margin-bottom: 20px;
+        }
+
+        .value-subtitle {
+            font-size: 18px;
+            color: #6B7C8E;
+            line-height: 1.6;
+        }
+
+        .value-list {
+            flex: 1;
+        }
+
+        .value-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #E8ECEF;
+        }
+
+        .value-item:last-child {
+            border-bottom: none;
+        }
+
+        .value-check {
+            width: 32px;
+            height: 32px;
+            background: #0A2540;
+            color: #F8F9FA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .value-item-content h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0A1929;
+            margin-bottom: 8px;
+        }
+
+        .value-item-content p {
+            font-size: 16px;
+            color: #6B7C8E;
+            line-height: 1.6;
+        }
+
+        /* ROI Section */
+        .roi-section {
+            padding: 100px 0;
+            background: #F8F9FA;
+        }
+
+        .roi-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #6B7C8E;
+            margin-bottom: 60px;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .roi-card {
+            background: #FFFFFF;
+            padding: 50px 40px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #E8ECEF;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .roi-card:hover {
+            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
+            border-color: #0A2540;
+        }
+
+        .roi-metric {
+            font-size: 52px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .roi-label {
+            font-size: 16px;
+            color: #6B7C8E;
+            margin-bottom: 8px;
+        }
+
+        .roi-value {
+            font-size: 14px;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        .roi-total {
+            text-align: center;
+            padding: 40px;
+            background: #0A2540;
+            border-radius: 12px;
+        }
+
+        .roi-total-label {
+            font-size: 20px;
+            color: #F8F9FA;
+            margin-right: 16px;
+        }
+
+        .roi-total-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #D4AF37;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 100px 0;
+            background: #FFFFFF;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            padding: 40px;
+            background: #F8F9FA;
+            border-radius: 12px;
+            border: 1px solid #E8ECEF;
+        }
+
+        .testimonial-quote {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #0A1929;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            border-top: 1px solid #E8ECEF;
+            padding-top: 20px;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: #0A1929;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: #6B7C8E;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: #F8F9FA;
+            color: #0A1929;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 52px;
+            font-weight: 400;
+            margin-bottom: 80px;
+            color: #0A1929;
+        }
+
+        .cta-steps {
+            margin-bottom: 60px;
+        }
+
+        .cta-step {
+            display: flex;
+            gap: 30px;
+            text-align: left;
+            margin-bottom: 50px;
+            align-items: flex-start;
+        }
+
+        .cta-step-number {
+            width: 60px;
+            height: 60px;
+            background: #0A2540;
+            color: #F8F9FA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .cta-step-content h4 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0A1929;
+            margin-bottom: 12px;
+        }
+
+        .cta-step-content p {
+            font-size: 16px;
+            color: #6B7C8E;
+            line-height: 1.6;
+        }
+
+        .cta-button-wrapper {
+            margin-top: 60px;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: #0A2540;
+            color: #F8F9FA;
+            padding: 20px 60px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .cta-primary:hover {
+            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.2);
+            background: #0A1929;
+        }
+
+        .cta-guarantee {
+            font-size: 14px;
+            color: #6B7C8E;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 42px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .language-dropdown {
+                display: block;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-wrapper {
+                flex-direction: column;
+            }
+
+            .value-left {
+                position: static;
+            }
+
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="modal-content">
+            <h1 class="modal-title">Welcome to NorthStar</h1>
+            <p class="modal-description">
+                This site is tailored to specific business audiences. Please select the option that best describes you to access relevant content.
+            </p>
+            <div class="visitor-options">
+                <div class="visitor-option" data-visitor="cfo-finance-director">
+                    <span class="visitor-option-text">CFO / Finance Director</span>
+                    <div class="visitor-option-arrow"></div>
+                </div>
+                <div class="visitor-option" data-visitor="business-owner">
+                    <span class="visitor-option-text">Business Owner / Founder</span>
+                    <div class="visitor-option-arrow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lead Magnet Modal -->
+    <div class="lead-modal hidden" id="leadModal">
+        <div class="lead-modal-content">
+            <button class="lead-close" id="leadClose">&times;</button>
+            <h2 class="lead-title" id="leadTitle">Free CFO Toolkit: Cash Flow Mastery Guide</h2>
+            <p class="lead-description" id="leadDescription">
+                Get our exclusive 47-page guide used by €10M+ SMBs to predict cash flow with 94% accuracy. Includes templates, calculators, and real scenarios.
+            </p>
+            <div class="lead-benefits">
+                <div class="lead-benefit">
+                    <span class="lead-benefit-check">✓</span>
+                    <span id="leadBenefit1">12-week cash flow forecasting template</span>
+                </div>
+                <div class="lead-benefit">
+                    <span class="lead-benefit-check">✓</span>
+                    <span id="leadBenefit2">Scenario planning calculator (Excel)</span>
+                </div>
+                <div class="lead-benefit">
+                    <span class="lead-benefit-check">✓</span>
+                    <span id="leadBenefit3">Board-ready financial dashboards</span>
+                </div>
+            </div>
+            <form class="lead-form" id="leadForm">
+                <input type="text" placeholder="First Name" id="leadFirstName" required>
+                <input type="text" placeholder="Last Name" id="leadLastName" required>
+                <input type="email" placeholder="Work Email" id="leadEmail" required>
+                <input type="text" placeholder="Company Name" id="leadCompany" required>
+                <button type="submit" class="lead-submit">Send Me the Toolkit</button>
+            </form>
+            <p class="lead-privacy">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">NorthStar</div>
+                <ul class="nav-links">
+                    <li><a href="#features" data-en="Features" data-de="Funktionen">Features</a></li>
+                    <li><a href="#solutions" data-en="Solutions" data-de="Lösungen">Solutions</a></li>
+                    <li><a href="#about" data-en="About" data-de="Über uns">About</a></li>
+                </ul>
+                <div class="nav-right">
+                    <div class="language-dropdown">
+                        <div class="lang-selected" id="langSelected">EN</div>
+                        <div class="lang-options">
+                            <span class="lang-option active" data-lang="en">English</span>
+                            <span class="lang-option" data-lang="de">Deutsch</span>
+                        </div>
+                    </div>
+                    <a href="#contact" class="cta-button" data-en="Get Started" data-de="Jetzt starten">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <canvas id="canvas3d"></canvas>
+        <div class="hero-content">
+            <h1>
+                <span class="gradient-text" data-en="AI-Powered" data-de="KI-gestützte">AI-Powered</span><br>
+                <span data-en="Finance Intelligence" data-de="Finanzintelligenz">Finance Intelligence</span>
+            </h1>
+            <p class="hero-description" data-en="Automate accounting and controlling for SMBs. Real-time insights, zero complexity." data-de="Automatisieren Sie Buchhaltung und Controlling für KMUs. Echtzeit-Einblicke, null Komplexität.">
+                Automate accounting and controlling for SMBs. Real-time insights, zero complexity.
+            </p>
+            <div class="hero-buttons">
+                <a href="#demo" class="primary-btn" data-en="Book a Demo" data-de="Demo buchen">Book a Demo</a>
+                <a href="#learn" class="secondary-btn" data-en="Learn More" data-de="Mehr erfahren">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" data-en="Built for Modern Finance" data-de="Für moderne Finanzen entwickelt">Built for Modern Finance</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 data-en="Smart Accounting" data-de="Intelligente Buchhaltung">Smart Accounting</h3>
+                    <p data-en="AI-driven categorization and reconciliation. Eliminate manual data entry and reduce errors by 95%." data-de="KI-gesteuerte Kategorisierung und Abstimmung. Eliminieren Sie manuelle Dateneingabe und reduzieren Sie Fehler um 95%.">AI-driven categorization and reconciliation. Eliminate manual data entry and reduce errors by 95%.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 data-en="Real-Time Control" data-de="Echtzeit-Controlling">Real-Time Control</h3>
+                    <p data-en="Live dashboards with predictive analytics. Monitor cash flow, budgets, and KPIs in real-time." data-de="Live-Dashboards mit prädiktiver Analytik. Überwachen Sie Cashflow, Budgets und KPIs in Echtzeit.">Live dashboards with predictive analytics. Monitor cash flow, budgets, and KPIs in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 data-en="Instant Compliance" data-de="Sofortige Compliance">Instant Compliance</h3>
+                    <p data-en="Automated reporting for HGB, IFRS, and tax requirements. Stay compliant without the overhead." data-de="Automatisierte Berichterstattung für HGB, IFRS und Steueranforderungen. Bleiben Sie compliant ohne Overhead.">Automated reporting for HGB, IFRS, and tax requirements. Stay compliant without the overhead.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section (Hormozi-style) -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="problem-content">
+                <h2 class="problem-title" data-en="The Hidden Cost of Bad Finance Systems" data-de="Die versteckten Kosten schlechter Finanzsysteme">The Hidden Cost of Bad Finance Systems</h2>
+                <p class="problem-subtitle" data-en="Most SMBs lose €50,000+ annually to preventable finance mistakes. Here's what's actually costing you:" data-de="Die meisten KMUs verlieren jährlich über 50.000 € durch vermeidbare Finanzfehler. Das kostet Sie wirklich:">Most SMBs lose €50,000+ annually to preventable finance mistakes. Here's what's actually costing you:</p>
+                <div class="problem-grid">
+                    <div class="problem-item">
+                        <div class="problem-number">23hrs</div>
+                        <div class="problem-text" data-en="wasted per month on manual reconciliation" data-de="verschwendet pro Monat für manuelle Abstimmung">wasted per month on manual reconciliation</div>
+                    </div>
+                    <div class="problem-item">
+                        <div class="problem-number">€18K</div>
+                        <div class="problem-text" data-en="average tax penalties from missed deadlines" data-de="durchschnittliche Steuerstrafen durch verpasste Fristen">average tax penalties from missed deadlines</div>
+                    </div>
+                    <div class="problem-item">
+                        <div class="problem-number">47%</div>
+                        <div class="problem-text" data-en="of financial decisions made on outdated data" data-de="der Finanzentscheidungen basieren auf veralteten Daten">of financial decisions made on outdated data</div>
+                    </div>
+                    <div class="problem-item">
+                        <div class="problem-number">3-5 days</div>
+                        <div class="problem-text" data-en="to close monthly books (should take 2 hours)" data-de="für Monatsabschluss (sollte 2 Stunden dauern)">to close monthly books (should take 2 hours)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition (Hormozi-style) -->
+    <section class="value-section">
+        <div class="container">
+            <div class="value-wrapper">
+                <div class="value-left">
+                    <h2 class="value-title" data-en="What You Get" data-de="Was Sie bekommen">What You Get</h2>
+                    <p class="value-subtitle" data-en="Everything you need to run finance like a €100M company, even if you're doing €5M today." data-de="Alles, was Sie brauchen, um Finanzen wie ein 100-Mio.-€-Unternehmen zu führen, auch wenn Sie heute 5 Mio. € machen.">Everything you need to run finance like a €100M company, even if you're doing €5M today.</p>
+                </div>
+                <div class="value-list">
+                    <div class="value-item">
+                        <div class="value-check">✓</div>
+                        <div class="value-item-content">
+                            <h4 data-en="Real-time Financial Dashboard" data-de="Echtzeit-Finanz-Dashboard">Real-time Financial Dashboard</h4>
+                            <p data-en="See P&L, cash position, and runway updated live. No more waiting for month-end reports." data-de="Sehen Sie GuV, Cash-Position und Runway live aktualisiert. Kein Warten mehr auf Monatsabschlüsse.">See P&L, cash position, and runway updated live. No more waiting for month-end reports.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-check">✓</div>
+                        <div class="value-item-content">
+                            <h4 data-en="Automated Bank Reconciliation" data-de="Automatisierte Bankabstimmung">Automated Bank Reconciliation</h4>
+                            <p data-en="AI matches 99% of transactions automatically. Flag anomalies instantly." data-de="KI gleicht 99% der Transaktionen automatisch ab. Anomalien sofort markieren.">AI matches 99% of transactions automatically. Flag anomalies instantly.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-check">✓</div>
+                        <div class="value-item-content">
+                            <h4 data-en="One-Click Compliance Reports" data-de="Ein-Klick-Compliance-Berichte">One-Click Compliance Reports</h4>
+                            <p data-en="Generate HGB, IFRS, and tax reports instantly. Always audit-ready." data-de="HGB-, IFRS- und Steuerberichte sofort generieren. Immer prüfungsbereit.">Generate HGB, IFRS, and tax reports instantly. Always audit-ready.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-check">✓</div>
+                        <div class="value-item-content">
+                            <h4 data-en="Predictive Cash Flow Analysis" data-de="Prädiktive Cashflow-Analyse">Predictive Cash Flow Analysis</h4>
+                            <p data-en="Know your cash position 90 days out with 94% accuracy. No surprises." data-de="Kennen Sie Ihre Cash-Position 90 Tage im Voraus mit 94% Genauigkeit. Keine Überraschungen.">Know your cash position 90 days out with 94% accuracy. No surprises.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <div class="value-check">✓</div>
+                        <div class="value-item-content">
+                            <h4 data-en="Dedicated CFO Support" data-de="Dedizierter CFO-Support">Dedicated CFO Support</h4>
+                            <p data-en="Monthly strategic calls with our finance experts. Scale decisions, funding prep, exit strategy." data-de="Monatliche strategische Calls mit unseren Finanzexperten. Skalierungsentscheidungen, Funding-Vorbereitung, Exit-Strategie.">Monthly strategic calls with our finance experts. Scale decisions, funding prep, exit strategy.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Section -->
+    <section class="roi-section">
+        <div class="container">
+            <h2 class="section-title" data-en="Your ROI in 90 Days" data-de="Ihr ROI in 90 Tagen">Your ROI in 90 Days</h2>
+            <p class="roi-subtitle" data-en="Real numbers from our clients (average €8M revenue SMBs)" data-de="Echte Zahlen unserer Kunden (durchschnittlich 8 Mio. € Umsatz KMUs)">Real numbers from our clients (average €8M revenue SMBs)</p>
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-metric">187hrs</div>
+                    <div class="roi-label" data-en="saved per month" data-de="gespart pro Monat">saved per month</div>
+                    <div class="roi-value" data-en="€9,350 value" data-de="9.350 € Wert">€9,350 value</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-metric">€31K</div>
+                    <div class="roi-label" data-en="avoided in penalties" data-de="vermiedene Strafen">avoided in penalties</div>
+                    <div class="roi-value" data-en="first year avg" data-de="erstes Jahr Ø">first year avg</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-metric">2.4x</div>
+                    <div class="roi-label" data-en="faster month-end close" data-de="schnellerer Monatsabschluss">faster month-end close</div>
+                    <div class="roi-value" data-en="3 days → 18 hours" data-de="3 Tage → 18 Stunden">3 days → 18 hours</div>
+                </div>
+            </div>
+            <div class="roi-total">
+                <span class="roi-total-label" data-en="Total First-Year Value:" data-de="Gesamtwert erstes Jahr:">Total First-Year Value:</span>
+                <span class="roi-total-amount">€143,200</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="section-title" data-en="What CFOs Are Saying" data-de="Was CFOs sagen">What CFOs Are Saying</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"We went from 4 days to close our books to less than 1 day. The time savings alone paid for NorthStar in the first month."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-name">Michael Weber</div>
+                        <div class="testimonial-role">CFO, TechVenture GmbH (€12M revenue)</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"The predictive cash flow saved us during a tight quarter. We knew exactly when to delay expansion by 3 weeks. Worth every euro."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-name">Sarah Müller</div>
+                        <div class="testimonial-role">Finance Director, LogistikPro AG (€8M revenue)</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"Finally, a system built for German compliance. HGB reporting takes 10 minutes instead of 2 days. Game changer."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-name">Thomas Schmidt</div>
+                        <div class="testimonial-role">Controller, Handel Solutions (€15M revenue)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section (Hormozi-style) -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-en="Here's What Happens Next" data-de="So geht es weiter">Here's What Happens Next</h2>
+                <div class="cta-steps">
+                    <div class="cta-step">
+                        <div class="cta-step-number">1</div>
+                        <div class="cta-step-content">
+                            <h4 data-en="Book Your Demo" data-de="Demo buchen">Book Your Demo</h4>
+                            <p data-en="30-minute call with our finance team. We'll assess your current setup and show you exactly what NorthStar can do for your business." data-de="30-minütiger Call mit unserem Finanzteam. Wir bewerten Ihr aktuelles Setup und zeigen Ihnen genau, was NorthStar für Ihr Unternehmen tun kann.">30-minute call with our finance team. We'll assess your current setup and show you exactly what NorthStar can do for your business.</p>
+                        </div>
+                    </div>
+                    <div class="cta-step">
+                        <div class="cta-step-number">2</div>
+                        <div class="cta-step-content">
+                            <h4 data-en="Custom Implementation" data-de="Individuelle Implementierung">Custom Implementation</h4>
+                            <p data-en="We migrate your data, connect your banks, and configure everything. Most clients are fully live in 48 hours." data-de="Wir migrieren Ihre Daten, verbinden Ihre Banken und konfigurieren alles. Die meisten Kunden sind in 48 Stunden vollständig live.">We migrate your data, connect your banks, and configure everything. Most clients are fully live in 48 hours.</p>
+                        </div>
+                    </div>
+                    <div class="cta-step">
+                        <div class="cta-step-number">3</div>
+                        <div class="cta-step-content">
+                            <h4 data-en="See Results in Week 1" data-de="Ergebnisse in Woche 1">See Results in Week 1</h4>
+                            <p data-en="Immediate time savings, real-time visibility, and peace of mind. Most clients recover their investment in 60 days." data-de="Sofortige Zeitersparnis, Echtzeit-Transparenz und Seelenfrieden. Die meisten Kunden amortisieren ihre Investition in 60 Tagen.">Immediate time savings, real-time visibility, and peace of mind. Most clients recover their investment in 60 days.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-button-wrapper">
+                    <a href="#contact" class="cta-primary" data-en="Book Your Free Demo" data-de="Kostenlose Demo buchen">Book Your Free Demo</a>
+                    <p class="cta-guarantee" data-en="No credit card required • 14-day free trial • Cancel anytime" data-de="Keine Kreditkarte erforderlich • 14 Tage kostenlos testen • Jederzeit kündbar">No credit card required • 14-day free trial • Cancel anytime</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Three.js 3D Scene with Geometric Web
+        const canvas = document.getElementById('canvas3d');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        camera.position.z = 15;
+
+        // Create particles for geometric web
+        const particleCount = 100;
+        const particles = [];
+        const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+        const particleMaterial = new THREE.MeshBasicMaterial({
+            color: 0x0A2540,
+            transparent: true,
+            opacity: 0.3
+        });
+
+        // Create particle system
+        for (let i = 0; i < particleCount; i++) {
+            const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+            
+            particle.position.x = (Math.random() - 0.5) * 30;
+            particle.position.y = (Math.random() - 0.5) * 30;
+            particle.position.z = (Math.random() - 0.5) * 30;
+            
+            particle.velocity = new THREE.Vector3(
+                (Math.random() - 0.5) * 0.02,
+                (Math.random() - 0.5) * 0.02,
+                (Math.random() - 0.5) * 0.02
+            );
+            
+            particles.push(particle);
+            scene.add(particle);
+        }
+
+        // Create lines for the web
+        const lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x2E4A6F,
+            transparent: true,
+            opacity: 0.1
+        });
+
+        const lines = [];
+
+        function createLines() {
+            // Remove old lines
+            lines.forEach(line => scene.remove(line));
+            lines.length = 0;
+
+            // Create new lines between nearby particles
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const distance = particles[i].position.distanceTo(particles[j].position);
+                    
+                    if (distance < 5) {
+                        const geometry = new THREE.BufferGeometry().setFromPoints([
+                            particles[i].position,
+                            particles[j].position
+                        ]);
+                        
+                        const line = new THREE.Line(geometry, lineMaterial);
+                        lines.push(line);
+                        scene.add(line);
+                    }
+                }
+            }
+        }
+
+        // Mouse movement effect
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        let frameCount = 0;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            frameCount++;
+
+            // Update particle positions
+            particles.forEach(particle => {
+                particle.position.add(particle.velocity);
+                
+                // Bounce off boundaries
+                if (Math.abs(particle.position.x) > 15) particle.velocity.x *= -1;
+                if (Math.abs(particle.position.y) > 15) particle.velocity.y *= -1;
+                if (Math.abs(particle.position.z) > 15) particle.velocity.z *= -1;
+            });
+
+            // Update lines every 3 frames for performance
+            if (frameCount % 3 === 0) {
+                createLines();
+            }
+
+            // Mouse parallax
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Welcome Modal & Visitor Tracking
+        // NOTE: Modal shows on every visit. To enable one-time only, uncomment the localStorage check below
+        const modal = document.getElementById('welcomeModal');
+        const visitorOptions = document.querySelectorAll('.visitor-option');
+
+        // Check if user has already selected (DISABLED FOR TESTING - modal will show every time)
+        // const hasVisited = localStorage.getItem('visitorType');
+        // if (hasVisited) {
+        //     modal.classList.add('hidden');
+        // }
+
+        // Lead Magnet Content by Visitor Type
+        const leadMagnetContent = {
+            'cfo-finance-director': {
+                title: 'Free CFO Toolkit: Cash Flow Mastery Guide',
+                description: 'Get our exclusive 47-page guide used by €10M+ SMBs to predict cash flow with 94% accuracy. Includes templates, calculators, and real scenarios.',
+                benefits: [
+                    '12-week cash flow forecasting template',
+                    'Scenario planning calculator (Excel)',
+                    'Board-ready financial dashboards'
+                ]
+            },
+            'business-owner': {
+                title: 'Free Guide: The 90-Day Profitability Blueprint',
+                description: 'Learn how 200+ founders increased margins by 23% in one quarter. Step-by-step playbook with real numbers and implementation timeline.',
+                benefits: [
+                    'Profit margin diagnostic tool',
+                    'Cost reduction checklist (€50K+ in savings)',
+                    'Weekly KPI tracking dashboard'
+                ]
+            }
+        };
+
+        let selectedVisitorType = '';
+
+        visitorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const visitorType = this.getAttribute('data-visitor');
+                selectedVisitorType = visitorType;
+                
+                // Store visitor type
+                localStorage.setItem('visitorType', visitorType);
+                localStorage.setItem('visitDate', new Date().toISOString());
+                
+                // Track visitor (you can send this to analytics)
+                console.log('Visitor Type:', visitorType);
+                console.log('Visit Date:', new Date().toISOString());
+                
+                // Close welcome modal
+                modal.classList.add('hidden');
+
+                // Show lead magnet after 30 seconds
+                setTimeout(() => {
+                    showLeadMagnet(visitorType);
+                }, 30000); // 30 seconds
+            });
+        });
+
+        function showLeadMagnet(visitorType) {
+            // Check if user already submitted lead form
+            if (localStorage.getItem('leadSubmitted')) {
+                return;
+            }
+
+            const leadModal = document.getElementById('leadModal');
+            const content = leadMagnetContent[visitorType];
+
+            // Populate modal with personalized content
+            document.getElementById('leadTitle').textContent = content.title;
+            document.getElementById('leadDescription').textContent = content.description;
+            document.getElementById('leadBenefit1').textContent = content.benefits[0];
+            document.getElementById('leadBenefit2').textContent = content.benefits[1];
+            document.getElementById('leadBenefit3').textContent = content.benefits[2];
+
+            // Show modal
+            leadModal.classList.remove('hidden');
+        }
+
+        // Lead Modal Close Button
+        document.getElementById('leadClose').addEventListener('click', function() {
+            document.getElementById('leadModal').classList.add('hidden');
+        });
+
+        // Lead Form Submission
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('leadFirstName').value,
+                lastName: document.getElementById('leadLastName').value,
+                email: document.getElementById('leadEmail').value,
+                company: document.getElementById('leadCompany').value,
+                visitorType: selectedVisitorType,
+                timestamp: new Date().toISOString()
+            };
+
+            // Log form data (you can send this to your backend/CRM)
+            console.log('Lead Captured:', formData);
+
+            // Here you can add your API call to send data to your backend
+            // Example:
+            // fetch('/api/leads', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+
+            // Mark as submitted
+            localStorage.setItem('leadSubmitted', 'true');
+            localStorage.setItem('leadData', JSON.stringify(formData));
+
+            // Show success message
+            alert('Thank you! Check your email in the next 5 minutes for your free resource.');
+
+            // Close modal
+            document.getElementById('leadModal').classList.add('hidden');
+        });
+
+        // Language Switching
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-en][data-de]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+
+            // Update selected language display
+            const langSelected = document.getElementById('langSelected');
+            langSelected.textContent = lang.toUpperCase();
+
+            // Update active state on language options
+            document.querySelectorAll('.lang-option').forEach(option => {
+                if (option.getAttribute('data-lang') === lang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Add click listeners to language options
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang) {
+            switchLanguage(savedLang);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
