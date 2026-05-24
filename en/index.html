@@ -1,1550 +1,1182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Finance Solutions</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&display=swap');
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background: #F8F9FA;
-            color: #0A1929;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 30px 0;
-            background: rgba(248, 249, 250, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #E8ECEF;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .language-dropdown {
-            position: relative;
-        }
-
-        .lang-selected {
-            color: #0A2540;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 8px 16px;
-            border: 1px solid #E8ECEF;
-            border-radius: 20px;
-            background: #FFFFFF;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .lang-selected:hover {
-            border-color: #0A2540;
-        }
-
-        .lang-selected::after {
-            content: '▼';
-            font-size: 10px;
-            color: #6B7C8E;
-        }
-
-        .lang-options {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            background: #FFFFFF;
-            border: 1px solid #E8ECEF;
-            border-radius: 12px;
-            padding: 8px 0;
-            min-width: 120px;
-            box-shadow: 0 10px 40px rgba(10, 25, 41, 0.1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s;
-            z-index: 100;
-        }
-
-        .language-dropdown:hover .lang-options {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .lang-option {
-            color: #0A2540;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 10px 20px;
-            display: block;
-            transition: background 0.2s;
-        }
-
-        .lang-option:hover {
-            background: #F8F9FA;
-        }
-
-        .lang-option.active {
-            color: #0A2540;
-            background: #E8ECEF;
-        }
-
-        /* Welcome Modal */
-        .welcome-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.4s;
-        }
-
-        .welcome-modal.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .modal-content {
-            background: #FFFFFF;
-            padding: 60px 80px;
-            border-radius: 0;
-            max-width: 700px;
-            width: 90%;
-            text-align: center;
-        }
-
-        .modal-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 42px;
-            font-weight: 400;
-            color: #0A1929;
-            margin-bottom: 30px;
-            letter-spacing: -1px;
-        }
-
-        .modal-description {
-            font-size: 16px;
-            color: #6B7C8E;
-            line-height: 1.6;
-            margin-bottom: 50px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .visitor-options {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .visitor-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 30px;
-            border: 1px solid #E8ECEF;
-            background: #FFFFFF;
-            cursor: pointer;
-            transition: border-color 0.3s, background 0.3s;
-            text-align: left;
-        }
-
-        .visitor-option:hover {
-            border-color: #0A2540;
-            background: #F8F9FA;
-        }
-
-        .visitor-option-text {
-            font-size: 16px;
-            color: #0A2540;
-            font-weight: 500;
-        }
-
-        .visitor-option-arrow {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #0A2540;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-
-        .visitor-option-arrow::after {
-            content: '→';
-            color: #0A2540;
-            font-size: 18px;
-            transition: color 0.3s;
-        }
-
-        .visitor-option:hover .visitor-option-arrow {
-            background: #0A2540;
-        }
-
-        .visitor-option:hover .visitor-option-arrow::after {
-            color: #FFFFFF;
-        }
-
-        /* Lead Magnet Modal */
-        .lead-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.4s;
-        }
-
-        .lead-modal.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .lead-modal-content {
-            background: #FFFFFF;
-            padding: 50px 60px;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(10, 25, 41, 0.3);
-        }
-
-        .lead-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 32px;
-            color: #6B7C8E;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.3s;
-        }
-
-        .lead-close:hover {
-            color: #0A1929;
-        }
-
-        .lead-icon {
-            display: none;
-        }
-
-        .lead-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 32px;
-            font-weight: 400;
-            color: #0A1929;
-            margin-bottom: 16px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .lead-description {
-            font-size: 16px;
-            color: #6B7C8E;
-            line-height: 1.6;
-            margin-bottom: 32px;
-            text-align: center;
-        }
-
-        .lead-benefits {
-            margin-bottom: 32px;
-        }
-
-        .lead-benefit {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #0A1929;
-        }
-
-        .lead-benefit-check {
-            width: 24px;
-            height: 24px;
-            background: #0A2540;
-            color: #F8F9FA;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .lead-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .lead-form input {
-            padding: 14px 18px;
-            border: 1px solid #E8ECEF;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-        }
-
-        .lead-form input:focus {
-            outline: none;
-            border-color: #0A2540;
-        }
-
-        .lead-submit {
-            background: #0A2540;
-            color: #F8F9FA;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s;
-            margin-top: 8px;
-        }
-
-        .lead-submit:hover {
-            background: #0A1929;
-            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
-        }
-
-        .lead-privacy {
-            font-size: 13px;
-            color: #6B7C8E;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .lead-modal-content {
-                padding: 40px 30px;
-            }
-
-            .lead-title {
-                font-size: 26px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .modal-content {
-                padding: 40px 30px;
-            }
-
-            .modal-title {
-                font-size: 32px;
-            }
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            font-family: 'Playfair Display', Georgia, serif;
-            color: #0A1929;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #6B7C8E;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #0A1929;
-        }
-
-        .cta-button {
-            background: #0A2540;
-            color: #F8F9FA;
-            padding: 12px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
-            background: #0A1929;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 72px;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -2px;
-            font-family: 'Playfair Display', Georgia, serif;
-            color: #0A1929;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #0A2540 0%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 20px;
-            color: #6B7C8E;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        .primary-btn {
-            background: #0A2540;
-            color: #F8F9FA;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        .primary-btn:hover {
-            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.2);
-            background: #0A1929;
-        }
-
-        .secondary-btn {
-            background: transparent;
-            color: #0A2540;
-            padding: 16px 40px;
-            border: 1px solid #0A2540;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .secondary-btn:hover {
-            border-color: #0A2540;
-            background: #0A2540;
-            color: #F8F9FA;
-        }
-
-        /* 3D Canvas */
-        #canvas3d {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 120px 0;
-            background: #FFFFFF;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 80px;
-        }
-
-        .feature-card {
-            background: #FFFFFF;
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid #E8ECEF;
-            transition: border-color 0.4s, box-shadow 0.4s;
-        }
-
-        .feature-card:hover {
-            border-color: #0A2540;
-            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
-        }
-
-
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 16px;
-            font-weight: 600;
-            font-family: 'Playfair Display', Georgia, serif;
-            color: #0A2540;
-        }
-
-        .feature-card p {
-            color: #6B7C8E;
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 400;
-            letter-spacing: -1px;
-            font-family: 'Playfair Display', Georgia, serif;
-            color: #0A1929;
-        }
-
-        /* Problem Section */
-        .problem-section {
-            padding: 100px 0;
-            background: #F8F9FA;
-            color: #0A1929;
-        }
-
-        .problem-content {
-            text-align: center;
-        }
-
-        .problem-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 48px;
-            font-weight: 400;
-            margin-bottom: 20px;
-            color: #0A1929;
-        }
-
-        .problem-subtitle {
-            font-size: 20px;
-            color: #6B7C8E;
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .problem-item {
-            text-align: center;
-        }
-
-        .problem-number {
-            font-size: 56px;
-            font-weight: 700;
-            color: #0A2540;
-            margin-bottom: 16px;
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        .problem-text {
-            font-size: 16px;
-            color: #0A1929;
-            line-height: 1.5;
-        }
-
-        /* Value Section */
-        .value-section {
-            padding: 120px 0;
-            background: #FFFFFF;
-        }
-
-        .value-wrapper {
-            display: flex;
-            gap: 80px;
-            align-items: flex-start;
-        }
-
-        .value-left {
-            flex: 0 0 350px;
-            position: sticky;
-            top: 120px;
-        }
-
-        .value-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 48px;
-            font-weight: 400;
-            color: #0A1929;
-            margin-bottom: 20px;
-        }
-
-        .value-subtitle {
-            font-size: 18px;
-            color: #6B7C8E;
-            line-height: 1.6;
-        }
-
-        .value-list {
-            flex: 1;
-        }
-
-        .value-item {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 40px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid #E8ECEF;
-        }
-
-        .value-item:last-child {
-            border-bottom: none;
-        }
-
-        .value-check {
-            width: 32px;
-            height: 32px;
-            background: #0A2540;
-            color: #F8F9FA;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .value-item-content h4 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #0A1929;
-            margin-bottom: 8px;
-        }
-
-        .value-item-content p {
-            font-size: 16px;
-            color: #6B7C8E;
-            line-height: 1.6;
-        }
-
-        /* ROI Section */
-        .roi-section {
-            padding: 100px 0;
-            background: #F8F9FA;
-        }
-
-        .roi-subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: #6B7C8E;
-            margin-bottom: 60px;
-        }
-
-        .roi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .roi-card {
-            background: #FFFFFF;
-            padding: 50px 40px;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #E8ECEF;
-            transition: box-shadow 0.3s, border-color 0.3s;
-        }
-
-        .roi-card:hover {
-            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.08);
-            border-color: #0A2540;
-        }
-
-        .roi-metric {
-            font-size: 52px;
-            font-weight: 700;
-            color: #0A2540;
-            margin-bottom: 12px;
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        .roi-label {
-            font-size: 16px;
-            color: #6B7C8E;
-            margin-bottom: 8px;
-        }
-
-        .roi-value {
-            font-size: 14px;
-            color: #D4AF37;
-            font-weight: 600;
-        }
-
-        .roi-total {
-            text-align: center;
-            padding: 40px;
-            background: #0A2540;
-            border-radius: 12px;
-        }
-
-        .roi-total-label {
-            font-size: 20px;
-            color: #F8F9FA;
-            margin-right: 16px;
-        }
-
-        .roi-total-amount {
-            font-size: 48px;
-            font-weight: 700;
-            color: #D4AF37;
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        /* Testimonial Section */
-        .testimonial-section {
-            padding: 100px 0;
-            background: #FFFFFF;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .testimonial-card {
-            padding: 40px;
-            background: #F8F9FA;
-            border-radius: 12px;
-            border: 1px solid #E8ECEF;
-        }
-
-        .testimonial-quote {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #0A1929;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            border-top: 1px solid #E8ECEF;
-            padding-top: 20px;
-        }
-
-        .testimonial-name {
-            font-weight: 600;
-            color: #0A1929;
-            margin-bottom: 4px;
-        }
-
-        .testimonial-role {
-            font-size: 14px;
-            color: #6B7C8E;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 120px 0;
-            background: #F8F9FA;
-            color: #0A1929;
-        }
-
-        .cta-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .cta-title {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 52px;
-            font-weight: 400;
-            margin-bottom: 80px;
-            color: #0A1929;
-        }
-
-        .cta-steps {
-            margin-bottom: 60px;
-        }
-
-        .cta-step {
-            display: flex;
-            gap: 30px;
-            text-align: left;
-            margin-bottom: 50px;
-            align-items: flex-start;
-        }
-
-        .cta-step-number {
-            width: 60px;
-            height: 60px;
-            background: #0A2540;
-            color: #F8F9FA;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .cta-step-content h4 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #0A1929;
-            margin-bottom: 12px;
-        }
-
-        .cta-step-content p {
-            font-size: 16px;
-            color: #6B7C8E;
-            line-height: 1.6;
-        }
-
-        .cta-button-wrapper {
-            margin-top: 60px;
-        }
-
-        .cta-primary {
-            display: inline-block;
-            background: #0A2540;
-            color: #F8F9FA;
-            padding: 20px 60px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: background 0.3s, box-shadow 0.3s;
-            margin-bottom: 20px;
-        }
-
-        .cta-primary:hover {
-            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.2);
-            background: #0A1929;
-        }
-
-        .cta-guarantee {
-            font-size: 14px;
-            color: #6B7C8E;
-            margin-top: 16px;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 42px;
-            }
-
-            .hero-description {
-                font-size: 16px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .language-dropdown {
-                display: block;
-            }
-
-            .problem-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .value-wrapper {
-                flex-direction: column;
-            }
-
-            .value-left {
-                position: static;
-            }
-
-            .roi-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-title {
-                font-size: 36px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North Finance AI · Operational CFO support for mid-sized companies in DACH</title>
+<meta name="description" content="Operational CFO support for mid-sized companies in Germany, Austria and Switzerland. Fixed-price projects. Outcome Guarantee. Run by Krisztina Toth, former Senior Finance at Louis Vuitton Germany and Segula Technologies.">
+<meta name="robots" content="index, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0a1f3d;
+    --navy-light: #14304f;
+    --gold: #b8935a;
+    --gold-soft: #c9a961;
+    --gold-light: #e8d8b8;
+    --cream: #f7f3ec;
+    --cream-dark: #efe9de;
+    --ink: #2a2a2a;
+    --ink-soft: #555555;
+    --ink-mute: #888888;
+    --line: #e5dfd2;
+    --green: #2d7a4f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ───── HEADER ───── */
+  .site-header {
+    background: var(--navy);
+    color: white;
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .header-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+  }
+  .header-logo em { font-style: italic; color: var(--gold-soft); }
+  .header-right { display: flex; gap: 20px; align-items: center; }
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .lang-toggle a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+  .lang-toggle a:hover { color: white; }
+  .lang-toggle a.is-active { color: var(--gold-soft); font-weight: 700; }
+  .header-cta {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .header-cta:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* ───── CONTAINER ───── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ───── HERO ───── */
+  .hero {
+    padding: 100px 0 80px;
+    background: linear-gradient(180deg, var(--cream) 0%, white 100%);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    margin-bottom: 28px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .hero-lead {
+    font-size: 20px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 700px;
+    margin-bottom: 40px;
+  }
+  .hero-proof {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .hero-proof-item .hero-proof-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero-proof-item .hero-proof-label {
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+
+  /* ───── SECTIONS ───── */
+  section { padding: 96px 0; }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .section-intro {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* ───── HOW WE WORK ───── */
+  .pillars { background: white; }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+  .pillar {
+    background: var(--cream);
+    padding: 40px 36px;
+    border-top: 3px solid var(--gold);
+  }
+  .pillar-number {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .pillar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .pillar p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+  .pillar p strong { color: var(--navy); font-weight: 600; }
+
+  /* ───── REFERENCE / PROOF ───── */
+  .proof { background: var(--cream); }
+  .reference-card {
+    background: white;
+    padding: 56px 60px;
+    margin: 40px 0 24px;
+    border-left: 3px solid var(--gold);
+  }
+  .reference-client {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .reference-client strong { color: var(--navy); }
+  .reference-period {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+  .reference-challenge {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .reference-components {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    margin-top: 28px;
+  }
+  .reference-component {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .reference-component-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .reference-component h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--navy);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .reference-results {
+    list-style: none;
+  }
+  .reference-result {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .reference-result:last-child { border-bottom: none; }
+  .reference-result-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--navy);
+    font-weight: 500;
+    min-width: 90px;
+  }
+  .reference-result-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .reference-footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ───── FOUNDER ───── */
+  .founder { background: white; }
+  .founder-inner {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    align-items: start;
+    margin-top: 32px;
+  }
+  .founder-photo {
+    width: 280px;
+    height: 280px;
+    background: var(--cream-dark);
+    border-top: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-mute);
+    font-style: italic;
+    font-size: 13px;
+  }
+  .founder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .founder-role {
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .founder-bio {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+  .founder-bio strong { color: var(--navy); font-weight: 600; }
+  .founder-stations {
+    list-style: none;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .founder-station {
+    display: flex;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .founder-station:last-child { border-bottom: none; }
+  .station-years {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 14px;
+    min-width: 110px;
+    line-height: 1.5;
+  }
+  .station-name {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .station-impact {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ───── FAQ ───── */
+  .faq { background: var(--cream); }
+  .faq-list { margin-top: 32px; }
+  .faq-item {
+    background: white;
+    border-left: 3px solid var(--line);
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .faq-item.is-open { border-left-color: var(--gold); }
+  .faq-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 24px 32px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+    gap: 24px;
+  }
+  .faq-question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .faq-icon {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .faq-icon:before, .faq-icon:after {
+    content: '';
+    position: absolute;
+    background: var(--gold);
+    transition: opacity 0.2s;
+  }
+  .faq-icon:before {
+    width: 10px;
+    height: 1.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .faq-icon:after {
+    width: 1.5px;
+    height: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .faq-item.is-open .faq-icon { background: var(--gold); }
+  .faq-item.is-open .faq-icon:before { background: white; }
+  .faq-item.is-open .faq-icon:after { opacity: 0; }
+  .faq-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .faq-item.is-open .faq-panel { max-height: 1000px; }
+  .faq-answer {
+    padding: 0 32px 28px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+  .faq-answer p { margin-bottom: 14px; }
+  .faq-answer strong { color: var(--navy); }
+
+  /* ───── PRICING / STRATEGY CALL ───── */
+  .pricing-cta {
+    background: var(--navy);
+    color: white;
+  }
+  .pricing-cta-content {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .pricing-cta .section-eyebrow { color: var(--gold-soft); }
+  .pricing-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    color: white;
+  }
+  .pricing-cta h2 em { color: var(--gold-soft); font-style: italic; font-weight: 400; }
+  .pricing-cta p { color: rgba(255,255,255,0.75); font-size: 17px; line-height: 1.7; margin-bottom: 32px; }
+  .guarantee-box {
+    background: rgba(255,255,255,0.05);
+    padding: 24px 28px;
+    border-left: 3px solid var(--gold-soft);
+    margin-bottom: 32px;
+  }
+  .guarantee-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .guarantee-box p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    margin: 0;
+  }
+  .pricing-cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .cta-button {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 16px 32px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .cta-button:hover { background: var(--gold-light); }
+  .pricing-detail {
+    background: rgba(255,255,255,0.05);
+    padding: 40px 36px;
+    border-top: 3px solid var(--gold-soft);
+  }
+  .pricing-detail-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--gold-soft);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .pricing-detail-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 16px;
+  }
+  .pricing-detail-breakeven {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .pricing-detail-breakeven strong { color: white; }
+  .pricing-includes { list-style: none; }
+  .pricing-includes li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+  }
+  .pricing-includes li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold-soft);
+  }
+  .pricing-includes li strong { color: white; font-weight: 600; }
+
+  /* ───── FOOTER ───── */
+  .footer {
+    background: var(--cream-dark);
+    padding: 56px 0 40px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    line-height: 1.7;
+  }
+  .footer-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 24px;
+  }
+  .footer strong { color: var(--ink); }
+  .footer a { color: var(--gold); text-decoration: none; }
+
+  /* ───── CONTACT POPUP ───── */
+  .contact-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 31, 61, 0.65);
+    z-index: 1000;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+  .contact-overlay.is-open { display: flex; }
+  .contact-modal {
+    background: white;
+    max-width: 560px;
+    width: 100%;
+    padding: 48px 56px;
+    position: relative;
+    border-top: 3px solid var(--gold);
+    margin: auto 0;
+  }
+  .contact-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  .contact-close:hover { background: var(--cream); }
+  .contact-modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .contact-modal h2 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .contact-modal .contact-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .contact-modal-lead {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 28px;
+    line-height: 1.65;
+  }
+  .contact-field { margin-bottom: 18px; }
+  .contact-field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .contact-field input, .contact-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: white;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .contact-field textarea { min-height: 80px; resize: vertical; }
+  .contact-field input:focus, .contact-field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 147, 90, 0.15);
+  }
+  .contact-honeypot { position: absolute; left: -9999px; }
+  .contact-submit {
+    width: 100%;
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 12px;
+  }
+  .contact-submit:hover:not(:disabled) { background: var(--navy-light); }
+  .contact-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .contact-success {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .contact-success-icon {
+    font-size: 40px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .contact-success h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--navy);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .contact-success p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .contact-disclaimer {
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+  .contact-disclaimer a { color: var(--gold); text-decoration: none; }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 900px) {
+    .header-inner { padding: 0 20px; }
+    .container { padding: 0 20px; }
+    .hero { padding: 64px 0 56px; }
+    .hero h1 { font-size: 36px; }
+    .hero-lead { font-size: 17px; }
+    .hero-proof { gap: 32px; }
+    section { padding: 64px 0; }
+    .section-title { font-size: 32px; }
+    .pillar-grid { grid-template-columns: 1fr; gap: 20px; }
+    .reference-card { padding: 32px 24px; }
+    .reference-components { grid-template-columns: 1fr; gap: 24px; }
+    .founder-inner { grid-template-columns: 1fr; }
+    .founder-photo { width: 100%; height: 240px; }
+    .pricing-cta-content { grid-template-columns: 1fr; gap: 32px; }
+    .pricing-cta h2 { font-size: 30px; }
+    .contact-modal { padding: 32px 24px; }
+    .header-right { gap: 10px; }
+    .header-cta { padding: 8px 14px; font-size: 10px; }
+  }
+</style>
 </head>
 <body>
-    <!-- Welcome Modal -->
-    <div class="welcome-modal" id="welcomeModal">
-        <div class="modal-content">
-            <h1 class="modal-title">Welcome to NorthStar</h1>
-            <p class="modal-description">
-                This site is tailored to specific business audiences. Please select the option that best describes you to access relevant content.
-            </p>
-            <div class="visitor-options">
-                <div class="visitor-option" data-visitor="cfo-finance-director">
-                    <span class="visitor-option-text">CFO / Finance Director</span>
-                    <div class="visitor-option-arrow"></div>
-                </div>
-                <div class="visitor-option" data-visitor="business-owner">
-                    <span class="visitor-option-text">Business Owner / Founder</span>
-                    <div class="visitor-option-arrow"></div>
-                </div>
-            </div>
+
+<!-- ═════════════ HEADER ═════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/en" class="header-logo">North Finance <em>AI</em></a>
+    <div class="header-right">
+      <div class="lang-toggle">
+        <a href="/" title="Deutsche Version">DE</a>
+        <span style="color: rgba(255,255,255,0.3);">·</span>
+        <a href="/en" class="is-active">EN</a>
+      </div>
+      <a href="#contact" class="header-cta" data-open-contact>Book a call</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════════ HERO ═════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Operational CFO support · Mid-sized companies in DACH</div>
+    <h1>Finance you can <em>steer with.</em></h1>
+    <p class="hero-lead">
+      For owner-led companies in Germany, Austria and Switzerland that have outgrown month-end reports as a management tool. We bring senior finance discipline into your day-to-day operations — without the cost or commitment of a full-time CFO.
+    </p>
+    <div class="pricing-cta-buttons">
+      <a href="#contact" class="cta-button" data-open-contact>Book a Strategy Call</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hero-proof-item">
+        <div class="hero-proof-num">Fixed price</div>
+        <div class="hero-proof-label">No hourly rates, no scope creep</div>
+      </div>
+      <div class="hero-proof-item">
+        <div class="hero-proof-num">Outcome Guarantee</div>
+        <div class="hero-proof-label">If the lever doesn't hold, you pay cost only</div>
+      </div>
+      <div class="hero-proof-item">
+        <div class="hero-proof-num">DACH-native</div>
+        <div class="hero-proof-label">HGB, DATEV, German tax advisors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ HOW WE WORK ═════════════ -->
+<section class="pillars">
+  <div class="container">
+    <div class="section-eyebrow">How we work</div>
+    <h2 class="section-title">Three principles, <em>no surprises.</em></h2>
+    <p class="section-intro">
+      We are not management consultants. We do not produce PowerPoint decks for you to file. We build the operational finance layer your company needs — and we leave it running.
+    </p>
+
+    <div class="pillar-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3>Fixed price, fixed scope</h3>
+        <p>Every project carries a <strong>written fixed price</strong> with a defined deliverable and timeline. No hourly rates. No "let's revisit the scope." If we are faster than estimated, that's our risk — not your saving lost.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3>Outcome Guarantee</h3>
+        <p>The project proposal names a <strong>measurable lever</strong> — for example "DSO down by at least X days" or "at least €Y in working capital released." If, 90 days after delivery, we cannot demonstrate that lever in your books, we refund everything down to our direct cost (max. 35% of the project fee).</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3>You own everything</h3>
+        <p>All scripts, configurations, documentation and dashboards built during the project <strong>belong to you</strong>. No vendor lock-in. No SaaS dependencies. Any Python developer or finance team member can take over after we hand off. We engineer for independence, not retention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ PROOF / REFERENCE ═════════════ -->
+<section class="proof">
+  <div class="container">
+    <div class="section-eyebrow">Reference</div>
+    <h2 class="section-title">What an honest <em>6-week project</em> looks like.</h2>
+    <p class="section-intro">
+      This is an anonymized but accurate snapshot of a real Quick-Start engagement. All numbers are measured outcomes, not projections. The client name is withheld out of professional confidentiality — direct references are available under NDA during the Strategy Call.
+    </p>
+
+    <div class="reference-card">
+      <p class="reference-client"><strong>Mid-sized service company in Bavaria</strong>, approximately €5M annual revenue, established structure with an existing tax advisor.</p>
+      <div class="reference-period">March–April 2026 · 6 weeks</div>
+
+      <p class="reference-challenge"><strong>Starting position:</strong> Bank reconciliation was manual and time-consuming. A dunning process existed but was reactive — overdue invoices were often not followed up until day 45 or later. Historical payment errors had never been systematically reviewed.</p>
+
+      <div class="reference-components">
+        <div class="reference-component">
+          <div class="reference-component-label">Component 1</div>
+          <h4>Automated Bank Reconciliation</h4>
+          <ul class="reference-results">
+            <li class="reference-result">
+              <span class="reference-result-value">16 hrs</span>
+              <span class="reference-result-label">Monthly time saved in the finance team</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">98%</span>
+              <span class="reference-result-label">Reconciliation automation rate after 6 weeks</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">6 cases</span>
+              <span class="reference-result-label">Historical payment errors identified (€3,270 cumulative)</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">4 days</span>
+              <span class="reference-result-label">Faster month-end close</span>
+            </li>
+          </ul>
         </div>
+
+        <div class="reference-component">
+          <div class="reference-component-label">Component 2</div>
+          <h4>Automated Dunning Workflow</h4>
+          <ul class="reference-results">
+            <li class="reference-result">
+              <span class="reference-result-value">€6,200</span>
+              <span class="reference-result-label">Overdue invoices recovered in 6 weeks</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">95%</span>
+              <span class="reference-result-label">Automation rate of dunning cycles</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">8 → 2</span>
+              <span class="reference-result-label">Manual follow-up calls per month (−75%)</span>
+            </li>
+            <li class="reference-result">
+              <span class="reference-result-value">Ongoing</span>
+              <span class="reference-result-label">Dunning process now structured and scalable</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reference-footer">
+        The reference is anonymized to protect the confidentiality of the business relationship. All numbers are actually measured and can be discussed in detail during a Strategy Call.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ FOUNDER ═════════════ -->
+<section class="founder">
+  <div class="container">
+    <div class="section-eyebrow">Who runs this</div>
+    <h2 class="section-title">Eight years of <em>senior finance</em> — now applied to mid-sized DACH.</h2>
+
+    <div class="founder-inner">
+      <div class="founder-photo">
+        Krisztina Toth
+      </div>
+      <div>
+        <div class="founder-name">Krisztina Toth</div>
+        <div class="founder-role">Founder · Operational CFO</div>
+
+        <p class="founder-bio">
+          I led senior finance functions in regulated, high-stakes environments for eight years — from <strong>€420M P&amp;L responsibility at Louis Vuitton Germany</strong> to the <strong>finance transformation at Segula Technologies</strong>. I founded <strong>North Finance AI Solutions</strong> to bring this calibre of finance work to mid-sized DACH companies — <strong>without the cost or commitment of a full-time CFO.</strong>
+        </p>
+
+        <ul class="founder-stations">
+          <li class="founder-station">
+            <div class="station-years">2022–2024</div>
+            <div>
+              <div class="station-name">Segula Technologies · Finance Director Germany</div>
+              <div class="station-impact">16 direct reports · €2M annual cost reduction · HGB + IFRS · Finance transformation in restructuring</div>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="station-years">2018–2022</div>
+            <div>
+              <div class="station-name">BNP Paribas / Arval · Finance Lead Germany</div>
+              <div class="station-impact">ROE increased to 30% · +5% contribution margin · 130,000 vehicles · €220M revenue</div>
+            </div>
+          </li>
+          <li class="founder-station">
+            <div class="station-years">2014–2018</div>
+            <div>
+              <div class="station-name">Louis Vuitton Germany · Senior Finance Manager</div>
+              <div class="station-impact">€420M P&amp;L responsibility · SAP HANA · HGB + IFRS · Group reporting to LVMH</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ FAQ ═════════════ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-eyebrow">Frequently asked</div>
+    <h2 class="section-title">What executives <em>typically want to know.</em></h2>
+    <p class="section-intro">
+      The four questions that come up most often in Strategy Calls — answered directly, without marketing language.
+    </p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button type="button" class="faq-trigger">
+          <span class="faq-question-text">How is this different from a management consultancy?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            <p>Three differences. <strong>First:</strong> we don't write reports. The deliverable is a working finance process — automated reconciliation, a 13-week cash forecast, a dunning workflow — running in your actual systems on the day we hand off.</p>
+            <p><strong>Second:</strong> fixed price, not day rates. A consultancy is paid to take longer; we are paid to be faster.</p>
+            <p><strong>Third:</strong> code-ownership. You get the scripts, the configuration, the documentation — and the right to walk away or hire someone else to maintain it. No retention play.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-trigger">
+          <span class="faq-question-text">How do you work with our existing tax advisor (Steuerberater)?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            <p><strong>We work alongside them, not against them.</strong> The tax advisor remains responsible for legally reserved tasks: annual financial statements, tax returns, VAT submissions to the Finanzamt, audit support and tax advisory.</p>
+            <p>We work <em>upstream</em>: we take over the operational and bookkeeping tasks that are <em>not</em> reserved to tax advisors — ongoing finance operations, cash-flow planning, receivables management, controlling, and clean data preparation for the formal handover.</p>
+            <p>In practice the tax advisor receives cleaner data, has fewer corrections to make, and can focus on their core expertise. We proactively reach out to your tax advisor before project start to align on the chart of accounts, posting logic and data handover format.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-trigger">
+          <span class="faq-question-text">What happens to our data when you use AI?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            <p>Your financial data does not leave your infrastructure — the automations run <strong>locally in your environment</strong>, in your DATEV system or in a separate Python instance that only you control. When we use AI analysis (e.g. pattern recognition in receivables), we transmit to Anthropic — the US provider behind Claude — only <strong>technically pseudonymized data</strong>: numeric customer IDs, amounts, due dates. Never plain-text names, addresses, account details, or tax IDs.</p>
+            <p>Contractually secured by <strong>Data Processing Agreement (DPA) under GDPR Art. 28</strong> and <strong>Standard Contractual Clauses under Art. 46 GDPR</strong> for US data transfer. If you prefer to exclude AI entirely, that's possible — we build the automation <strong>without an AI component</strong>. Slightly more manual configuration effort, comparable end result.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-trigger">
+          <span class="faq-question-text">Who owns the code and tools after the project?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-panel">
+          <div class="faq-answer">
+            <p><strong>You do.</strong> After project delivery, you receive:</p>
+            <p>
+              • The complete, <strong>commented source code</strong> in a Git repository<br>
+              • A <strong>process documentation in German</strong> that your accounting team can read (no Python knowledge needed)<br>
+              • A <strong>technical documentation in English</strong>, readable by any Python developer<br>
+              • All configuration files and interface specifications
+            </p>
+            <p>You can then: hire any Python developer in Germany (typically €80–120/hour) for maintenance, optionally use our monthly Check-in model, or shut down the code and continue manually. <strong>No lock-in. No licence fees. No hidden commitment.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ PRICING / CTA ═════════════ -->
+<section class="pricing-cta" id="contact">
+  <div class="container">
+    <div class="section-eyebrow">The entry point</div>
+    <div class="pricing-cta-content">
+      <div>
+        <h2>A 90-minute call. <em>Three concrete next steps.</em></h2>
+        <p>We look at your situation and tell you where the biggest lever sits — and whether the effort is worth it. If not, we tell you that too.</p>
+
+        <div class="guarantee-box">
+          <div class="guarantee-label">Our Outcome Guarantee</div>
+          <p>If the lever we identify in the call doesn't hold in your situation, you pay only direct cost for the project. The analysis stays with you — no discussion.</p>
+        </div>
+
+        <div class="pricing-cta-buttons">
+          <a href="#" class="cta-button" data-open-contact>Book a Strategy Call</a>
+        </div>
+      </div>
+      <div class="pricing-detail">
+        <div class="pricing-detail-price">€480</div>
+        <div class="pricing-detail-label">Strategy Call · Fixed price</div>
+        <div class="pricing-detail-breakeven">If you proceed to a project: <strong>€480 are fully credited against the project fee</strong></div>
+        <ul class="pricing-includes">
+          <li>You leave the call with a <strong>prioritised lever</strong> and concrete next steps</li>
+          <li>We come prepared — your numbers are <strong>analysed in advance</strong></li>
+          <li>You decide <strong>freely and without pressure</strong> after the call</li>
+          <li>90 minutes · <strong>online or in Munich</strong>, your choice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ FOOTER ═════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-divider"></div>
+    <p>
+      <strong>North Finance AI Solutions</strong> · Munich, Germany · <a href="mailto:krisztina@northfinanceai.com">krisztina@northfinanceai.com</a><br>
+      <a href="/">Deutsche Version</a> · GDPR-compliant data handling · Confidentiality is part of the engagement
+    </p>
+  </div>
+</footer>
+
+<!-- ═════════════ CONTACT POPUP ═════════════ -->
+<div class="contact-overlay" id="contact-overlay">
+  <div class="contact-modal">
+    <button class="contact-close" type="button" id="contact-close" aria-label="Close">×</button>
+
+    <div id="contact-form-wrap">
+      <div class="contact-eyebrow">Strategy Call</div>
+      <h2>Book your <em>Strategy Call</em></h2>
+      <p class="contact-modal-lead">Leave your details below. Krisztina will personally reach out within 24 hours to schedule your 90-minute Strategy Call. Confidential, no commitment.</p>
+
+      <form id="contact-form" autocomplete="on" novalidate>
+        <input type="text" name="website" class="contact-honeypot" tabindex="-1" autocomplete="off">
+
+        <div class="contact-field">
+          <label for="contact-name">Your name</label>
+          <input type="text" id="contact-name" name="name" required>
+        </div>
+        <div class="contact-field">
+          <label for="contact-company">Company</label>
+          <input type="text" id="contact-company" name="company" required>
+        </div>
+        <div class="contact-field">
+          <label for="contact-email">Email</label>
+          <input type="email" id="contact-email" name="email" required>
+        </div>
+        <div class="contact-field">
+          <label for="contact-phone">Phone</label>
+          <input type="tel" id="contact-phone" name="phone" required>
+        </div>
+        <div class="contact-field">
+          <label for="contact-message">What would you like to discuss? <span style="color: var(--ink-mute); text-transform: none; letter-spacing: 0; font-weight: 400;">(optional)</span></label>
+          <textarea id="contact-message" name="message" placeholder="e.g. cash-flow visibility, finance process automation, working capital..."></textarea>
+        </div>
+
+        <button type="submit" class="contact-submit" id="contact-submit">Send request</button>
+        <p class="contact-disclaimer">
+          By submitting, you agree to be contacted by North Finance AI regarding your enquiry. We handle your data under GDPR. No data is shared with third parties. See our <a href="/">privacy notice</a> on the German site.
+        </p>
+      </form>
     </div>
 
-    <!-- Lead Magnet Modal -->
-    <div class="lead-modal hidden" id="leadModal">
-        <div class="lead-modal-content">
-            <button class="lead-close" id="leadClose">&times;</button>
-            <h2 class="lead-title" id="leadTitle">Free CFO Toolkit: Cash Flow Mastery Guide</h2>
-            <p class="lead-description" id="leadDescription">
-                Get our exclusive 47-page guide used by €10M+ SMBs to predict cash flow with 94% accuracy. Includes templates, calculators, and real scenarios.
-            </p>
-            <div class="lead-benefits">
-                <div class="lead-benefit">
-                    <span class="lead-benefit-check">✓</span>
-                    <span id="leadBenefit1">12-week cash flow forecasting template</span>
-                </div>
-                <div class="lead-benefit">
-                    <span class="lead-benefit-check">✓</span>
-                    <span id="leadBenefit2">Scenario planning calculator (Excel)</span>
-                </div>
-                <div class="lead-benefit">
-                    <span class="lead-benefit-check">✓</span>
-                    <span id="leadBenefit3">Board-ready financial dashboards</span>
-                </div>
-            </div>
-            <form class="lead-form" id="leadForm">
-                <input type="text" placeholder="First Name" id="leadFirstName" required>
-                <input type="text" placeholder="Last Name" id="leadLastName" required>
-                <input type="email" placeholder="Work Email" id="leadEmail" required>
-                <input type="text" placeholder="Company Name" id="leadCompany" required>
-                <button type="submit" class="lead-submit">Send Me the Toolkit</button>
-            </form>
-            <p class="lead-privacy">We respect your privacy. Unsubscribe anytime.</p>
-        </div>
+    <div class="contact-success" id="contact-success" style="display: none;">
+      <div class="contact-success-icon">✓</div>
+      <h3>Request received</h3>
+      <p>Krisztina will contact you within 24 hours at the number you provided. You will also receive a confirmation email shortly with optional next steps.</p>
     </div>
+  </div>
+</div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">NorthStar</div>
-                <ul class="nav-links">
-                    <li><a href="#features" data-en="Features" data-de="Funktionen">Features</a></li>
-                    <li><a href="#solutions" data-en="Solutions" data-de="Lösungen">Solutions</a></li>
-                    <li><a href="#about" data-en="About" data-de="Über uns">About</a></li>
-                </ul>
-                <div class="nav-right">
-                    <div class="language-dropdown">
-                        <div class="lang-selected" id="langSelected">EN</div>
-                        <div class="lang-options">
-                            <span class="lang-option active" data-lang="en">English</span>
-                            <span class="lang-option" data-lang="de">Deutsch</span>
-                        </div>
-                    </div>
-                    <a href="#contact" class="cta-button" data-en="Get Started" data-de="Jetzt starten">Get Started</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<script>
+(function() {
+  'use strict';
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <canvas id="canvas3d"></canvas>
-        <div class="hero-content">
-            <h1>
-                <span class="gradient-text" data-en="AI-Powered" data-de="KI-gestützte">AI-Powered</span><br>
-                <span data-en="Finance Intelligence" data-de="Finanzintelligenz">Finance Intelligence</span>
-            </h1>
-            <p class="hero-description" data-en="Automate accounting and controlling for SMBs. Real-time insights, zero complexity." data-de="Automatisieren Sie Buchhaltung und Controlling für KMUs. Echtzeit-Einblicke, null Komplexität.">
-                Automate accounting and controlling for SMBs. Real-time insights, zero complexity.
-            </p>
-            <div class="hero-buttons">
-                <a href="#demo" class="primary-btn" data-en="Book a Demo" data-de="Demo buchen">Book a Demo</a>
-                <a href="#learn" class="secondary-btn" data-en="Learn More" data-de="Mehr erfahren">Learn More</a>
-            </div>
-        </div>
-    </section>
+  // ─── FAQ ACCORDION ───
+  var faqTriggers = document.querySelectorAll('.faq-trigger');
+  faqTriggers.forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      trigger.parentElement.classList.toggle('is-open');
+    });
+  });
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title" data-en="Built for Modern Finance" data-de="Für moderne Finanzen entwickelt">Built for Modern Finance</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3 data-en="Smart Accounting" data-de="Intelligente Buchhaltung">Smart Accounting</h3>
-                    <p data-en="AI-driven categorization and reconciliation. Eliminate manual data entry and reduce errors by 95%." data-de="KI-gesteuerte Kategorisierung und Abstimmung. Eliminieren Sie manuelle Dateneingabe und reduzieren Sie Fehler um 95%.">AI-driven categorization and reconciliation. Eliminate manual data entry and reduce errors by 95%.</p>
-                </div>
-                <div class="feature-card">
-                    <h3 data-en="Real-Time Control" data-de="Echtzeit-Controlling">Real-Time Control</h3>
-                    <p data-en="Live dashboards with predictive analytics. Monitor cash flow, budgets, and KPIs in real-time." data-de="Live-Dashboards mit prädiktiver Analytik. Überwachen Sie Cashflow, Budgets und KPIs in Echtzeit.">Live dashboards with predictive analytics. Monitor cash flow, budgets, and KPIs in real-time.</p>
-                </div>
-                <div class="feature-card">
-                    <h3 data-en="Instant Compliance" data-de="Sofortige Compliance">Instant Compliance</h3>
-                    <p data-en="Automated reporting for HGB, IFRS, and tax requirements. Stay compliant without the overhead." data-de="Automatisierte Berichterstattung für HGB, IFRS und Steueranforderungen. Bleiben Sie compliant ohne Overhead.">Automated reporting for HGB, IFRS, and tax requirements. Stay compliant without the overhead.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  // ─── CONTACT POPUP ───
+  var overlay = document.getElementById('contact-overlay');
+  var closeBtn = document.getElementById('contact-close');
+  var form = document.getElementById('contact-form');
+  var submit = document.getElementById('contact-submit');
+  var successPane = document.getElementById('contact-success');
+  var formWrap = document.getElementById('contact-form-wrap');
+  var triggers = document.querySelectorAll('[data-open-contact]');
 
-    <!-- Problem Section (Hormozi-style) -->
-    <section class="problem-section">
-        <div class="container">
-            <div class="problem-content">
-                <h2 class="problem-title" data-en="The Hidden Cost of Bad Finance Systems" data-de="Die versteckten Kosten schlechter Finanzsysteme">The Hidden Cost of Bad Finance Systems</h2>
-                <p class="problem-subtitle" data-en="Most SMBs lose €50,000+ annually to preventable finance mistakes. Here's what's actually costing you:" data-de="Die meisten KMUs verlieren jährlich über 50.000 € durch vermeidbare Finanzfehler. Das kostet Sie wirklich:">Most SMBs lose €50,000+ annually to preventable finance mistakes. Here's what's actually costing you:</p>
-                <div class="problem-grid">
-                    <div class="problem-item">
-                        <div class="problem-number">23hrs</div>
-                        <div class="problem-text" data-en="wasted per month on manual reconciliation" data-de="verschwendet pro Monat für manuelle Abstimmung">wasted per month on manual reconciliation</div>
-                    </div>
-                    <div class="problem-item">
-                        <div class="problem-number">€18K</div>
-                        <div class="problem-text" data-en="average tax penalties from missed deadlines" data-de="durchschnittliche Steuerstrafen durch verpasste Fristen">average tax penalties from missed deadlines</div>
-                    </div>
-                    <div class="problem-item">
-                        <div class="problem-number">47%</div>
-                        <div class="problem-text" data-en="of financial decisions made on outdated data" data-de="der Finanzentscheidungen basieren auf veralteten Daten">of financial decisions made on outdated data</div>
-                    </div>
-                    <div class="problem-item">
-                        <div class="problem-number">3-5 days</div>
-                        <div class="problem-text" data-en="to close monthly books (should take 2 hours)" data-de="für Monatsabschluss (sollte 2 Stunden dauern)">to close monthly books (should take 2 hours)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  triggers.forEach(function(trigger) {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        var nameInput = document.getElementById('contact-name');
+        if (nameInput) nameInput.focus();
+      }, 100);
+    });
+  });
 
-    <!-- Value Proposition (Hormozi-style) -->
-    <section class="value-section">
-        <div class="container">
-            <div class="value-wrapper">
-                <div class="value-left">
-                    <h2 class="value-title" data-en="What You Get" data-de="Was Sie bekommen">What You Get</h2>
-                    <p class="value-subtitle" data-en="Everything you need to run finance like a €100M company, even if you're doing €5M today." data-de="Alles, was Sie brauchen, um Finanzen wie ein 100-Mio.-€-Unternehmen zu führen, auch wenn Sie heute 5 Mio. € machen.">Everything you need to run finance like a €100M company, even if you're doing €5M today.</p>
-                </div>
-                <div class="value-list">
-                    <div class="value-item">
-                        <div class="value-check">✓</div>
-                        <div class="value-item-content">
-                            <h4 data-en="Real-time Financial Dashboard" data-de="Echtzeit-Finanz-Dashboard">Real-time Financial Dashboard</h4>
-                            <p data-en="See P&L, cash position, and runway updated live. No more waiting for month-end reports." data-de="Sehen Sie GuV, Cash-Position und Runway live aktualisiert. Kein Warten mehr auf Monatsabschlüsse.">See P&L, cash position, and runway updated live. No more waiting for month-end reports.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-check">✓</div>
-                        <div class="value-item-content">
-                            <h4 data-en="Automated Bank Reconciliation" data-de="Automatisierte Bankabstimmung">Automated Bank Reconciliation</h4>
-                            <p data-en="AI matches 99% of transactions automatically. Flag anomalies instantly." data-de="KI gleicht 99% der Transaktionen automatisch ab. Anomalien sofort markieren.">AI matches 99% of transactions automatically. Flag anomalies instantly.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-check">✓</div>
-                        <div class="value-item-content">
-                            <h4 data-en="One-Click Compliance Reports" data-de="Ein-Klick-Compliance-Berichte">One-Click Compliance Reports</h4>
-                            <p data-en="Generate HGB, IFRS, and tax reports instantly. Always audit-ready." data-de="HGB-, IFRS- und Steuerberichte sofort generieren. Immer prüfungsbereit.">Generate HGB, IFRS, and tax reports instantly. Always audit-ready.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-check">✓</div>
-                        <div class="value-item-content">
-                            <h4 data-en="Predictive Cash Flow Analysis" data-de="Prädiktive Cashflow-Analyse">Predictive Cash Flow Analysis</h4>
-                            <p data-en="Know your cash position 90 days out with 94% accuracy. No surprises." data-de="Kennen Sie Ihre Cash-Position 90 Tage im Voraus mit 94% Genauigkeit. Keine Überraschungen.">Know your cash position 90 days out with 94% accuracy. No surprises.</p>
-                        </div>
-                    </div>
-                    <div class="value-item">
-                        <div class="value-check">✓</div>
-                        <div class="value-item-content">
-                            <h4 data-en="Dedicated CFO Support" data-de="Dedizierter CFO-Support">Dedicated CFO Support</h4>
-                            <p data-en="Monthly strategic calls with our finance experts. Scale decisions, funding prep, exit strategy." data-de="Monatliche strategische Calls mit unseren Finanzexperten. Skalierungsentscheidungen, Funding-Vorbereitung, Exit-Strategie.">Monthly strategic calls with our finance experts. Scale decisions, funding prep, exit strategy.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup();
+  });
 
-    <!-- ROI Calculator Section -->
-    <section class="roi-section">
-        <div class="container">
-            <h2 class="section-title" data-en="Your ROI in 90 Days" data-de="Ihr ROI in 90 Tagen">Your ROI in 90 Days</h2>
-            <p class="roi-subtitle" data-en="Real numbers from our clients (average €8M revenue SMBs)" data-de="Echte Zahlen unserer Kunden (durchschnittlich 8 Mio. € Umsatz KMUs)">Real numbers from our clients (average €8M revenue SMBs)</p>
-            <div class="roi-grid">
-                <div class="roi-card">
-                    <div class="roi-metric">187hrs</div>
-                    <div class="roi-label" data-en="saved per month" data-de="gespart pro Monat">saved per month</div>
-                    <div class="roi-value" data-en="€9,350 value" data-de="9.350 € Wert">€9,350 value</div>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-metric">€31K</div>
-                    <div class="roi-label" data-en="avoided in penalties" data-de="vermiedene Strafen">avoided in penalties</div>
-                    <div class="roi-value" data-en="first year avg" data-de="erstes Jahr Ø">first year avg</div>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-metric">2.4x</div>
-                    <div class="roi-label" data-en="faster month-end close" data-de="schnellerer Monatsabschluss">faster month-end close</div>
-                    <div class="roi-value" data-en="3 days → 18 hours" data-de="3 Tage → 18 Stunden">3 days → 18 hours</div>
-                </div>
-            </div>
-            <div class="roi-total">
-                <span class="roi-total-label" data-en="Total First-Year Value:" data-de="Gesamtwert erstes Jahr:">Total First-Year Value:</span>
-                <span class="roi-total-amount">€143,200</span>
-            </div>
-        </div>
-    </section>
+  function closePopup() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
 
-    <!-- Social Proof Section -->
-    <section class="testimonial-section">
-        <div class="container">
-            <h2 class="section-title" data-en="What CFOs Are Saying" data-de="Was CFOs sagen">What CFOs Are Saying</h2>
-            <div class="testimonial-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"We went from 4 days to close our books to less than 1 day. The time savings alone paid for NorthStar in the first month."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Michael Weber</div>
-                        <div class="testimonial-role">CFO, TechVenture GmbH (€12M revenue)</div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"The predictive cash flow saved us during a tight quarter. We knew exactly when to delay expansion by 3 weeks. Worth every euro."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Sarah Müller</div>
-                        <div class="testimonial-role">Finance Director, LogistikPro AG (€8M revenue)</div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-quote">"Finally, a system built for German compliance. HGB reporting takes 10 minutes instead of 2 days. Game changer."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Thomas Schmidt</div>
-                        <div class="testimonial-role">Controller, Handel Solutions (€15M revenue)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    <!-- CTA Section (Hormozi-style) -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title" data-en="Here's What Happens Next" data-de="So geht es weiter">Here's What Happens Next</h2>
-                <div class="cta-steps">
-                    <div class="cta-step">
-                        <div class="cta-step-number">1</div>
-                        <div class="cta-step-content">
-                            <h4 data-en="Book Your Demo" data-de="Demo buchen">Book Your Demo</h4>
-                            <p data-en="30-minute call with our finance team. We'll assess your current setup and show you exactly what NorthStar can do for your business." data-de="30-minütiger Call mit unserem Finanzteam. Wir bewerten Ihr aktuelles Setup und zeigen Ihnen genau, was NorthStar für Ihr Unternehmen tun kann.">30-minute call with our finance team. We'll assess your current setup and show you exactly what NorthStar can do for your business.</p>
-                        </div>
-                    </div>
-                    <div class="cta-step">
-                        <div class="cta-step-number">2</div>
-                        <div class="cta-step-content">
-                            <h4 data-en="Custom Implementation" data-de="Individuelle Implementierung">Custom Implementation</h4>
-                            <p data-en="We migrate your data, connect your banks, and configure everything. Most clients are fully live in 48 hours." data-de="Wir migrieren Ihre Daten, verbinden Ihre Banken und konfigurieren alles. Die meisten Kunden sind in 48 Stunden vollständig live.">We migrate your data, connect your banks, and configure everything. Most clients are fully live in 48 hours.</p>
-                        </div>
-                    </div>
-                    <div class="cta-step">
-                        <div class="cta-step-number">3</div>
-                        <div class="cta-step-content">
-                            <h4 data-en="See Results in Week 1" data-de="Ergebnisse in Woche 1">See Results in Week 1</h4>
-                            <p data-en="Immediate time savings, real-time visibility, and peace of mind. Most clients recover their investment in 60 days." data-de="Sofortige Zeitersparnis, Echtzeit-Transparenz und Seelenfrieden. Die meisten Kunden amortisieren ihre Investition in 60 Tagen.">Immediate time savings, real-time visibility, and peace of mind. Most clients recover their investment in 60 days.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="cta-button-wrapper">
-                    <a href="#contact" class="cta-primary" data-en="Book Your Free Demo" data-de="Kostenlose Demo buchen">Book Your Free Demo</a>
-                    <p class="cta-guarantee" data-en="No credit card required • 14-day free trial • Cancel anytime" data-de="Keine Kreditkarte erforderlich • 14 Tage kostenlos testen • Jederzeit kündbar">No credit card required • 14-day free trial • Cancel anytime</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    var data = {
+      name: document.getElementById('contact-name').value.trim(),
+      company: document.getElementById('contact-company').value.trim(),
+      email: document.getElementById('contact-email').value.trim(),
+      phone: document.getElementById('contact-phone').value.trim(),
+      website: form.elements['website'].value,
+      lang: 'en',
+      submitted_at: new Date().toISOString(),
+      source: 'en-landing-page',
+      url: window.location.href,
+      diagnosis: {
+        pain_text: document.getElementById('contact-message').value.trim()
+      }
+    };
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Three.js 3D Scene with Geometric Web
-        const canvas = document.getElementById('canvas3d');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        camera.position.z = 15;
+    if (!data.name || !data.company || !data.email || !data.phone) {
+      alert('Please fill in all required fields.');
+      return;
+    }
 
-        // Create particles for geometric web
-        const particleCount = 100;
-        const particles = [];
-        const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
-        const particleMaterial = new THREE.MeshBasicMaterial({
-            color: 0x0A2540,
-            transparent: true,
-            opacity: 0.3
-        });
+    submit.disabled = true;
+    submit.textContent = 'Sending …';
 
-        // Create particle system
-        for (let i = 0; i < particleCount; i++) {
-            const particle = new THREE.Mesh(particleGeometry, particleMaterial);
-            
-            particle.position.x = (Math.random() - 0.5) * 30;
-            particle.position.y = (Math.random() - 0.5) * 30;
-            particle.position.z = (Math.random() - 0.5) * 30;
-            
-            particle.velocity = new THREE.Vector3(
-                (Math.random() - 0.5) * 0.02,
-                (Math.random() - 0.5) * 0.02,
-                (Math.random() - 0.5) * 0.02
-            );
-            
-            particles.push(particle);
-            scene.add(particle);
-        }
+    fetch('/api/lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('Submission failed');
+      return res.json();
+    })
+    .then(function() {
+      formWrap.style.display = 'none';
+      successPane.style.display = 'block';
+    })
+    .catch(function() {
+      submit.disabled = false;
+      submit.textContent = 'Send request';
+      alert('There was a technical problem. Please try again — or email krisztina@northfinanceai.com directly.');
+    });
+  });
+})();
+</script>
 
-        // Create lines for the web
-        const lineMaterial = new THREE.LineBasicMaterial({
-            color: 0x2E4A6F,
-            transparent: true,
-            opacity: 0.1
-        });
-
-        const lines = [];
-
-        function createLines() {
-            // Remove old lines
-            lines.forEach(line => scene.remove(line));
-            lines.length = 0;
-
-            // Create new lines between nearby particles
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const distance = particles[i].position.distanceTo(particles[j].position);
-                    
-                    if (distance < 5) {
-                        const geometry = new THREE.BufferGeometry().setFromPoints([
-                            particles[i].position,
-                            particles[j].position
-                        ]);
-                        
-                        const line = new THREE.Line(geometry, lineMaterial);
-                        lines.push(line);
-                        scene.add(line);
-                    }
-                }
-            }
-        }
-
-        // Mouse movement effect
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        let frameCount = 0;
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            frameCount++;
-
-            // Update particle positions
-            particles.forEach(particle => {
-                particle.position.add(particle.velocity);
-                
-                // Bounce off boundaries
-                if (Math.abs(particle.position.x) > 15) particle.velocity.x *= -1;
-                if (Math.abs(particle.position.y) > 15) particle.velocity.y *= -1;
-                if (Math.abs(particle.position.z) > 15) particle.velocity.z *= -1;
-            });
-
-            // Update lines every 3 frames for performance
-            if (frameCount % 3 === 0) {
-                createLines();
-            }
-
-            // Mouse parallax
-            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-            camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Welcome Modal & Visitor Tracking
-        // NOTE: Modal shows on every visit. To enable one-time only, uncomment the localStorage check below
-        const modal = document.getElementById('welcomeModal');
-        const visitorOptions = document.querySelectorAll('.visitor-option');
-
-        // Check if user has already selected (DISABLED FOR TESTING - modal will show every time)
-        // const hasVisited = localStorage.getItem('visitorType');
-        // if (hasVisited) {
-        //     modal.classList.add('hidden');
-        // }
-
-        // Lead Magnet Content by Visitor Type
-        const leadMagnetContent = {
-            'cfo-finance-director': {
-                title: 'Free CFO Toolkit: Cash Flow Mastery Guide',
-                description: 'Get our exclusive 47-page guide used by €10M+ SMBs to predict cash flow with 94% accuracy. Includes templates, calculators, and real scenarios.',
-                benefits: [
-                    '12-week cash flow forecasting template',
-                    'Scenario planning calculator (Excel)',
-                    'Board-ready financial dashboards'
-                ]
-            },
-            'business-owner': {
-                title: 'Free Guide: The 90-Day Profitability Blueprint',
-                description: 'Learn how 200+ founders increased margins by 23% in one quarter. Step-by-step playbook with real numbers and implementation timeline.',
-                benefits: [
-                    'Profit margin diagnostic tool',
-                    'Cost reduction checklist (€50K+ in savings)',
-                    'Weekly KPI tracking dashboard'
-                ]
-            }
-        };
-
-        let selectedVisitorType = '';
-
-        visitorOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const visitorType = this.getAttribute('data-visitor');
-                selectedVisitorType = visitorType;
-                
-                // Store visitor type
-                localStorage.setItem('visitorType', visitorType);
-                localStorage.setItem('visitDate', new Date().toISOString());
-                
-                // Track visitor (you can send this to analytics)
-                console.log('Visitor Type:', visitorType);
-                console.log('Visit Date:', new Date().toISOString());
-                
-                // Close welcome modal
-                modal.classList.add('hidden');
-
-                // Show lead magnet after 30 seconds
-                setTimeout(() => {
-                    showLeadMagnet(visitorType);
-                }, 30000); // 30 seconds
-            });
-        });
-
-        function showLeadMagnet(visitorType) {
-            // Check if user already submitted lead form
-            if (localStorage.getItem('leadSubmitted')) {
-                return;
-            }
-
-            const leadModal = document.getElementById('leadModal');
-            const content = leadMagnetContent[visitorType];
-
-            // Populate modal with personalized content
-            document.getElementById('leadTitle').textContent = content.title;
-            document.getElementById('leadDescription').textContent = content.description;
-            document.getElementById('leadBenefit1').textContent = content.benefits[0];
-            document.getElementById('leadBenefit2').textContent = content.benefits[1];
-            document.getElementById('leadBenefit3').textContent = content.benefits[2];
-
-            // Show modal
-            leadModal.classList.remove('hidden');
-        }
-
-        // Lead Modal Close Button
-        document.getElementById('leadClose').addEventListener('click', function() {
-            document.getElementById('leadModal').classList.add('hidden');
-        });
-
-        // Lead Form Submission
-        document.getElementById('leadForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = {
-                firstName: document.getElementById('leadFirstName').value,
-                lastName: document.getElementById('leadLastName').value,
-                email: document.getElementById('leadEmail').value,
-                company: document.getElementById('leadCompany').value,
-                visitorType: selectedVisitorType,
-                timestamp: new Date().toISOString()
-            };
-
-            // Log form data (you can send this to your backend/CRM)
-            console.log('Lead Captured:', formData);
-
-            // Here you can add your API call to send data to your backend
-            // Example:
-            // fetch('/api/leads', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(formData)
-            // });
-
-            // Mark as submitted
-            localStorage.setItem('leadSubmitted', 'true');
-            localStorage.setItem('leadData', JSON.stringify(formData));
-
-            // Show success message
-            alert('Thank you! Check your email in the next 5 minutes for your free resource.');
-
-            // Close modal
-            document.getElementById('leadModal').classList.add('hidden');
-        });
-
-        // Language Switching
-        let currentLang = 'en';
-
-        function switchLanguage(lang) {
-            currentLang = lang;
-            
-            // Update all elements with data attributes
-            document.querySelectorAll('[data-en][data-de]').forEach(element => {
-                const text = element.getAttribute(`data-${lang}`);
-                if (text) {
-                    element.textContent = text;
-                }
-            });
-
-            // Update selected language display
-            const langSelected = document.getElementById('langSelected');
-            langSelected.textContent = lang.toUpperCase();
-
-            // Update active state on language options
-            document.querySelectorAll('.lang-option').forEach(option => {
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('active');
-                } else {
-                    option.classList.remove('active');
-                }
-            });
-
-            // Store language preference
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
-        // Add click listeners to language options
-        document.querySelectorAll('.lang-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                switchLanguage(lang);
-            });
-        });
-
-        // Load saved language preference
-        const savedLang = localStorage.getItem('preferredLanguage');
-        if (savedLang) {
-            switchLanguage(savedLang);
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
