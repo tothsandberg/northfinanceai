@@ -1474,8 +1474,13 @@
       body: JSON.stringify({ code: code })
     })
     .then(function(res) {
-      if (!res.ok) throw new Error('Request failed');
-      return res.json();
+      return res.json().then(function(body) {
+        if (!res.ok) {
+          var serverMsg = (body && body.error) ? body.error : ('HTTP ' + res.status);
+          throw new Error(serverMsg);
+        }
+        return body;
+      });
     })
     .then(function() {
       // Success — lock the button and show the confirmation
@@ -1490,11 +1495,12 @@
         confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     })
-    .catch(function() {
+    .catch(function(err) {
       btn.textContent = originalText;
       btn.style.pointerEvents = '';
       btn.style.opacity = '';
-      alert('Es gab ein technisches Problem bei der Übermittlung. Bitte versuchen Sie es erneut — oder schreiben Sie direkt an krisztina@northfinanceai.com.');
+      var detail = (err && err.message) ? ('\n\nTechnischer Hinweis: ' + err.message) : '';
+      alert('Es gab ein technisches Problem bei der Übermittlung. Bitte versuchen Sie es erneut — oder schreiben Sie direkt an krisztina@northfinanceai.com.' + detail);
     });
   }
 
