@@ -1354,6 +1354,14 @@
 
       <div class="cta-wrap">
         <a href="#" class="cta-button" id="detail-call-cta">Detail-Call vereinbaren</a>
+        <div id="detail-call-confirmation" style="display: none; margin-top: 28px; background: rgba(184, 147, 90, 0.15); border-left: 3px solid var(--gold-soft); padding: 24px 28px; text-align: left;">
+          <p style="margin: 0 0 10px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-soft); font-weight: 700;">
+            ✓ Anfrage übermittelt
+          </p>
+          <p style="margin: 0; font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.65;">
+            Krisztina hat Ihre Anfrage erhalten und meldet sich <strong style="color: white;">innerhalb von 24 Stunden</strong> persönlich bei Ihnen. Eine Bestätigung haben Sie per E-Mail erhalten.
+          </p>
+        </div>
         <p class="cta-note">
           oder schreiben Sie direkt an <a href="mailto:krisztina@northfinanceai.com">krisztina@northfinanceai.com</a>
         </p>
@@ -1389,7 +1397,7 @@
     var session = sessionStorage.getItem('nfa_catalog_auth');
     if (session) {
       var parsed = JSON.parse(session);
-      if (parsed && parsed.name) unlockCatalogue(parsed);
+      if (parsed && parsed.name) unlockCatalogue(parsed, parsed.code || null);
     }
   } catch (e) {}
 
@@ -1417,8 +1425,10 @@
       return res.json();
     })
     .then(function(data) {
-      try { sessionStorage.setItem('nfa_catalog_auth', JSON.stringify(data.customer)); } catch (e) {}
-      unlockCatalogue(data.customer);
+      // Store code alongside customer info so the Detail-Call CTA can use it
+      var sessionPayload = Object.assign({}, data.customer, { code: code.toUpperCase() });
+      try { sessionStorage.setItem('nfa_catalog_auth', JSON.stringify(sessionPayload)); } catch (e) {}
+      unlockCatalogue(data.customer, code.toUpperCase());
     })
     .catch(function(err) {
       submit.disabled = false;
@@ -1431,25 +1441,61 @@
     });
   });
 
-  function unlockCatalogue(customer) {
+  function unlockCatalogue(customer, code) {
     if (customerNameEl && customer && customer.name) customerNameEl.textContent = customer.name;
     if (footerNameEl && customer && customer.name) footerNameEl.textContent = customer.name;
 
-    // Wire up the Detail-Call CTA with personalised mailto
+    // Wire up the Detail-Call CTA — posts to /api/catalogue-contact (works
+    // regardless of whether the user has a mailto-handler configured)
     var ctaBtn = document.getElementById('detail-call-cta');
-    if (ctaBtn && customer) {
-      var subject = encodeURIComponent('Detail-Call zum Leistungskatalog');
-      var body = encodeURIComponent(
-        'Sehr geehrte Frau Toth,\n\n' +
-        'ich habe den Leistungskatalog gelesen und möchte einen Detail-Call zur Klärung offener Punkte vereinbaren.\n\n' +
-        'Mit freundlichen Grüßen\n' + (customer.name || '') +
-        (customer.company ? '\n' + customer.company : '')
-      );
-      ctaBtn.href = 'mailto:krisztina@northfinanceai.com?subject=' + subject + '&body=' + body;
+    if (ctaBtn && code) {
+      ctaBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        requestDetailCall(code, ctaBtn);
+      });
     }
 
     document.body.classList.add('is-authenticated');
     window.scrollTo(0, 0);
+  }
+
+  function requestDetailCall(code, btn) {
+    // If already submitted in this session, don't re-submit
+    if (btn.dataset.submitted === 'true') return;
+
+    var originalText = btn.textContent;
+    btn.textContent = 'Wird übermittelt …';
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.7';
+
+    fetch('/api/catalogue-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code })
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('Request failed');
+      return res.json();
+    })
+    .then(function() {
+      // Success — lock the button and show the confirmation
+      btn.dataset.submitted = 'true';
+      btn.textContent = '✓ Anfrage versendet';
+      btn.style.background = 'rgba(184, 147, 90, 0.4)';
+      btn.style.color = 'rgba(255, 255, 255, 0.85)';
+      btn.style.cursor = 'default';
+      var confirmation = document.getElementById('detail-call-confirmation');
+      if (confirmation) {
+        confirmation.style.display = 'block';
+        confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    })
+    .catch(function() {
+      btn.textContent = originalText;
+      btn.style.pointerEvents = '';
+      btn.style.opacity = '';
+      alert('Es gab ein technisches Problem bei der Übermittlung. Bitte versuchen Sie es erneut — oder schreiben Sie direkt an krisztina@northfinanceai.com.');
+    });
   }
 
   function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('is-visible'); }
