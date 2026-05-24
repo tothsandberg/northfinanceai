@@ -17,30 +17,34 @@
     --navy-light: #14304f;
     --gold: #b8935a;
     --gold-soft: #c9a961;
+    --gold-light: #e8d8b8;
     --cream: #f7f3ec;
     --cream-dark: #efe9de;
     --ink: #2a2a2a;
     --ink-soft: #555555;
+    --ink-mute: #888888;
     --line: #e5dfd2;
+    --green: #2d7a4f;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body { height: 100%; }
-
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', -apple-system, sans-serif;
     background: var(--cream);
     color: var(--ink);
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── GATE (Phase 1, unchanged) ─── */
+  .gate-wrapper {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
   }
-
-  /* ─── GATE ─── */
   .gate {
     background: white;
     max-width: 480px;
@@ -48,22 +52,15 @@
     border-top: 3px solid var(--gold);
     padding: 56px 48px 44px;
     box-shadow: 0 30px 60px rgba(10, 31, 61, 0.15);
-    position: relative;
   }
-
   .gate-logo {
     font-family: 'Playfair Display', serif;
     font-size: 22px;
     color: var(--navy);
     margin-bottom: 36px;
-    letter-spacing: -0.01em;
     font-weight: 500;
   }
-  .gate-logo span {
-    color: var(--gold);
-    font-style: italic;
-  }
-
+  .gate-logo span { color: var(--gold); font-style: italic; }
   .gate-eyebrow {
     font-size: 11px;
     letter-spacing: 0.28em;
@@ -72,7 +69,6 @@
     font-weight: 700;
     margin-bottom: 18px;
   }
-
   .gate h1 {
     font-family: 'Playfair Display', serif;
     font-size: 32px;
@@ -82,19 +78,13 @@
     margin-bottom: 18px;
     letter-spacing: -0.01em;
   }
-  .gate h1 em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 400;
-  }
-
+  .gate h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
   .gate-lead {
     font-size: 15px;
     color: var(--ink-soft);
     line-height: 1.65;
     margin-bottom: 36px;
   }
-
   .gate-error {
     background: #fdf2f2;
     border-left: 3px solid #c53030;
@@ -103,10 +93,8 @@
     font-size: 14px;
     margin-bottom: 20px;
     display: none;
-    line-height: 1.5;
   }
   .gate-error.is-visible { display: block; }
-
   .gate-form label {
     display: block;
     font-size: 11px;
@@ -116,7 +104,6 @@
     font-weight: 600;
     margin-bottom: 10px;
   }
-
   .gate-form input {
     width: 100%;
     padding: 14px 16px;
@@ -126,7 +113,6 @@
     font-size: 16px;
     color: var(--ink);
     letter-spacing: 0.08em;
-    transition: border-color 0.2s, box-shadow 0.2s;
     border-radius: 0;
     -webkit-appearance: none;
     text-transform: uppercase;
@@ -136,11 +122,6 @@
     border-color: var(--gold);
     box-shadow: 0 0 0 3px rgba(184, 147, 90, 0.15);
   }
-  .gate-form input::placeholder {
-    color: #bbb;
-    letter-spacing: 0.08em;
-  }
-
   .gate-submit {
     width: 100%;
     background: var(--navy);
@@ -158,131 +139,1238 @@
   }
   .gate-submit:hover:not(:disabled) { background: var(--navy-light); }
   .gate-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-
   .gate-help {
     font-size: 13px;
     color: var(--ink-soft);
     margin-top: 32px;
-    line-height: 1.55;
     padding-top: 22px;
     border-top: 1px solid var(--line);
   }
-  .gate-help a {
-    color: var(--gold);
-    text-decoration: none;
+  .gate-help a { color: var(--gold); text-decoration: none; font-weight: 500; }
+
+  /* ─── CATALOGUE (Phase 2) ─── */
+  .catalogue { display: none; }
+  body.is-authenticated .gate-wrapper { display: none; }
+  body.is-authenticated .catalogue { display: block; }
+
+  .nav-bar {
+    background: var(--navy);
+    color: white;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-bar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
     font-weight: 500;
   }
-  .gate-help a:hover { text-decoration: underline; }
-
-  /* ─── PLACEHOLDER (until Phase 2 content lands) ─── */
-  .catalogue-placeholder {
-    display: none;
-    max-width: 720px;
-    width: 100%;
-    background: white;
-    border-top: 3px solid var(--gold);
-    padding: 64px 64px 56px;
-    box-shadow: 0 30px 60px rgba(10, 31, 61, 0.12);
-    text-align: left;
+  .nav-bar-logo span { color: var(--gold-soft); font-style: italic; }
+  .nav-bar-meta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    opacity: 0.8;
   }
-  .catalogue-placeholder .gate-logo { margin-bottom: 28px; }
-  .catalogue-placeholder .gate-eyebrow { margin-bottom: 16px; }
-  .catalogue-placeholder h2 {
+  .nav-bar-print {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-bar-print:hover { background: rgba(255,255,255,0.1); }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  /* Hero greeting */
+  .hero {
+    padding: 80px 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .hero .lead {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+  .hero .meta {
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+
+  /* Section anchors / TOC */
+  .toc {
+    background: white;
+    padding: 32px 40px;
+    margin: 56px 0;
+    border-left: 3px solid var(--gold);
+  }
+  .toc-title {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .toc ol {
+    list-style: none;
+    counter-reset: toc;
+    columns: 2;
+    column-gap: 40px;
+  }
+  .toc li {
+    counter-increment: toc;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    break-inside: avoid;
+  }
+  .toc li:before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin-right: 16px;
+    font-size: 14px;
+  }
+  .toc a {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .toc a:hover { color: var(--gold); }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 36px;
     font-weight: 500;
     color: var(--navy);
-    line-height: 1.2;
-    margin-bottom: 18px;
+    line-height: 1.15;
+    margin-bottom: 20px;
     letter-spacing: -0.01em;
   }
-  .catalogue-placeholder h2 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-  .catalogue-placeholder p {
-    font-size: 16px;
+  .section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .section-intro {
+    font-size: 17px;
     color: var(--ink-soft);
-    line-height: 1.7;
-    margin-bottom: 20px;
+    max-width: 720px;
+    line-height: 1.75;
+    margin-bottom: 48px;
   }
-  .catalogue-placeholder .contact-card {
-    background: var(--cream-dark);
-    border-left: 3px solid var(--gold);
-    padding: 20px 24px;
-    margin-top: 28px;
+
+  /* Tier package cards */
+  .tier {
+    background: white;
+    padding: 48px;
+    margin-bottom: 28px;
+    border-top: 3px solid var(--line);
+    position: relative;
   }
-  .catalogue-placeholder .contact-card a {
+  .tier.is-anchor { border-top-color: var(--ink-mute); }
+  .tier.is-sweet-spot {
+    border-top-color: var(--gold);
+    box-shadow: 0 20px 50px rgba(184, 147, 90, 0.12);
+  }
+  .tier.is-decoy { border-top-color: var(--line); }
+  .tier-badge {
+    position: absolute;
+    top: -1px;
+    right: 32px;
+    background: var(--gold);
+    color: white;
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .tier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .tier-name-wrap { flex: 1; min-width: 240px; }
+  .tier-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .tier-name em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .tier-tagline {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+  .tier-price-wrap { text-align: right; }
+  .tier-price-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+  }
+  .tier-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .tier-price-meta {
+    font-size: 12px;
+    color: var(--ink-mute);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+  }
+  .tier-body { font-size: 15px; color: var(--ink); line-height: 1.75; }
+  .tier-section-title {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 700;
+    margin: 28px 0 14px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+  .tier-section-title:first-of-type { border-top: none; padding-top: 8px; }
+  .tier-list { list-style: none; }
+  .tier-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .tier-list li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
     color: var(--gold);
-    text-decoration: none;
+    font-weight: 700;
+  }
+  .tier-list .price-tag { color: var(--ink-mute); font-size: 13px; margin-left: 6px; }
+
+  .value-stack {
+    background: var(--cream-dark);
+    padding: 24px 28px;
+    margin-top: 28px;
+    border-left: 3px solid var(--gold);
+  }
+  .value-stack-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .value-stack-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .value-stack-row.is-total {
+    border-top: 1px solid var(--gold);
+    margin-top: 8px;
+    padding-top: 12px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .value-stack-row.is-saving {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .value-stack-row .label { color: var(--ink-soft); }
+  .value-stack-row .value {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Service cards (Tier 3 detail) */
+  .service-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .service {
+    background: white;
+    padding: 32px 36px;
+    border-left: 3px solid var(--gold);
+  }
+  .service.is-cluster-2 { border-left-color: #6b8aa8; }
+  .service.is-cluster-3 { border-left-color: #99887a; }
+  .service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .service-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--navy);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .service-meta {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--ink-mute);
+    margin-bottom: 16px;
+  }
+  .service p { font-size: 14px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 14px; }
+  .service-deliverables {
+    list-style: none;
+    margin-top: 16px;
+  }
+  .service-deliverables li {
+    padding: 5px 0 5px 22px;
+    position: relative;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .service-deliverables li:before {
+    content: '•';
+    position: absolute;
+    left: 6px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .service-impact {
+    background: var(--cream);
+    padding: 14px 18px;
+    margin-top: 18px;
+    font-size: 13.5px;
+    color: var(--navy);
+    font-style: italic;
+    border-left: 2px solid var(--gold);
+  }
+  .cluster-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--navy);
+    font-style: italic;
+    font-weight: 400;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cluster-title:first-of-type { margin-top: 0; }
+  .cluster-title em { color: var(--gold); }
+
+  /* Guarantees */
+  .guarantee-card {
+    background: white;
+    padding: 36px 40px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--gold);
+  }
+  .guarantee-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--navy);
+    margin-bottom: 12px;
     font-weight: 500;
   }
+  .guarantee-card p { font-size: 15px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 12px; }
+  .guarantee-card strong { color: var(--navy); font-weight: 600; }
+  .guarantee-card ul {
+    list-style: none;
+    margin-top: 14px;
+  }
+  .guarantee-card ul li {
+    padding: 6px 0 6px 22px;
+    position: relative;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .guarantee-card ul li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
 
-  body.is-authenticated .gate { display: none; }
-  body.is-authenticated .catalogue-placeholder { display: block; }
+  /* Testimonial card (proof — paired with guarantee) */
+  .testimonial-card {
+    background: var(--navy);
+    color: white;
+    padding: 44px 48px 40px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--gold);
+    position: relative;
+  }
+  .testimonial-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    font-weight: 700;
+    margin-bottom: 22px;
+  }
+  .testimonial-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: white;
+    line-height: 1.45;
+    margin: 0 0 28px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .testimonial-body p {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 14px;
+  }
+  .testimonial-body strong {
+    color: white;
+    font-weight: 600;
+  }
+  .testimonial-attribution {
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .testimonial-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .testimonial-company {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    font-weight: 600;
+  }
 
-  @media (max-width: 560px) {
-    .gate { padding: 44px 28px 32px; }
-    .gate h1 { font-size: 26px; }
-    .catalogue-placeholder { padding: 40px 28px 32px; }
-    .catalogue-placeholder h2 { font-size: 28px; }
+  /* Objections */
+  .objection {
+    background: white;
+    padding: 32px 36px;
+    margin-bottom: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .objection:first-of-type { border-top: 3px solid var(--gold); }
+  .objection-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    font-style: italic;
+    line-height: 1.35;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .objection-question:before { content: '„'; color: var(--gold); }
+  .objection-question:after { content: '"'; color: var(--gold); }
+  .objection-answer { font-size: 15px; line-height: 1.75; color: var(--ink-soft); }
+  .objection-answer strong { color: var(--navy); }
+  .objection-number {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  /* Next-steps */
+  .next-steps {
+    background: var(--navy);
+    color: white;
+    padding: 72px 0;
+    margin-top: 56px;
+  }
+  .next-steps .section-eyebrow { color: var(--gold-soft); }
+  .next-steps .section-title { color: white; }
+  .next-steps .section-title em { color: var(--gold-soft); }
+  .next-steps .section-intro { color: rgba(255,255,255,0.75); }
+  .steps-list { counter-reset: step; margin-top: 32px; }
+  .step {
+    display: flex;
+    gap: 28px;
+    padding: 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .step:first-child { border-top: none; }
+  .step-number {
+    counter-increment: step;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--gold-soft);
+    line-height: 1;
+    min-width: 50px;
+  }
+  .step-number:before { content: counter(step, decimal-leading-zero); }
+  .step-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .step-content p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; }
+  .cta-wrap { margin-top: 48px; text-align: center; }
+  .cta-button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    text-decoration: none;
+    padding: 18px 40px;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+  .cta-button:hover { background: var(--gold-light); }
+  .cta-note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+  .cta-note a { color: var(--gold-soft); text-decoration: none; }
+
+  /* Footer */
+  .footer {
+    background: var(--cream-dark);
+    padding: 48px 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-mute);
+    line-height: 1.7;
+  }
+  .footer-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .nav-bar, .nav-bar-print, .next-steps .cta-wrap { display: none; }
+    section { page-break-inside: avoid; padding: 32px 0; }
+    .tier, .service, .guarantee-card, .objection { page-break-inside: avoid; box-shadow: none; }
+    .testimonial-card {
+      page-break-inside: avoid;
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--gold);
+    }
+    .testimonial-card .testimonial-quote { color: var(--navy); }
+    .testimonial-card .testimonial-body p { color: var(--ink-soft); }
+    .testimonial-card .testimonial-body strong { color: var(--navy); }
+    .testimonial-card .testimonial-name { color: var(--navy); }
+    .testimonial-card .testimonial-attribution { border-top-color: var(--line); }
+    .next-steps { background: white; color: var(--ink); }
+    .next-steps .section-title, .next-steps .step-content h3 { color: var(--navy); }
+    .next-steps .section-intro, .next-steps .step-content p { color: var(--ink-soft); }
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .container { padding: 0 20px; }
+    .hero { padding: 56px 0 40px; }
+    .hero h1 { font-size: 34px; }
+    .hero .lead { font-size: 16px; }
+    .section-title { font-size: 28px; }
+    .toc ol { columns: 1; }
+    .toc { padding: 24px; }
+    .tier, .service, .guarantee-card, .objection { padding: 28px 24px; }
+    .testimonial-card { padding: 32px 24px 28px; }
+    .testimonial-quote { font-size: 20px; }
+    .tier-header { flex-direction: column; }
+    .tier-price-wrap { text-align: left; }
+    .tier-name { font-size: 24px; }
+    .tier-price { font-size: 28px; }
+    section { padding: 48px 0; }
+    .nav-bar { padding: 12px 20px; }
+    .nav-bar-meta { display: none; }
+    .step { flex-direction: column; gap: 8px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ─── ACCESS GATE ─── -->
-<div class="gate" id="gate" role="dialog" aria-labelledby="gate-title">
-  <div class="gate-logo">North Finance <span>AI</span></div>
-  <div class="gate-eyebrow">Vertraulich</div>
-  <h1 id="gate-title">Leistungs<em>katalog</em></h1>
-  <p class="gate-lead">
-    Dieser Bereich enthält detaillierte Konditionen, Pakete und Preise. Der Zugang wird persönlich nach dem Strategiegespräch vergeben.
-  </p>
-
-  <div class="gate-error" id="gate-error" role="alert"></div>
-
-  <form class="gate-form" id="gate-form" autocomplete="off" novalidate>
-    <label for="gate-code">Zugangscode</label>
-    <input
-      type="text"
-      id="gate-code"
-      name="code"
-      required
-      autocomplete="off"
-      autocapitalize="characters"
-      spellcheck="false"
-      placeholder="z.B. MUSTER-XY42"
-      maxlength="40"
-    >
-    <button type="submit" class="gate-submit" id="gate-submit">Katalog öffnen</button>
-  </form>
-
-  <p class="gate-help">
-    Noch keinen Code?
-    <a href="https://northfinanceai.com/#kontakt">Strategiegespräch anfragen</a>
-    — den Code erhalten Sie persönlich nach dem Termin.
-  </p>
-</div>
-
-<!-- ─── PHASE 2 PLACEHOLDER (replaced once full catalogue is built) ─── -->
-<div class="catalogue-placeholder" id="catalogue-placeholder">
-  <div class="gate-logo">North Finance <span>AI</span></div>
-  <div class="gate-eyebrow">Vorabzugang · Vertraulich</div>
-  <h2>Willkommen, <em><span id="customer-name">Kunde</span></em></h2>
-  <p>
-    Vielen Dank für Ihr Interesse. Ihr Zugang wurde gerade verifiziert und Krisztina ist darüber informiert worden.
-  </p>
-  <p>
-    Der vollständige Leistungskatalog mit allen Paketen, Konditionen und Preisen wird derzeit fertiggestellt und steht Ihnen innerhalb der nächsten Tage zur Verfügung. Sobald er bereit ist, wird sich Krisztina persönlich bei Ihnen melden — unter derselben Telefonnummer oder E-Mail, mit der Sie das Strategiegespräch geführt haben.
-  </p>
-
-  <div class="contact-card">
-    <p style="margin: 0; font-size: 15px; color: var(--ink);">
-      <strong>Bei Rückfragen erreichen Sie Krisztina direkt:</strong><br>
-      <a href="mailto:krisztina@northfinanceai.com">krisztina@northfinanceai.com</a>
+<!-- ─── ACCESS GATE (unchanged from Phase 1) ─── -->
+<div class="gate-wrapper">
+  <div class="gate" id="gate" role="dialog" aria-labelledby="gate-title">
+    <div class="gate-logo">North Finance <span>AI</span></div>
+    <div class="gate-eyebrow">Vertraulich</div>
+    <h1 id="gate-title">Leistungs<em>katalog</em></h1>
+    <p class="gate-lead">
+      Dieser Bereich enthält detaillierte Konditionen, Pakete und Preise. Der Zugang wird persönlich nach dem Strategiegespräch vergeben.
+    </p>
+    <div class="gate-error" id="gate-error" role="alert"></div>
+    <form class="gate-form" id="gate-form" autocomplete="off" novalidate>
+      <label for="gate-code">Zugangscode</label>
+      <input type="text" id="gate-code" name="code" required autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="z.B. MUSTER-XY42" maxlength="40">
+      <button type="submit" class="gate-submit" id="gate-submit">Katalog öffnen</button>
+    </form>
+    <p class="gate-help">
+      Noch keinen Code?
+      <a href="https://northfinanceai.com/#kontakt">Strategiegespräch anfragen</a>
+      — den Code erhalten Sie persönlich nach dem Termin.
     </p>
   </div>
+</div>
+
+<!-- ─── CATALOGUE CONTENT ─── -->
+<div class="catalogue" id="catalogue">
+
+  <nav class="nav-bar">
+    <div class="nav-bar-logo">North Finance <span>AI</span></div>
+    <div class="nav-bar-meta">Leistungskatalog · Vertraulich</div>
+    <button class="nav-bar-print" onclick="window.print()">Drucken</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="eyebrow">Persönlicher Zugang · Vertraulich</div>
+      <h1>Willkommen, <em><span id="customer-name">Kunde</span></em>.</h1>
+      <p class="lead">
+        Sie haben den Hebel identifiziert. Jetzt geht es um die richtige Ausführung. Auf den folgenden Seiten finden Sie alle Pakete, Konditionen und Prozesse — vollständig transparent, ohne versteckte Kosten und ohne Stundensätze.
+      </p>
+      <p class="meta">Preise gültig 2026 · Persönlich für Sie freigegeben · Nicht zur Weitergabe bestimmt</p>
+    </header>
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-title">Inhalt</div>
+      <ol>
+        <li><a href="#angebot">Das Angebot · Drei Wege</a></li>
+        <li><a href="#einzel-hebel">Alle Leistungen im Detail</a></li>
+        <li><a href="#garantien">Garantien &amp; Konditionen</a></li>
+        <li><a href="#einwaende">Häufig gestellte Fragen</a></li>
+        <li><a href="#naechste-schritte">Was passiert als Nächstes</a></li>
+      </ol>
+    </nav>
+
+    <!-- ═════════════ SECTION: ANGEBOT (3 TIERS) ═════════════ -->
+    <section id="angebot">
+      <div class="section-eyebrow">§ 01 · Das Angebot</div>
+      <h2 class="section-title">Drei <em>Wege</em>, mit uns zu arbeiten.</h2>
+      <p class="section-intro">
+        Wir arbeiten ausschließlich zu Festpreisen — keine Stundensätze, keine versteckten Folgekosten, keine Lizenzgebühren. Die drei Wege unten unterscheiden sich nach Umfang und Geschwindigkeit. Welcher passt, klären wir gemeinsam im Detail-Call.
+      </p>
+
+      <!-- TIER 1: ANCHOR (Quick-Start Plus) -->
+      <div class="tier is-anchor">
+        <div class="tier-header">
+          <div class="tier-name-wrap">
+            <div class="tier-eyebrow">Tier 1 · Umfassend</div>
+            <h3 class="tier-name">Cash-Flow Quick-Start <em>Plus</em></h3>
+            <p class="tier-tagline">Liquidität freisetzen — und gleichzeitig die Margen heben.</p>
+          </div>
+          <div class="tier-price-wrap">
+            <div class="tier-price-label">Festpreis</div>
+            <div class="tier-price">€24.800</div>
+            <div class="tier-price-meta">8–12 Wochen Projektdauer</div>
+          </div>
+        </div>
+
+        <div class="tier-body">
+          <p>Für Geschäftsführer, die nicht nur kurzfristige Liquidität freisetzen, sondern auch die strukturelle Profitabilität ihres Unternehmens analysieren und optimieren möchten — alles in einem zusammenhängenden Projekt.</p>
+
+          <div class="tier-section-title">Enthält alles aus Quick-Start, plus:</div>
+          <ul class="tier-list">
+            <li>Forderungsmanagement-Intensivprojekt <span class="price-tag">(einzeln €7.800)</span></li>
+            <li>13-Wochen-Liquiditätsplanung <span class="price-tag">(einzeln €6.400)</span></li>
+            <li>Automatisierter Bankabgleich <span class="price-tag">(einzeln €5.200)</span></li>
+            <li>Kundenrentabilitäts-Analyse <span class="price-tag">(einzeln €6.800)</span></li>
+            <li>Pricing-Optimierung <span class="price-tag">(einzeln €7.400)</span></li>
+            <li>Working-Capital-Strukturanalyse <span class="price-tag">(einzeln €6.200)</span></li>
+          </ul>
+
+          <div class="tier-section-title">Zusätzliche Boni</div>
+          <ul class="tier-list">
+            <li>12 Wochen Check-in nach Projektabschluss <span class="price-tag">(Wert €2.880)</span></li>
+            <li>Verfahrensdokumentation für Ihre Buchhaltung <span class="price-tag">(Wert €2.400)</span></li>
+            <li>Onboarding-Workshop für Ihr Team <span class="price-tag">(Wert €1.800)</span></li>
+            <li>6 × 30min persönliche Sprechstunde mit Krisztina <span class="price-tag">(Wert €2.880)</span></li>
+          </ul>
+
+          <div class="value-stack">
+            <div class="value-stack-label">Wert-Rechnung</div>
+            <div class="value-stack-row"><span class="label">Einzelleistungen kombiniert</span><span class="value">€39.800</span></div>
+            <div class="value-stack-row"><span class="label">Boni (Wert)</span><span class="value">€9.960</span></div>
+            <div class="value-stack-row is-total"><span class="label">Gestapelter Wert</span><span class="value">€49.760</span></div>
+            <div class="value-stack-row"><span class="label">Ihr Festpreis</span><span class="value">€24.800</span></div>
+            <div class="value-stack-row is-saving"><span class="label">Sie sparen</span><span class="value">€24.960 (50%)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2: SWEET SPOT (Quick-Start) -->
+      <div class="tier is-sweet-spot">
+        <div class="tier-badge">★ Empfehlung</div>
+        <div class="tier-header">
+          <div class="tier-name-wrap">
+            <div class="tier-eyebrow">Tier 2 · Bestseller</div>
+            <h3 class="tier-name">Cash-Flow <em>Quick-Start</em></h3>
+            <p class="tier-tagline">Der schnellste Weg zu mehr verfügbarer Liquidität. In 6 bis 8 Wochen.</p>
+          </div>
+          <div class="tier-price-wrap">
+            <div class="tier-price-label">Festpreis</div>
+            <div class="tier-price">€15.800</div>
+            <div class="tier-price-meta">6–8 Wochen Projektdauer</div>
+          </div>
+        </div>
+
+        <div class="tier-body">
+          <p>Das meistgewählte Paket. Drei Hebel, die zusammen typischerweise die größte unmittelbare Wirkung auf die verfügbare Liquidität haben — fokussiert, abgeschlossen, mit greifbarem Ergebnis nach maximal acht Wochen.</p>
+
+          <div class="tier-section-title">Drei zentrale Leistungen</div>
+          <ul class="tier-list">
+            <li><strong>Forderungsmanagement-Intensivprojekt:</strong> automatisiertes Mahnwesen, Eskalationsstufen, mehrsprachige Vorlagen, Skonti-Logik <span class="price-tag">(einzeln €7.800)</span></li>
+            <li><strong>13-Wochen-Liquiditätsplanung:</strong> rollende Forecast-Sicht mit drei Szenarien, monatliche Aktualisierung <span class="price-tag">(einzeln €6.400)</span></li>
+            <li><strong>Automatisierter Bankabgleich:</strong> Buchung gegen Soll, Ausnahmebehandlung, DATEV-Übergabe <span class="price-tag">(einzeln €5.200)</span></li>
+          </ul>
+
+          <div class="tier-section-title">Inklusive Boni</div>
+          <ul class="tier-list">
+            <li>6 Wochen Check-in nach Projektabschluss <span class="price-tag">(Wert €1.440)</span></li>
+            <li>Verfahrensdokumentation für Ihre Buchhaltung <span class="price-tag">(Wert €2.400)</span></li>
+            <li>Onboarding-Workshop für Ihr Team <span class="price-tag">(Wert €1.800)</span></li>
+            <li>4 × 30min persönliche Sprechstunde mit Krisztina über 3 Monate <span class="price-tag">(Wert €1.920)</span></li>
+          </ul>
+
+          <div class="value-stack">
+            <div class="value-stack-label">Wert-Rechnung</div>
+            <div class="value-stack-row"><span class="label">Einzelleistungen kombiniert</span><span class="value">€19.400</span></div>
+            <div class="value-stack-row"><span class="label">Boni (Wert)</span><span class="value">€7.560</span></div>
+            <div class="value-stack-row is-total"><span class="label">Gestapelter Wert</span><span class="value">€26.960</span></div>
+            <div class="value-stack-row"><span class="label">Ihr Festpreis</span><span class="value">€15.800</span></div>
+            <div class="value-stack-row is-saving"><span class="label">Sie sparen</span><span class="value">€11.160 (41%)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 3: DECOY (Single services) -->
+      <div class="tier is-decoy">
+        <div class="tier-header">
+          <div class="tier-name-wrap">
+            <div class="tier-eyebrow">Tier 3 · Modular</div>
+            <h3 class="tier-name">Einzel-<em>Hebel</em></h3>
+            <p class="tier-tagline">Für gezielte Eingriffe an einzelnen Stellen.</p>
+          </div>
+          <div class="tier-price-wrap">
+            <div class="tier-price-label">Festpreis</div>
+            <div class="tier-price">ab €4.800</div>
+            <div class="tier-price-meta">3–5 Wochen pro Leistung</div>
+          </div>
+        </div>
+
+        <div class="tier-body">
+          <p>Geeignet, wenn nur eine konkrete Stelle behoben werden soll — oder wenn Sie schrittweise mit überschaubarem Einzelbudget arbeiten möchten. Jede Leistung steht inhaltlich und finanziell für sich. Detaillierte Beschreibungen aller zehn Einzelleistungen finden Sie weiter unten.</p>
+
+          <div class="tier-section-title">Hinweis zur Wirtschaftlichkeit</div>
+          <p style="margin-bottom: 0;">
+            Drei kombinierte Einzelleistungen (z.B. die drei Quick-Start-Bausteine) kosten als Einzel-Hebel €19.400. Der Quick-Start-Festpreis bündelt diese drei plus Boni im Wert von €7.560 für €15.800 — eine effektive Ersparnis von €11.160 gegenüber dem Einzelbezug. Bei drei oder mehr geplanten Leistungen ist Tier 2 fast immer die wirtschaftlichere Wahl.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════ SECTION: SERVICES DETAIL ═════════════ -->
+    <section id="einzel-hebel">
+      <div class="section-eyebrow">§ 02 · Alle Leistungen</div>
+      <h2 class="section-title">Die zehn <em>Hebel</em> im Detail.</h2>
+      <p class="section-intro">
+        Jede Leistung enthält dieselbe Logik: definiertes Ergebnis, Festpreis, klare Voraussetzungen, festes Lieferdatum. Im Quick-Start-Bundle oder Plus-Paket ergeben sich die unten ausgewiesenen Bündelpreise; einzeln gelten die hier genannten Festpreise.
+      </p>
+
+      <!-- CLUSTER 1 -->
+      <div class="cluster-title">Cluster 1 · <em>Liquidität freisetzen</em></div>
+
+      <div class="service-grid">
+        <div class="service">
+          <div class="service-header">
+            <h3 class="service-name">Forderungsmanagement-Intensivprojekt</h3>
+            <div class="service-price">€7.800</div>
+          </div>
+          <div class="service-meta">4–6 Wochen · DATEV / SAP / Lexware / sevDesk</div>
+          <p>Ihre überfälligen Forderungen werden systematisch reduziert und der Prozess für die Zukunft automatisiert.</p>
+          <ul class="service-deliverables">
+            <li>Vollständige Analyse aller offenen Posten und Alterstruktur</li>
+            <li>Mehrstufige Mahnstrategie mit definierten Eskalationsstufen (4 Stufen)</li>
+            <li>Mehrsprachige E-Mail-Vorlagen (DE/EN, weitere auf Anfrage)</li>
+            <li>Automatisierte Skonti-Logik und Zahlungsziel-Optimierung</li>
+            <li>Direkte Integration in Ihr Buchhaltungssystem</li>
+            <li>Schulung für eine verantwortliche Person aus Ihrem Team</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 15–30% Reduktion überfälliger Posten in den ersten 4–6 Wochen.</div>
+        </div>
+
+        <div class="service">
+          <div class="service-header">
+            <h3 class="service-name">13-Wochen-Liquiditätsplanung</h3>
+            <div class="service-price">€6.400</div>
+          </div>
+          <div class="service-meta">3–4 Wochen · Direkte Banken- und Buchhaltungs-Anbindung</div>
+          <p>Eine rollende, Excel- oder dashboardbasierte Sicht auf die kommenden 13 Wochen Cashflow — automatisch aktualisiert, mit drei Szenarien.</p>
+          <ul class="service-deliverables">
+            <li>Aufsetzen der Datenmodell-Struktur (Eingänge, Ausgänge, Saisonalität)</li>
+            <li>Drei Szenarien: realistisch, vorsichtig, Stress</li>
+            <li>Monatliche automatische Aktualisierung ohne manuelle Pflege</li>
+            <li>Frühwarn-Trigger bei Unterschreitung definierter Schwellen</li>
+            <li>Übergabe an verantwortliche Person inkl. Schulung</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: Frühzeitiges Erkennen von Liquiditätsengpässen 6–10 Wochen vorab.</div>
+        </div>
+
+        <div class="service">
+          <div class="service-header">
+            <h3 class="service-name">Automatisierter Bankabgleich</h3>
+            <div class="service-price">€5.200</div>
+          </div>
+          <div class="service-meta">2–4 Wochen · Native DATEV-Anbindung verfügbar</div>
+          <p>Bankbewegungen werden automatisch gegen Soll-Buchungen abgeglichen — Ausnahmen werden Ihnen vorgelegt, der Rest läuft.</p>
+          <ul class="service-deliverables">
+            <li>Anbindung an Hausbank (HBCI / FinAPI / EBICS je nach Bank)</li>
+            <li>Regel-Engine für automatische Zuordnung</li>
+            <li>Ausnahme-Workflow für unklare Buchungen</li>
+            <li>DATEV-konforme Übergabe der gebuchten Bewegungen</li>
+            <li>Dokumentation der Regeln für Steuerberater</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 8–16 Stunden monatlich gespart in der Buchhaltung.</div>
+        </div>
+
+        <div class="service">
+          <div class="service-header">
+            <h3 class="service-name">Skonti-Optimierung</h3>
+            <div class="service-price">€4.800</div>
+          </div>
+          <div class="service-meta">3 Wochen · Analyse + Implementierung</div>
+          <p>Strukturelle Überprüfung Ihrer Skonti-Praxis — bei eingehenden wie ausgehenden Rechnungen. Oft das niedrig hängendste Obst.</p>
+          <ul class="service-deliverables">
+            <li>Vollständige Auswertung gewährter und gezogener Skonti der letzten 24 Monate</li>
+            <li>Kapitalkosten-Vergleich: Skonto vs. Ihre Finanzierungskosten</li>
+            <li>Empfehlung für angepasste Standardkonditionen</li>
+            <li>Workflow zur konsequenten Skontonutzung im Einkauf</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 1–3% zusätzliche Marge auf den Einkaufsumsatz.</div>
+        </div>
+
+        <div class="service">
+          <div class="service-header">
+            <h3 class="service-name">Eingangsrechnungs-Automatisierung</h3>
+            <div class="service-price">€8.500</div>
+          </div>
+          <div class="service-meta">5–7 Wochen · OCR + KI-Klassifikation + DATEV-Übergabe</div>
+          <p>Eingehende Rechnungen werden automatisch erfasst, geprüft, kontiert und buchungsbereit vorgelegt. Auch unstrukturierte PDFs.</p>
+          <ul class="service-deliverables">
+            <li>OCR- und KI-basierte Extraktion (Lieferant, Betrag, Steuer, Konto)</li>
+            <li>Plausibilitätsprüfung gegen Bestellungen / Vertragsdatenbank</li>
+            <li>Freigabe-Workflow mit Vier-Augen-Prinzip wo nötig</li>
+            <li>Direkte Übergabe an DATEV / Buchhaltungssystem</li>
+            <li>Schulung für 1–2 verantwortliche Personen</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 60–80% Bearbeitungszeit-Reduktion bei der Eingangsrechnungsverarbeitung.</div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 2 -->
+      <div class="cluster-title">Cluster 2 · <em>Margen heben</em></div>
+
+      <div class="service-grid">
+        <div class="service is-cluster-2">
+          <div class="service-header">
+            <h3 class="service-name">Kundenrentabilitäts-Analyse</h3>
+            <div class="service-price">€6.800</div>
+          </div>
+          <div class="service-meta">4 Wochen · Datenbasiert, alle Kunden / Top 80%</div>
+          <p>Welche Ihrer Kunden sind tatsächlich profitabel — und welche nicht? Mit vollständiger Kostenzuordnung statt Bauchgefühl.</p>
+          <ul class="service-deliverables">
+            <li>Aufbau einer kundenbezogenen Deckungsbeitrags-Logik</li>
+            <li>Zuordnung indirekter Kosten nach nachvollziehbaren Schlüsseln</li>
+            <li>Ranking aller Kunden nach Deckungsbeitrag</li>
+            <li>Identifikation der „unprofitablen Großkunden" — und Handlungsoptionen</li>
+            <li>Auswertung pro Kundensegment / Region / Produkt</li>
+          </ul>
+          <div class="service-impact">Typische Erkenntnis: 10–20% der Kunden erzeugen 80% des Profits — und 5–10% sind unprofitabel.</div>
+        </div>
+
+        <div class="service is-cluster-2">
+          <div class="service-header">
+            <h3 class="service-name">Pricing-Optimierung</h3>
+            <div class="service-price">€7.400</div>
+          </div>
+          <div class="service-meta">4–6 Wochen · Strukturierte Preisanalyse</div>
+          <p>Systematische Überprüfung Ihrer Preisstruktur — wo Preisspielraum besteht, wo Sie zu hoch sitzen, wo Sie verschenken.</p>
+          <ul class="service-deliverables">
+            <li>Preis-Mengen-Elastizitäts-Analyse über die letzten 36 Monate</li>
+            <li>Wettbewerbsabgleich auf den Top-10-Positionen</li>
+            <li>Identifikation von „leise erhöhbaren" Preisen ohne Verlustrisiko</li>
+            <li>Strategische Empfehlung pro Preissegment</li>
+            <li>Kommunikations-Vorlage für Preisanpassungen an Bestandskunden</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 2–5% zusätzliche Marge auf den Umsatz innerhalb von 6–12 Monaten.</div>
+        </div>
+
+        <div class="service is-cluster-2">
+          <div class="service-header">
+            <h3 class="service-name">Working-Capital-Strukturanalyse</h3>
+            <div class="service-price">€6.200</div>
+          </div>
+          <div class="service-meta">3–4 Wochen · Vollumfassende WC-Diagnose</div>
+          <p>Forderungen, Verbindlichkeiten, Lagerbestände im Zusammenspiel — wo bindet Ihr Geschäft mehr Kapital, als es müsste?</p>
+          <ul class="service-deliverables">
+            <li>Vollständige WC-Diagnose: DSO, DPO, DIO, Cash Conversion Cycle</li>
+            <li>Branchen-Benchmarking gegen vergleichbare Mittelständler</li>
+            <li>Konkrete Hebel: Zahlungsziele, Bestände, Mahnpraxis</li>
+            <li>Quantifizierter Liquiditätsfreisetzungspotenzial-Bericht</li>
+            <li>Priorisierte Maßnahmenliste mit Aufwand/Wirkung pro Hebel</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: 4–8% des Jahresumsatzes können strukturell als Working Capital freigesetzt werden.</div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 3 -->
+      <div class="cluster-title">Cluster 3 · <em>Prozesse straffen</em></div>
+
+      <div class="service-grid">
+        <div class="service is-cluster-3">
+          <div class="service-header">
+            <h3 class="service-name">Steuerberater-Schnittstellen-Optimierung</h3>
+            <div class="service-price">€5.400</div>
+          </div>
+          <div class="service-meta">3 Wochen · In enger Abstimmung mit Ihrem StB</div>
+          <p>Wie Sie Daten an Ihren Steuerberater übergeben — sauber, strukturiert, in einem Format, das dort weniger Stunden verursacht.</p>
+          <ul class="service-deliverables">
+            <li>Diagnose des aktuellen Daten-Übergabe-Prozesses</li>
+            <li>Konsolidierte Belegerfassung am Monatsende</li>
+            <li>DATEV-konforme Vorbereitung (SKR03 oder SKR04)</li>
+            <li>Konten- und Buchungssystematik-Abstimmung mit StB</li>
+            <li>Dokumentierter Monatsabschluss-Standardprozess</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: spürbare Reduktion der StB-Stunden bzw. -Pauschalen.</div>
+        </div>
+
+        <div class="service is-cluster-3">
+          <div class="service-header">
+            <h3 class="service-name">Buchführungs-Konformitätsprüfung</h3>
+            <div class="service-price">€4.800</div>
+          </div>
+          <div class="service-meta">2–3 Wochen · GoBD- und HGB-Konformität</div>
+          <p>Eine unabhängige Prüfung Ihrer laufenden Buchhaltung auf systematische Fehler — bevor das Finanzamt oder der Wirtschaftsprüfer sie findet.</p>
+          <ul class="service-deliverables">
+            <li>GoBD-Konformitätsprüfung (Datenverarbeitung, Aufbewahrung, Zugriffsschutz)</li>
+            <li>Stichprobenprüfung der Verbuchung auf 12 Monate</li>
+            <li>Kontenrahmen-Plausibilität (SKR03/SKR04)</li>
+            <li>Identifikation systematischer Fehler — falsche Konten, fehlende Belege</li>
+            <li>Ausführlicher Befundbericht mit konkreten Korrekturempfehlungen</li>
+          </ul>
+          <div class="service-impact">Typische Wirkung: Reduzierte Korrekturkosten beim Jahresabschluss und ruhiger Schlaf vor Betriebsprüfungen.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════ SECTION: GUARANTEES & TERMS ═════════════ -->
+    <section id="garantien">
+      <div class="section-eyebrow">§ 03 · Garantien &amp; Konditionen</div>
+      <h2 class="section-title">Was Sie auf <em>jeden Fall</em> bekommen.</h2>
+      <p class="section-intro">
+        Wir arbeiten mit Festpreisen, weil das für beide Seiten Klarheit schafft. Die Garantien und Klauseln unten sind verbindlicher Teil jedes Angebots — Sie werden im schriftlichen Vertrag identisch wiedergegeben.
+      </p>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Hebel-Garantie</h3>
+        <p>Sollte sich nach Projektabschluss der konkret zugesagte Hebel — quantifiziert im schriftlichen Angebot — innerhalb von 90 Tagen nach Übergabe nicht messbar zeigen, übernehmen wir das Projekt rückwirkend zum Selbstkostenpreis.</p>
+        <p><strong>Selbstkostenpreis = maximal 35% des Projektpreises.</strong> Das deckt unsere direkten Kosten (Personal, Tools, dritte Dienstleister) und stellt sicher, dass das Risiko zwischen uns und Ihnen real geteilt wird.</p>
+        <p><strong>Wie der Befund festgestellt wird:</strong></p>
+        <ul>
+          <li>Im Angebot wird der erwartete Hebel präzise und messbar definiert (z.B. „Reduktion DSO um mindestens X Tage", „Freisetzung von mindestens €Y Liquidität")</li>
+          <li>Nach 90 Tagen messen wir gemeinsam — auf Basis Ihrer Buchhaltungsdaten</li>
+          <li>Bei Unklarheit entscheidet ein gemeinsam beauftragter Wirtschaftsprüfer</li>
+          <li>Erstattung erfolgt innerhalb von 14 Tagen nach Feststellung</li>
+        </ul>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-eyebrow">Aus der Praxis · Öffentlich freigegebene Referenz</div>
+        <blockquote class="testimonial-quote">
+          „Besonders wertvoll war, dass Krisztina nicht nur analysiert, sondern eine praxisnahe Lösung aufgebaut hat, die direkt im Tagesgeschäft nutzbar ist."
+        </blockquote>
+        <div class="testimonial-body">
+          <p>North Finance AI Solutions hat für TRI-PUNKT Solutions einen <strong>strukturierten Bankabgleich</strong> sowie einen <strong>klaren Prozess für Zahlungserinnerungen</strong> aufgebaut. Die Umsetzung wurde von Krisztina verantwortet. Dadurch wurden offene Posten transparenter, Zahlungseingänge besser nachvollziehbar und überfällige Rechnungen gezielter verfolgt.</p>
+          <p>Für uns als Unternehmen bedeutete das mehr Kontrolle über den Cashflow, weniger manuellen Abstimmungsaufwand und eine deutlich bessere Übersicht im Forderungsmanagement.</p>
+          <p>Die Zusammenarbeit mit Krisztina und North Finance AI Solutions war <strong>engagiert, lösungsorientiert und zuverlässig</strong>.</p>
+        </div>
+        <div class="testimonial-attribution">
+          <div class="testimonial-name">Leonhard Laue</div>
+          <div class="testimonial-company">TRI-PUNKT Solutions GmbH</div>
+        </div>
+      </div>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Code-Ownership-Klausel</h3>
+        <p>Alle im Projekt erstellten Skripte, Vorlagen, Konfigurationen, Dashboards und Dokumentationen <strong>gehören Ihnen</strong>. North Finance AI behält keine Nutzungsrechte und keine Lizenzansprüche.</p>
+        <p>Konkret bedeutet das:</p>
+        <ul>
+          <li>Vollständige Übergabe aller Dateien, Konfigurationen und Schlüssel am Projektende</li>
+          <li>Schriftliche Dokumentation, sodass eine andere technische Person den Stand übernehmen kann</li>
+          <li>Keine SaaS-Lock-Ins — alles läuft auf Ihrer Infrastruktur oder Ihren bestehenden Tools</li>
+          <li>Kein Vendor-Lock zu uns: Sie können jederzeit zu einem anderen Anbieter wechseln</li>
+        </ul>
+      </div>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Festpreis-Logik</h3>
+        <p>Ein Festpreis gilt für den im Angebot definierten Umfang. <strong>Keine Stundensätze, keine Tagessätze, keine Folgekosten.</strong></p>
+        <ul>
+          <li>Der Projektpreis ist zu 40% bei Beauftragung, 30% bei Halbzeit, 30% bei Übergabe fällig</li>
+          <li>Sollte sich der Umfang während des Projekts erweitern, wird das als separater Festpreis-Anhang angeboten — vor Beginn der Zusatzleistung</li>
+          <li>Verzögerungen, die durch unsere Seite verursacht werden, gehen zu unseren Lasten — der Festpreis bleibt unverändert</li>
+        </ul>
+      </div>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Stornierung &amp; Kündigung</h3>
+        <p>Sie können bis 7 Tage vor Projektstart kostenfrei stornieren. Nach Beginn:</p>
+        <ul>
+          <li>In den ersten 14 Tagen: Erstattung von 60% des bereits gezahlten Betrags</li>
+          <li>Nach 14 Tagen: pro rata für noch nicht geleistete Phasen</li>
+          <li>Bereits übergebene Module bleiben in Ihrem Besitz und Eigentum</li>
+        </ul>
+      </div>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Check-in-Modell · nach dem Projekt</h3>
+        <p>Optional und jederzeit kündbar. Für Unternehmen, die nach dem Projekt eine externe Sicht behalten möchten.</p>
+        <ul>
+          <li><strong>€480 pro Monat</strong> — 30 Minuten monatliches Telefonat mit Krisztina</li>
+          <li>Kurzer schriftlicher Statusbericht zu Liquidität, KPI-Entwicklung, Auffälligkeiten</li>
+          <li>Reaktionsmöglichkeit auf unerwartete Entwicklungen, bevor sie kritisch werden</li>
+          <li>Jederzeit kündbar mit Monatsfrist · Keine Mindestvertragslaufzeit</li>
+        </ul>
+      </div>
+
+      <div class="guarantee-card">
+        <h3 class="guarantee-name">Was wir <em>nicht</em> tun</h3>
+        <p>Aus Klarheits- und Compliance-Gründen wichtig:</p>
+        <ul>
+          <li>Wir übernehmen <strong>keine operative Verantwortung</strong> für Ihre laufende Buchführung — das bleibt bei Ihrem Team und Steuerberater</li>
+          <li>Wir ersetzen <strong>keinen Steuerberater</strong> — wir arbeiten mit Ihrem zusammen, nicht gegen ihn</li>
+          <li>Wir geben <strong>keine Rechts- oder Finanzberatung im Sinne des § 1 RBerG / § 32 KWG</strong>; unsere Tätigkeit ist Prozess- und Datenoptimierung</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═════════════ SECTION: OBJECTIONS ═════════════ -->
+    <section id="einwaende">
+      <div class="section-eyebrow">§ 04 · Häufig gestellte Fragen</div>
+      <h2 class="section-title">Die ehrlichen <em>Antworten</em>.</h2>
+      <p class="section-intro">
+        Diese Fragen kommen in Strategiegesprächen immer wieder. Wir beantworten sie hier so direkt, wie wir sie auch am Telefon beantworten würden.
+      </p>
+
+      <div class="objection">
+        <span class="objection-number">Frage 01</span>
+        <h3 class="objection-question">Können wir das nicht intern lösen — wir haben doch eine Buchhaltung?</h3>
+        <div class="objection-answer">
+          <p>Können Sie. Es gibt einen Grund, warum die meisten Mittelständler es nicht tun: Ihre Buchhaltung hat einen Vollzeit-Job — die laufenden Buchungen und den Monatsabschluss. <strong>Es fehlt nicht die Kompetenz, es fehlt die Zeit und der externe Blick.</strong> Wir bringen genau das mit: ein 6–8-wöchiges fokussiertes Projekt, das parallel zur laufenden Arbeit Strukturen schafft, die Ihre Buchhaltung danach selbst betreibt. Wir gehen, der Hebel bleibt.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 02</span>
+        <h3 class="objection-question">Warum nicht stundenweise mit einem Berater — dann zahlen wir nur, was wir brauchen?</h3>
+        <div class="objection-answer">
+          <p>Stundensätze schaffen das falsche Incentive: Der Berater wird dafür bezahlt, dass er <em>länger</em> braucht. Wir arbeiten zu Festpreisen, weil wir dafür bezahlt werden, dass wir <em>schneller</em> sind. <strong>Sie wissen vorher exakt, was es kostet</strong> — und wenn wir effizienter sind als kalkuliert, ist das unser Risiko, nicht Ihr Gewinnverlust. Wenn Sie wirklich nur eine kleine, klar abgegrenzte Frage haben, ist allerdings ein einzelner Einzel-Hebel (Tier 3) oft die bessere Wahl als ein voller Quick-Start.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 03</span>
+        <h3 class="objection-question">Was wenn unser Steuerberater nicht mitzieht — oder sich gar quer stellt?</h3>
+        <div class="objection-answer">
+          <p>Realistisch: Manche Steuerberater sehen externe Berater als Konkurrenz, die meisten nicht. <strong>Unsere Arbeit macht den Steuerberater nicht überflüssig — sie macht ihn effizienter</strong>, weil er sauberere Daten bekommt. Wir suchen aktiv den Kontakt zu Ihrem StB-Büro vor Projektbeginn und stimmen Kontenrahmen, Datenübergabe und Buchungssystematik direkt ab. In über 95% der Fälle ist das Verhältnis nach 2 Wochen kooperativ. Im seltenen Konfliktfall stehen wir auf Ihrer Seite — und Sie haben mit Code-Ownership die volle Wechselfähigkeit.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 04</span>
+        <h3 class="objection-question">Wir haben gerade andere Prioritäten — können wir das nicht in 6 Monaten machen?</h3>
+        <div class="objection-answer">
+          <p>Können Sie. Aber rechnen Sie kurz: Wenn der Hebel typischerweise €30K–80K Jahreseffekt bringt, kostet jeder Monat Wartezeit Sie zwischen €2.500 und €6.700 — Geld, das stillschweigend nicht in Ihrem Unternehmen landet. <strong>Die meisten Aufschiebe-Gründe lösen sich nicht durch Warten</strong>, sondern werden teurer. Wenn aktuell wirklich eine andere Großbaustelle dringender ist (Sanierung, M&amp;A, Eigentümerwechsel), sagen wir das im Strategiegespräch ehrlich — dann ist warten richtig.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 05</span>
+        <h3 class="objection-question">Was wenn die Hebel-Garantie greift — wer entscheidet das eigentlich?</h3>
+        <div class="objection-answer">
+          <p>Im Angebot wird der erwartete Hebel <strong>messbar</strong> definiert — nicht „mehr Liquidität", sondern z.B. „DSO-Reduktion um mindestens 8 Tage" oder „mindestens €120K freigesetzt". Nach 90 Tagen messen wir gemeinsam auf Basis Ihrer Buchhaltungsdaten. Bei Uneinigkeit entscheidet ein gemeinsam beauftragter Wirtschaftsprüfer (Kosten zu je 50%). Das ist absichtlich so geregelt, weil <strong>„weiche" Garantien für Sie wertlos sind</strong> — und für uns ein Anreiz, das Projekt auch wirklich erfolgreich abzuschließen.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 06</span>
+        <h3 class="objection-question">Was passiert, wenn Krisztina krank wird, ausfällt, das Geschäft aufgibt?</h3>
+        <div class="objection-answer">
+          <p>Berechtigte Frage bei einer geführten Beratung. Drei Antworten: <strong>Erstens</strong> arbeiten wir mit einem dokumentierten Standardprozess — kein Wissen ist in einem einzelnen Kopf, sondern in den Dokumenten, die Sie am Projektende erhalten. <strong>Zweitens</strong> ist die Code-Ownership-Klausel genau deswegen so streng formuliert: Selbst im Worst Case haben Sie alles, was nötig ist, um den Stand mit einer anderen technischen Person zu übernehmen. <strong>Drittens</strong>: Bei einer längeren Unterbrechung während des Projekts erstatten wir pro rata und ermöglichen den nahtlosen Wechsel zu einem Partner-Berater unseres Netzwerks.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 07</span>
+        <h3 class="objection-question">Wie sicher sind unsere Finanzdaten bei Ihnen?</h3>
+        <div class="objection-answer">
+          <p>Alle Datenverarbeitung läuft in der EU (Frankfurt / Dublin) — DSGVO-konform und transparent dokumentiert. <strong>Wir speichern keine produktiven Daten dauerhaft</strong> auf eigenen Servern: Während der Projektphase greifen wir mit klar definierten Berechtigungen auf Ihre Systeme zu, nach Projektabschluss werden alle temporären Kopien gelöscht. Sie erhalten am Projektende einen schriftlichen Löschnachweis. Auftragsverarbeitungs-Vertrag (AVV) wird standardmäßig vor Projektbeginn unterzeichnet.</p>
+        </div>
+      </div>
+
+      <div class="objection">
+        <span class="objection-number">Frage 08</span>
+        <h3 class="objection-question">Warum sollten wir Ihnen vertrauen — haben Sie Referenzen?</h3>
+        <div class="objection-answer">
+          <p>Ein öffentlich freigegebenes Beispiel haben Sie weiter oben in §03 gelesen — die schriftliche Referenz von <strong>Leonhard Laue (TRI-PUNKT Solutions GmbH)</strong> zur Implementierung des strukturierten Bankabgleichs und Forderungsmanagement-Prozesses.</p>
+          <p>Darüber hinaus gilt in der Finanzberatung des Mittelstands: <strong>Vertraulichkeit gehört zum Berufsethos.</strong> Die meisten Geschäftsführer, mit denen wir arbeiten, würden eine öffentliche Erwähnung als Vertrauensbruch werten. Was wir Ihnen aber anbieten: Im Detail-Call erhalten Sie auf Wunsch <strong>persönliche Referenzen unter NDA</strong> — Sie können direkt mit zwei oder drei weiteren Klienten sprechen, die in vergleichbarer Branche oder Unternehmensgröße mit uns gearbeitet haben. Das gibt Ihnen eine echte, ungefilterte Antwort statt einer marketing-polierten Testimonial-Quote.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═════════════ SECTION: NEXT STEPS ═════════════ -->
+  <section class="next-steps" id="naechste-schritte">
+    <div class="container">
+      <div class="section-eyebrow">§ 05 · So geht es weiter</div>
+      <h2 class="section-title">Vier <em>Schritte</em> zum Start.</h2>
+      <p class="section-intro">
+        Der Prozess von „Katalog gelesen" bis „Projekt startet" ist bewusst kurz gehalten. Keine endlosen Discovery-Calls, keine Pitching-Decks — direkter Weg zum konkreten Angebot.
+      </p>
+
+      <div class="steps-list">
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h3>Sie identifizieren, was passt.</h3>
+            <p>Quick-Start, Plus-Variante, oder ein einzelner Hebel? Vorab müssen Sie sich nicht festlegen — wir klären das im nächsten Schritt gemeinsam.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h3>15-minütiger Detail-Call mit Krisztina.</h3>
+            <p>Sie fragen, was nach dem Katalog noch offen ist. Wir klären zugeschnittene Punkte: Welche Hebel zu Ihrer konkreten Situation passen, welche Voraussetzungen Ihr Setup mitbringt, welche Zeitfenster realistisch sind.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h3>Schriftliches Festpreis-Angebot innerhalb von 5 Werktagen.</h3>
+            <p>Mit präzise definiertem Umfang, konkretem Hebel-Ziel (für die Hebel-Garantie), Zeitplan und Festpreis. 14 Tage gültig. Keine Verhandlungsspielchen — der Preis im Angebot ist der finale Preis.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number"></div>
+          <div class="step-content">
+            <h3>Bei Annahme: Projektstart innerhalb von 14 Tagen.</h3>
+            <p>Sie unterschreiben — wir reservieren Ihren Slot und stimmen den genauen Starttermin ab. Kein Hin und Her, kein Warten auf „freie Kapazitäten".</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <a href="#" class="cta-button" id="detail-call-cta">Detail-Call vereinbaren</a>
+        <p class="cta-note">
+          oder schreiben Sie direkt an <a href="mailto:krisztina@northfinanceai.com">krisztina@northfinanceai.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    <p>
+      <strong>North Finance AI</strong> · München · krisztina@northfinanceai.com<br>
+      Leistungskatalog 2026 · Persönlich für <span id="footer-customer-name">Sie</span> freigegeben · Nicht zur Weitergabe bestimmt<br>
+      Dieser Katalog ist Bestandteil des vorvertraglichen Informationsangebots. Verbindlich wird ausschließlich das schriftliche Angebot.
+    </p>
+  </footer>
+
 </div>
 
 <script>
@@ -294,33 +1382,25 @@
   var submit = document.getElementById('gate-submit');
   var errorBox = document.getElementById('gate-error');
   var customerNameEl = document.getElementById('customer-name');
+  var footerNameEl = document.getElementById('footer-customer-name');
 
-  // ─── Check existing session ───
+  // Restore session if already authenticated
   try {
     var session = sessionStorage.getItem('nfa_catalog_auth');
     if (session) {
       var parsed = JSON.parse(session);
-      if (parsed && parsed.name) {
-        unlockCatalogue(parsed);
-      }
+      if (parsed && parsed.name) unlockCatalogue(parsed);
     }
   } catch (e) {}
 
-  // ─── Auto-focus input ───
   setTimeout(function() {
-    if (input && !document.body.classList.contains('is-authenticated')) {
-      input.focus();
-    }
+    if (input && !document.body.classList.contains('is-authenticated')) input.focus();
   }, 100);
 
-  // ─── Handle form submit ───
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var code = (input.value || '').trim();
-    if (!code) {
-      showError('Bitte geben Sie Ihren Zugangscode ein.');
-      return;
-    }
+    if (!code) { showError('Bitte geben Sie Ihren Zugangscode ein.'); return; }
 
     hideError();
     submit.disabled = true;
@@ -337,37 +1417,43 @@
       return res.json();
     })
     .then(function(data) {
-      try {
-        sessionStorage.setItem('nfa_catalog_auth', JSON.stringify(data.customer));
-      } catch (e) {}
+      try { sessionStorage.setItem('nfa_catalog_auth', JSON.stringify(data.customer)); } catch (e) {}
       unlockCatalogue(data.customer);
     })
     .catch(function(err) {
       submit.disabled = false;
       submit.textContent = 'Katalog öffnen';
-      if (err && err.message === 'INVALID_CODE') {
-        showError('Code ungültig. Bitte prüfen Sie die Schreibweise — oder kontaktieren Sie Krisztina, falls der Code abgelaufen ist.');
+      if (err.message === 'INVALID_CODE') {
+        showError('Code ungültig. Bitte prüfen Sie die Schreibweise — oder kontaktieren Sie Krisztina.');
       } else {
-        showError('Es gab ein technisches Problem. Bitte versuchen Sie es in einem Moment erneut oder schreiben Sie an krisztina@northfinanceai.com.');
+        showError('Es gab ein technisches Problem. Bitte versuchen Sie es in einem Moment erneut.');
       }
-      if (window.console) console.error('Catalogue access error:', err);
     });
   });
 
   function unlockCatalogue(customer) {
-    if (customerNameEl && customer && customer.name) {
-      customerNameEl.textContent = customer.name;
+    if (customerNameEl && customer && customer.name) customerNameEl.textContent = customer.name;
+    if (footerNameEl && customer && customer.name) footerNameEl.textContent = customer.name;
+
+    // Wire up the Detail-Call CTA with personalised mailto
+    var ctaBtn = document.getElementById('detail-call-cta');
+    if (ctaBtn && customer) {
+      var subject = encodeURIComponent('Detail-Call zum Leistungskatalog');
+      var body = encodeURIComponent(
+        'Sehr geehrte Frau Toth,\n\n' +
+        'ich habe den Leistungskatalog gelesen und möchte einen Detail-Call zur Klärung offener Punkte vereinbaren.\n\n' +
+        'Mit freundlichen Grüßen\n' + (customer.name || '') +
+        (customer.company ? '\n' + customer.company : '')
+      );
+      ctaBtn.href = 'mailto:krisztina@northfinanceai.com?subject=' + subject + '&body=' + body;
     }
+
     document.body.classList.add('is-authenticated');
+    window.scrollTo(0, 0);
   }
 
-  function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.classList.add('is-visible');
-  }
-  function hideError() {
-    errorBox.classList.remove('is-visible');
-  }
+  function showError(msg) { errorBox.textContent = msg; errorBox.classList.add('is-visible'); }
+  function hideError() { errorBox.classList.remove('is-visible'); }
 })();
 </script>
 
